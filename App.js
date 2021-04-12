@@ -1,15 +1,23 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { AppRegistry, StyleSheet, Text, View } from 'react-native';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Remember Me</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+import Home from './components/Home'
+import Database from './components/Database'
+
+import { createStackNavigator } from 'react-navigation-stack';
+import { createAppContainer } from 'react-navigation';
+
+const RootStack = createStackNavigator( {
+  Home: Home,
+  Database: Database,
+} );
+
+//AppRegistry.registerComponent('RootStack', () => RootStack);
+
+const Container = createAppContainer(RootStack);
+
+export default Container;
 
 const styles = StyleSheet.create({
   container: {
