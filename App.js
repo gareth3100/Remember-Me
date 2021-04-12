@@ -13,8 +13,6 @@ const RootStack = createStackNavigator( {
   Database: Database,
 } );
 
-//AppRegistry.registerComponent('RootStack', () => RootStack);
-
 const Container = createAppContainer(RootStack);
 
 export default Container;
