@@ -1,27 +1,61 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import 'react-native-gesture-handler';
+import React, { useEffect, useState } from 'react'
+import { firebase } from './src/firebase/config'
+import { NavigationContainer } from '@react-navigation/native'
+import { createStackNavigator } from '@react-navigation/stack'
+import { LoginScreen, HomeScreen, RegistrationScreen } from './src/screens'
+import {decode, encode} from 'base-64'
+if (!global.btoa) {  global.btoa = encode }
+if (!global.atob) { global.atob = decode }
 
-import Home from './components/Home'
-import Database from './components/Database'
+const Stack = createStackNavigator();
 
-import { createStackNavigator } from 'react-navigation-stack';
-import { createAppContainer } from 'react-navigation';
+export default function App() {
 
-const RootStack = createStackNavigator( { //stack navigator allows you to navigate between pages. if you navigate to a page, pushes page onto stack. If you want to go back, it pops that page from the stack.
-  Home: Home, //The "Home" before the colon is the title of the page on the top left. The "Home" after the colon is the "Home" being imported from Home.js
-  Database: Database,
-} );
+  const [loading, setLoading] = useState(true)
+  const [user, setUser] = useState(null)
 
-const Container = createAppContainer(RootStack); // you need this and the "export" in order to make pages work. Not exactly sure why yet.
+  useEffect(() => {
+    const usersRef = firebase.firestore().collection('users');
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        usersRef
+          .doc(user.uid)
+          .get()
+          .then((document) => {
+            const userData = document.data()
+            setLoading(false)
+            setUser(userData)
+          })
+          .catch((error) => {
+            setLoading(false)
+          });
+      } else {
+        setLoading(false)
+      }
+    });
+  }, []);
 
-export default Container; 
+  if (loading) {
+    return (
+      <></>
+    )
+  }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        { user ? (
+          <Stack.Screen name="Home">
+            {props => <HomeScreen {...props} extraData={user} />}
+          </Stack.Screen>
+        ) : (
+          <>
+            <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="Registration" component={RegistrationScreen} />
+          </>
+        )}
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
