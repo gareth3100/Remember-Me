@@ -1,27 +1,34 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { AppRegistry, StyleSheet, Text, View } from 'react-native';
+// import { StatusBar } from 'expo-status-bar';
+// import React from 'react';
+// import { StyleSheet, Text, View } from 'react-native';
 
-import Home from './components/Home'
-import Database from './components/Database'
+// export default function App() {
+//   return (
+//     <View style={styles.container}>
+//       <Text>Hello World!</Text>
+//       <StatusBar style="auto" />
+//     </View>
+//   );
+// }
 
-import { createStackNavigator } from 'react-navigation-stack';
-import { createAppContainer } from 'react-navigation';
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     backgroundColor: '#fff',
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//   },
+// });
 
-const RootStack = createStackNavigator( {
-  Home: Home,
-  Database: Database,
-} );
+import React from 'react'
+import {Provider as PaperProvider} from 'react-native-paper'
+import AppNavigator from './src/navigation/Index'
+import {Provider as NoteProvider} from './src/Context/NoteContext'
 
-const Container = createAppContainer(RootStack);
-
-export default Container;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default function App() {
+  return (
+    <NoteProvider>
+      <AppNavigator/>
+    </NoteProvider>
+  )
+}
