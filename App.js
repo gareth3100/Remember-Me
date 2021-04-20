@@ -1,27 +1,34 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+// import { StatusBar } from 'expo-status-bar';
+// import React from 'react';
+// import { StyleSheet, Text, View } from 'react-native';
 
-import Home from './components/Home'
-import Database from './components/Database'
+// export default function App() {
+//   return (
+//     <View style={styles.container}>
+//       <Text>Hello World!</Text>
+//       <StatusBar style="auto" />
+//     </View>
+//   );
+// }
 
-import { createStackNavigator } from 'react-navigation-stack';
-import { createAppContainer } from 'react-navigation';
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     backgroundColor: '#fff',
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//   },
+// });
 
-const RootStack = createStackNavigator( { //stack navigator allows you to navigate between pages. if you navigate to a page, pushes page onto stack. If you want to go back, it pops that page from the stack.
-  Home: Home, //The "Home" before the colon is the title of the page on the top left. The "Home" after the colon is the "Home" being imported from Home.js
-  Database: Database,
-} );
+import React from 'react'
+import {Provider as PaperProvider} from 'react-native-paper'
+import AppNavigator from './src/navigation/Index'
+import {Provider as NoteProvider} from './src/Context/NoteContext'
 
-const Container = createAppContainer(RootStack); // you need this and the "export" in order to make pages work. Not exactly sure why yet.
-
-export default Container; 
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default function App() {
+  return (
+    <NoteProvider>
+      <AppNavigator/>
+    </NoteProvider>
+  )
+}
