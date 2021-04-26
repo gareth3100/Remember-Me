@@ -1,6 +1,12 @@
 import React, {useReducer} from 'react'
 
 export default (reducer, actions, defaultValue) => {
+    // need to look at the YouTube video
+
+    // creates a CONTEXT object. The purpose is to pass data
+    // through the component tree w/o passing properties down
+    // manually at each level
+    
     const Context = React.createContext()
 
     const Provider = ({children}) => {

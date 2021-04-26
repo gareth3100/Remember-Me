@@ -2,6 +2,8 @@ import createDataContext from './createDataContext'
 export const ADD_NOTE = 'ADD_NOTE'
 export const DELETE_NOTE = 'DELETE_NOTE'
 
+// need to look at the YouTube video
+
 const initialState = [];
 
 const noteReducer = (state = initialState, action) => {

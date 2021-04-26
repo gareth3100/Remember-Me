@@ -3,7 +3,12 @@ import {StyleSheet, View} from 'react-native'
 import {Text, TextInput, FAB, IconButton} from 'react-native-paper'
 import Header from '../component/Header';
 
+//  this file adds new notes for the application
+
 function AddNotes({navigation}) {
+    //  changes the state of the Date, Title, and Description
+    //  look at React Hooks on the React page
+
     const [noteTitle, setNoteTitle] = useState('');
     const [noteDate, setDate] = useState('');
     const [noteDescription, setNoteDescription] = useState('');
@@ -19,6 +24,11 @@ function AddNotes({navigation}) {
         <IconButton icon = 'close' size = {25} color = 'white' onPress = {() => navigation.goBack()} 
             style = {styles.iconButton}
         />
+
+            //  creates an entry for the Title, Date, and Description
+            //  FAB is a button that represents the primary action in the app
+            //  BTW can't write comments once in the view tag
+
             <View style = {styles.container}>
                 <TextInput 
                     label = "Add Note Title Here"
