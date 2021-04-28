@@ -4,8 +4,18 @@ import {Text, FAB, List} from 'react-native-paper';
 import Header from '../component/Header';
 import {Context as NoteContext} from '../Context/NoteContext';
 
+//  This file displays all of the notes in the front-end of the app
+//  Starting on LINE 60 and below, those are CSS styling.
+
 function ViewNotes({navigation}) {
+    // switches states between notes. If there are no notes, the
+    // line, "You don't have any memory notes" will appear. Otherwise,
+    // it'll list all of the notes.
     const [notes, setNotes] = useState([]);
+
+    // useContext is helpful to pass props to multiple levels of child
+    // components from a parent component and sharing state across the 
+    // app component tree.
     const {state, addnote, deletenote} = useContext(NoteContext)
 
     const addNotes = note => {
@@ -16,6 +26,12 @@ function ViewNotes({navigation}) {
     return (
         <>
         <Header titleText = 'My Memory Journal' />
+
+        // if there is no notes, display "You don't have any memory notes."
+        // otherwise, display all of the notes onto the screen
+        // if we press onto the note, it deletes the note (needs to fix this later)
+        // FAB is a button that transitions into the AddNotes screen
+
         <View style = {styles.container}>
             {state.length === 0 ? ( 
                 <View style = {styles.titleContainer}>
