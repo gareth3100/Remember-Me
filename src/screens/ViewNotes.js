@@ -23,14 +23,17 @@ function ViewNotes({navigation}) {
         addnote(note)
         // setNotes([...notes, note]);
     }
+
+    
+    // if there is no notes, display "You don't have any memory notes."
+        // otherwise, display all of the notes onto the screen
+        // if we press onto the note, it deletes the note (needs to fix this later)
+        // FAB is a button that transitions into the AddNotes screen
     return (
         <>
         <Header titleText = 'My Memory Journal' />
 
-        // if there is no notes, display "You don't have any memory notes."
-        // otherwise, display all of the notes onto the screen
-        // if we press onto the note, it deletes the note (needs to fix this later)
-        // FAB is a button that transitions into the AddNotes screen
+        
 
         <View style = {styles.container}>
             {state.length === 0 ? ( 
