@@ -1,3 +1,11 @@
+// CITATION: https://www.reactnative.express/react/hooks/usereducer
+// Used CONTEXT API according to the video. Context API provides a way to pass data
+// through the component tree w/o having to pass props down manually at every level
+
+// useReducer is similar to useState, but provides a structured approach for updating
+// complex values. Ex: an object containing keys that we want to update independently
+// look at react native express useReducer on google
+
 import React, {useReducer} from 'react'
 
 export default (reducer, actions, defaultValue) => {

@@ -8,7 +8,14 @@ import {Context as NoteContext} from '../Context/NoteContext';
 //  Starting on LINE 60 and below, those are CSS styling.
 
 function ViewNotes({navigation}) {
+    // switches states between notes. If there are no notes, the
+    // line, "You don't have any memory notes" will appear. Otherwise,
+    // it'll list all of the notes.
     const [notes, setNotes] = useState([]);
+
+    // useContext is helpful to pass props to multiple levels of child
+    // components from a parent component and sharing state across the 
+    // app component tree.
     const {state, addnote, deletenote} = useContext(NoteContext)
 
     const addNotes = note => {

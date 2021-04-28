@@ -6,9 +6,9 @@ import Header from '../component/Header';
 //  this file adds new notes for the application
 
 function AddNotes({navigation}) {
+    
     //  changes the state of the Date, Title, and Description
     //  look at React Hooks on the React page
-
     const [noteTitle, setNoteTitle] = useState('');
     const [noteDate, setDate] = useState('');
     const [noteDescription, setNoteDescription] = useState('');
