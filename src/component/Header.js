@@ -1,5 +1,5 @@
 import React from 'react'
-import {View, StyleSheet} from 'react-native'
+import {Button, Alert, View, StyleSheet} from 'react-native'
 import {Appbar, Title} from 'react-native-paper'
 
 function Header({titleText}) {
@@ -11,6 +11,7 @@ function Header({titleText}) {
                 </Title>
             </View>
         </Appbar.Header>
+        
     )
 }
 
@@ -25,7 +26,10 @@ const styles = StyleSheet.create({
     },
     title: {
         color: '#fff'
-    }
+    },
+    
+    
+
 })
 
 export default Header

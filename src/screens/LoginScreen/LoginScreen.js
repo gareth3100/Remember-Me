@@ -39,6 +39,8 @@ export default function LoginScreen({navigation}) {
             })
     }
 
+
+
     return (
         <View style={styles.container}>
             <KeyboardAwareScrollView
@@ -72,6 +74,7 @@ export default function LoginScreen({navigation}) {
                     onPress={() => onLoginPress()}>
                     <Text style={styles.buttonTitle}>Log in</Text>
                 </TouchableOpacity>
+
                 <View style={styles.footerView}>
                     <Text style={styles.footerText}>Don't have an account? <Text onPress={onFooterLinkPress} style={styles.footerLink}>Sign up</Text></Text>
                 </View>

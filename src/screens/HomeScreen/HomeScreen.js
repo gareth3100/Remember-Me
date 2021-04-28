@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { FlatList, Keyboard, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { FlatList, Keyboard, Text, TextInput, TouchableOpacity, View, Button } from 'react-native'
 import styles from './styles';
 import { firebase } from '../../firebase/config'
+import AppNavigator from '../../navigation/Index'
+import {Provider as NoteProvider} from '../../Context/NoteContext'
 
 export default function HomeScreen(props) {
 
@@ -62,7 +64,7 @@ export default function HomeScreen(props) {
     }
 
     return (
-        <View style={styles.container}>
+        /*<View style={styles.container}>
             <View style={styles.formContainer}>
                 <TextInput
                     style={styles.input}
@@ -87,6 +89,10 @@ export default function HomeScreen(props) {
                     />
                 </View>
             )}
-        </View>
+        </View>*/
+
+        <NoteProvider>
+            <AppNavigator/>
+        </NoteProvider> 
     )
 }
