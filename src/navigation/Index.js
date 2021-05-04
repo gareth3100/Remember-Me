@@ -16,7 +16,7 @@ const StackNavigator = createStackNavigator({
     // goes to the AddNotes screen
     AddNotes: {
         screen: AddNotes
-    }
+    },
 },
     {
         initialRouteName: 'ViewNotes',
