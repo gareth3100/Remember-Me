@@ -1,3 +1,7 @@
+//import React from 'react'
+//import {Provider as PaperProvider} from 'react-native-paper'
+import AppNavigator from './src/navigation/Index'
+import {Provider as NoteProvider} from './src/Context/NoteContext'
 import 'react-native-gesture-handler';
 import React, { useEffect, useState } from 'react'
 import { firebase } from './src/firebase/config'
@@ -42,7 +46,6 @@ export default function App() {
       <></>
     )
   }
-  //if user is authenticated, go to home screen other wise go to login/registration
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -58,5 +61,8 @@ export default function App() {
         )}
       </Stack.Navigator>
     </NavigationContainer>
+    /*<NoteProvider>
+      <AppNavigator/>
+    </NoteProvider> */
   );
 }

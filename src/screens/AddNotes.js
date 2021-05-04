@@ -3,7 +3,6 @@ import {StyleSheet, View} from 'react-native'
 import {Text, TextInput, FAB, IconButton} from 'react-native-paper'
 import Header from '../component/Header';
 
-
 //  this file adds new notes for the application
 
 function AddNotes({navigation}) {
@@ -18,10 +17,7 @@ function AddNotes({navigation}) {
         navigation.state.params.addNotes({noteTitle, noteDate, noteDescription});
         navigation.goBack();
     }
-    
-            //  creates an entry for the Title, Date, and Description
-            //  FAB is a button that represents the primary action in the app
-            //  BTW can't write comments once in the view tag
+     
     return (
         <>
         <Header titleText = 'Add a New Memory' />
@@ -29,7 +25,9 @@ function AddNotes({navigation}) {
             style = {styles.iconButton}
         />
 
-            
+            //  creates an entry for the Title, Date, and Description
+            //  FAB is a button that represents the primary action in the app
+            //  BTW can't write comments once in the view tag
 
             <View style = {styles.container}>
                 <TextInput 
@@ -60,7 +58,7 @@ function AddNotes({navigation}) {
                 <FAB
                     style = {styles.fab}
                     small icon = "check"
-                    disabled = {(noteTitle == '' && noteDescription == '')}
+                    disabled = {noteTitle == '' ? true : false}
                     onPress = {() => onSaveNote()}
                 />
             </View>
@@ -76,10 +74,10 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10
     },
     iconButton: {
-        backgroundColor: '#ff0000',
+        backgroundColor: '#219653',
         position: 'absolute',
         right: 0,
-        top: 0,
+        top: 40,
         margin: 10
     },
     titleContainer: {

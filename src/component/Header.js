@@ -2,7 +2,6 @@ import React from 'react'
 import {Button, Alert, View, StyleSheet} from 'react-native'
 import {Appbar, Title} from 'react-native-paper'
 
-
 function Header({titleText}) {
     return (
         <Appbar.Header style = {styles.headerContainer}> 
@@ -11,8 +10,9 @@ function Header({titleText}) {
                     {titleText}
                 </Title>
             </View>
-        </Appbar.Header>   
-    );
+        </Appbar.Header>
+        
+    )
 }
 
 const styles = StyleSheet.create({
@@ -27,6 +27,8 @@ const styles = StyleSheet.create({
     title: {
         color: '#fff'
     },
+    
+    
 
 })
 

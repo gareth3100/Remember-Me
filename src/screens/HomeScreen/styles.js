@@ -35,13 +35,22 @@ export default StyleSheet.create({
         alignItems: "center",
         justifyContent: 'center'
     },
-    buttonTitle: {
+    buttonText: {
         color: 'white',
-        fontSize: 16,
-        fontWeight: "bold"
+        fontSize: 16
     },
     listContainer: {
         marginTop: 20,
         padding: 20,
     },
+    entityContainer: {
+        marginTop: 16,
+        borderBottomColor: '#cccccc',
+        borderBottomWidth: 1,
+        paddingBottom: 16
+    },
+    entityText: {
+        fontSize: 20,
+        color: '#333333'
+    }
 })
