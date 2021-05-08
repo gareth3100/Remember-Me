@@ -1,13 +1,10 @@
 import React from 'react';
-
-import { Text, View } from 'react-native';
+import LoginComponent from '../../components/Login';
 
 const Login = () => {
-    return (
-        <View>
-            <Text>Hi from Login</Text>
-        </View>
-    )
-}
+    const [value, onChangeText] = React.useState('');
 
-export default Login
+    return <LoginComponent/>;
+};
+
+export default Login;
