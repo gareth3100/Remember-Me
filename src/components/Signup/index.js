@@ -40,21 +40,33 @@ const RegisterComponent = ({
                 <Input
                     label="First name"
                     iconPosition='right'
-                    placeholder="Enter first name"
+                    placeholder="Enter First Name"
+                    onChangeText = {(value) => {
+                        onChange({name: "firstName", value});
+                    }}
                     //error={"This field is required"}
+                    error = {errors.firstName}
                 />
                 <Input
                     label="Last name"
                     iconPosition='right'
-                    placeholder="Enter Last name"
+                    placeholder="Enter Last Name"
+                    onChangeText = {(value) => {
+                        onChange({name: "lastName", value});
+                    }}
                     //error={"This field is required"}
+                    error = {errors.lastName}
                 />
 
                 <Input
                     label="Email"
                     iconPosition='right'
                     placeholder="Enter Email"
+                    onChangeText = {(value) => {
+                        onChange({name: "emailName", value});
+                    }}
                     //error={"This field is required"}
+                    error = {errors.emailName}
                 />
 
                 <Input
@@ -62,6 +74,7 @@ const RegisterComponent = ({
                     iconPosition='right'
                     placeholder="Enter Username"
                     //error={"This field is required"}
+                    error = {errors.userName}
                 />
 
                 <Input
@@ -78,15 +91,16 @@ const RegisterComponent = ({
                     }
                     iconPosition="right"
                     onChangeText={(value) => {
-                    onChange({name: 'password', value});
+                        onChange({name: 'password', value});
                     }}
+                    error = {errors.password}
                 />
 
                 <CustomButton
                     loading={loading}
                     onPress={onSubmit}
                     disabled={loading}
-                    primary
+                    primary 
                     title="Submit"
                 />
                         
