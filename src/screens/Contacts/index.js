@@ -8,10 +8,10 @@ const Contacts = () => {
     const {setOptions, toggleDrawer} = useNavigation();
     const [modalVisible, setModalVisible] = useState(false);
     return (
-        <ContactsComponent  
-            modalVisible = {modalVisible}
-            setModalVisible = {setModalVisible}
-        />
+        // <ContactsComponent  
+        //     modalVisible = {modalVisible}
+        //     setModalVisible = {setModalVisible}
+        // />
     );
 };
 
