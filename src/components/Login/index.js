@@ -2,11 +2,12 @@ import React, {useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import { Image, Text, TextInput, View } from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import {REGISTER} from '../../constants/routeNames';
+import {REGISTER, CONTACT_LIST} from '../../constants/routeNames';
 import Container from '../../components/common/Container';
 import Input from '../../components/common/Input';
 import CustomButton from '../../components/common/CustomButton';
 import styles from './styles'
+import { firebase } from '../../firebase/config';
 
 
 const LoginComponent = ({
@@ -20,6 +21,36 @@ const LoginComponent = ({
 
     const {navigate} = useNavigation();
     const [isSecureEntry, setIsSecureEntry] = useState(true);
+
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+
+    const onLoginPress = () => {
+        firebase
+            .auth()
+            .signInWithEmailAndPassword(email, password)
+            .then((response) => {
+                const uid = response.user.uid
+                const usersRef = firebase.firestore().collection('users')
+                usersRef
+                    .doc(uid)
+                    .get()
+                    .then(firestoreDocument => {
+                        if (!firestoreDocument.exists) {
+                            alert("User does not exist anymore.")
+                            return;
+                        }
+                        const user = firestoreDocument.data()
+                        navigate(CONTACT_LIST)
+                    })
+                    .catch(error => {
+                        alert(error)
+                    });
+            })
+            .catch(error => {
+                alert(error)
+            })
+    }
 
     return(
         <Container>
@@ -37,9 +68,12 @@ const LoginComponent = ({
                 <View style={styles.form}>
 
                 <Input
-                    label="Username"
+                    label="Email"
                     iconPosition='right'
-                    placeholder="Enter Username"
+                    placeholder="Enter email"
+                    onChangeText={(text) => setEmail(text)}
+                    value={email}
+                    
                     //error={"This field is required"}
                 />
 
@@ -55,21 +89,20 @@ const LoginComponent = ({
                             <Text>{isSecureEntry ? 'Show' : 'Hide'}</Text>
                         </TouchableOpacity>
                     }
+                    onChangeText={(text) => setPassword(text)}
+                    value={password}
                     iconPosition="right"
-                    onChangeText={(value) => {
-                    onChange({name: 'password', value});
-                    }}
                 />
                 <CustomButton
                     disabled={loading}
-                    onPress={onSubmit}
+                    onPress={() => onLoginPress()}
                     loading={loading}
                     primary
-                    title="Submit"
+                    title="Log in"
                 />
                         
                 <View style={styles.createSection}>
-                    <Text style={styles.infoText}>Need a new account?</Text>
+                    <Text style={styles.infoText}>Don't have an account?</Text>
                     <TouchableOpacity
                         onPress={() => {
                             navigate(REGISTER);
