@@ -8,7 +8,7 @@ import Input from '../../components/common/Input';
 import styles from './styles';
 import {LOGIN} from '../../constants/routeNames';
 
-const RegisterComponent = ({onSubmit, onChange, form, errors, error}) => {
+const RegisterComponent = ({onSubmit, onChange, form, loading, errors, error}) => {
     const {navigate} = useNavigation();
     return(
         <Container>
@@ -19,16 +19,6 @@ const RegisterComponent = ({onSubmit, onChange, form, errors, error}) => {
                 <Text style={styles.subTitle}>Create a Free Account!</Text>
 
                 <View style={styles.form}>
-
-                    <Input 
-                        label="Username"
-                        iconPosition='right'
-                        placeholder="Enter Username"
-                        error={errors.userName}
-                        onChangeText={(value)=>{
-                            onChange({name:'userName', value});
-                        }}
-                    />
 
                     <Input 
                         label="First Name"
@@ -72,7 +62,13 @@ const RegisterComponent = ({onSubmit, onChange, form, errors, error}) => {
                         }}
                     />
 
-                    <CustomButton onPress={onSubmit} primary title="Submit"/>
+                    <CustomButton 
+                        loading={loading}
+                        onPress={onSubmit}
+                        disabled={loading}
+                        primary
+                        title="Submit"
+                    />
 
                     <View style={styles.createSection}>
                         <Text style={styles.infoText}>Have an account already?</Text>

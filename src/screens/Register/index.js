@@ -1,16 +1,31 @@
 import React from 'react';
 import {useState, useContext} from 'react';
+import {useFocusEffect} from '@react-navigation/native';
 import RegisterComponent from '../../components/Signup';
 import {LOGIN} from '../../constants/routeNames';
 import {useNavigation} from '@react-navigation/native';
-import register from '../../context/actions/auth/register';
+import register, {clearAuthState} from '../../context/actions/auth/register';
 import { GlobalContext } from '../../context/Provider';
 
 
 const Register = () => {
     const [form, setForm] = useState({});
+    const {navigate} = useNavigation();
     const [errors, setErrors] = useState({});
-    const {authDispatch}=useContext(GlobalContext);
+    const {
+      authDispatch,
+      authState: {error, loading, data},
+    } = useContext(GlobalContext);
+
+    useFocusEffect(
+      React.useCallback(() => {
+        return () => {
+          if (data || error) {
+            clearAuthState()(authDispatch);
+          }
+        };
+      }, [data, error]),
+    );
 
     const onChange = ({name, value}) => {
         setForm({...form, [name]: value});
@@ -40,14 +55,6 @@ const Register = () => {
 
     const onSubmit = () => {
         //validations
-        console.log('form :>> ', form.email);
-
-        if(!form.userName){
-            setErrors((prev)=>{
-                return{...prev,userName:'Please provide a username'};
-            });
-        }
-
         if(!form.firstName){
             setErrors((prev)=>{
                 return{...prev,firstName:'Please provide a first name'};
@@ -76,12 +83,25 @@ const Register = () => {
            Object.values(form).every((item) => item.trim().length>0) &&
            Object.values(errors).every((item) => !item)
         ) {
-            register(form)(authDispatch);
+
+            console.log('form :>> ', form.email);
+
+            //THIS IS WHERE THE ISSUE IS
+            register(form)(authDispatch)((response) => {
+              navigate(LOGIN, {data: response});
+            });
         }
     }
 
     return(
-        <RegisterComponent onSubmit={onSubmit} onChange={onChange} form={form} errors={errors}/>
+        <RegisterComponent 
+          onSubmit={onSubmit} 
+          onChange={onChange} 
+          form={form} 
+          errors={errors}
+          error={error}
+          loading={loading}
+        />
     );
 };
 

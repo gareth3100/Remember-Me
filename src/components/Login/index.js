@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {useNavigation} from '@react-navigation/native';
 import { Text, TextInput, View, Image, TouchableOpacity } from 'react-native';
 import Container from '../../components/common/Container';
@@ -7,11 +7,23 @@ import Input from '../../components/common/Input';
 import styles from './styles';
 import {REGISTER} from '../../constants/routeNames';
 
-const LoginComponent = () => {
+const LoginComponent = (
+    error,
+    form,
+    justSignedUp,
+    onChange,
+    loading,
+    onSubmit,
+) => {
     const {navigate} = useNavigation();
+    const [isSecureEntry, setIsSecureEntry] = useState(true);
     return(
         <Container>
-            <Image height={70} width={70} source={require('../../assets/images/logo.png')} style={styles.logoImage}/>
+            <Image height={70} 
+            width={70} 
+            source={require('../../assets/images/logo.png')} 
+            style={styles.logoImage}
+            />
             
             <View>
                 <Text style={styles.title}>Welcome to Remember Me!</Text>
@@ -19,9 +31,10 @@ const LoginComponent = () => {
 
                 <View style={styles.form}>
                     <Input 
-                        label="Username"
+                        label="Email"
                         iconPosition='right'
-                        placeholder="Enter Username"
+                        placeholder="Enter Email"
+                        value={form.email || null}
                         //error={'This field is required'}
                     />
 
@@ -31,6 +44,7 @@ const LoginComponent = () => {
                         secureTextEntry={true}
                         iconPosition="right"
                         placeholder="Enter Password"
+                        value={form.password || null}
                     />
 
                     <CustomButton primary title="Submit"/>
@@ -45,7 +59,6 @@ const LoginComponent = () => {
                     </View>
                 </View>
             </View>
-
         </Container>
     );
 };

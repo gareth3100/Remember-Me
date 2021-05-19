@@ -1,15 +1,26 @@
 //Downloaded yarn add @react-native-firebase/app
 
-import { REGISTER_LOADING, REGISTER_SUCCESS } from '../../../constants/actionTypes';
+import { 
+    REGISTER_FAIL, 
+    REGISTER_LOADING, 
+    REGISTER_SUCCESS, 
+    CLEAR_AUTH_STATE 
+} from '../../../constants/actionTypes';
 import { firebase } from '../../../firebase/config'
+
+
+export const clearAuthState = () => (dispatch) => {
+  dispatch({
+    type: CLEAR_AUTH_STATE,
+  });
+};
 
 export default ({
     email,
     password,
-    username,
     firstName,
     lastName,
-}) => dispatch => {
+}) => dispatch => (onSuccess) => {
     dispatch({
         type:REGISTER_LOADING
     });
@@ -30,12 +41,15 @@ export default ({
             usersRef
                 .doc(uid)
                 .set(data)
-                .then(() => {
+                .then((res) => {
                     dispatch({
                         type: REGISTER_SUCCESS,
                         payload: res.data
                     })
+                    onSuccess(res.data);
                 })
+
+                
                 .catch((error) => {
                     alert(error)
                 });
@@ -43,7 +57,7 @@ export default ({
         .catch((error) => {
             dispatch({
                 type: REGISTER_FAIL,
-                payload: err.response? err.response.data : alert(error)
+                payload: error.response? error.response.data : alert(error)
             });
         });
 }
