@@ -7,46 +7,37 @@ export default StyleSheet.create({
         width: 150,
         alignSelf: 'center',
         marginTop: 50,
-
     },
 
     title:{
-        fontSize: 25,
+        fontSize: 22,
         textAlign: 'center',
         paddingTop: 20,
         fontWeight: '500',
-
     },
 
-    subTitle:{
-        fontSize: 17,
+    subTitle: {
+        fontSize: 16,
         textAlign: 'center',
-        paddingTop: 20,
+        paddingVertical: 20,
         fontWeight: '500',
-
     },
 
     form: {
-        paddingTop: 20,
+        paddingTop: 5,
     },
 
     createSection: {
         flexDirection: 'row',
     },
 
-    linkBtn: {
-        paddingLeft: 17,
+    linkButton: {
+        paddingLeft: 6,
         color: colors.primary,
         fontSize: 16,
     },
 
     infoText: {
-        fontSize: 17,
-        marginLeft: 10,
+        fontSize: 16,
     },
-
-    footer: {
-        paddingBottom: 50
-    }
-
 });

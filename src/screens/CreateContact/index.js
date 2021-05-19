@@ -1,13 +1,12 @@
 import React from 'react';
+import { Text,View } from 'react-native';
 
-import { Text, View } from 'react-native';
-
-const CreateContacts = () => {
-    return (
+const CreateContact = () => {
+    return(
         <View>
-            <Text>Hi from Create Contacts</Text>
+            <Text>Hello from CreateContact!</Text>
         </View>
-    )
-}
+    );
+};
 
-export default CreateContacts
+export default CreateContact;

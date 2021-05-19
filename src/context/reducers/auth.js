@@ -1,14 +1,13 @@
+const auth = (state, { type, payload } ) => {
 
+    switch(type){
+        case "LOGIN":
+            return state;
 
-const auth=(state, {type, payload}) => {
-    switch (type) {
-        case 'LOGIN':
-            return {};
-    
         default:
-            break;
+            return state;
     }
 
-};
+}
 
 export default auth;
