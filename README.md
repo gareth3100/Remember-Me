@@ -7,7 +7,7 @@ Our environments are different.
 Current Environment Packages:
 
 "@react-native-community/masked-view": "^0.1.11",
-        "@react-native-firebase/app": "^12.0.0",
+"@react-native-firebase/app": "^12.0.0",
         "@react-navigation/drawer": "^5.12.5",
         "@react-navigation/native": "^5.9.4",
         "@react-navigation/stack": "^5.14.5",
