@@ -2,6 +2,7 @@ import {useRoute} from '@react-navigation/native';
 import React, {useContext, useState} from 'react';
 import LoginComponent from '../../components/Login'
 import {GlobalContext} from '../../context/Provider';
+import loginUser from '../../context/actions/auth/loginUser';
 
 const Login = () => {
     const [form, setForm] = useState({});
@@ -13,7 +14,7 @@ const Login = () => {
     React.useEffect(() => {
         if (params?.data) {
             setJustSignedUp(true);
-            setForm({...form, email: params.data.email});
+            setForm({...form, userName: params.data.username});
         }
     }, [params]);
 
@@ -25,7 +26,8 @@ const Login = () => {
 
     //DOESN'T REACH HERE
     const onSubmit = () => {
-        if (form.userName && form.password) {
+        console.log("REACHES HERE")
+        if (form.email && form.password) {
             loginUser(form)(authDispatch);
         }
     };

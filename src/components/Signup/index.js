@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
-import { Text,View, Image} from 'react-native';
+import { Text, View, Image} from 'react-native';
 import Container from '../../components/common/Container';
 import CustomButton from '../../components/common/CustomButton';
 import Input from '../../components/common/Input';
@@ -10,6 +10,7 @@ import {LOGIN} from '../../constants/routeNames';
 
 const RegisterComponent = ({onSubmit, onChange, form, loading, errors, error}) => {
     const {navigate} = useNavigation();
+    const [isSecureEntry, setIsSecureEntry] = useState(true);
     return(
         <Container>
             <Image height={70} width={70} source={require('../../assets/images/logo.png')} style={styles.logoImage}/>
@@ -52,13 +53,20 @@ const RegisterComponent = ({onSubmit, onChange, form, loading, errors, error}) =
 
                     <Input 
                         label="Password"
-                        icon={<Text>Show</Text>}
-                        secureTextEntry={true}
-                        iconPosition="right"
                         placeholder="Enter Password"
-                        error={errors.password}
-                        onChangeText={(value)=>{
-                            onChange({name:'password', value});
+                        secureTextEntry={isSecureEntry}
+                        icon={
+                        <TouchableOpacity
+                            onPress={() => {
+                            setIsSecureEntry((prev) => !prev);
+                            }}>
+                            <Text>{isSecureEntry ? 'Show' : 'Hide'}</Text>
+                        </TouchableOpacity>
+                        }
+                        iconPosition="right"
+                        error={errors.password || error?.password?.[0]}
+                        onChangeText={(value) => {
+                            onChange({name: 'password', value});
                         }}
                     />
 

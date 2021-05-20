@@ -2,7 +2,8 @@ import React from 'react';
 import {useState, useContext} from 'react';
 import {useFocusEffect} from '@react-navigation/native';
 import RegisterComponent from '../../components/Signup';
-import {LOGIN} from '../../constants/routeNames';
+import {CONTACT_LIST, LOGIN} from '../../constants/routeNames';
+
 import {useNavigation} from '@react-navigation/native';
 import register, {clearAuthState} from '../../context/actions/auth/register';
 import { GlobalContext } from '../../context/Provider';
@@ -79,12 +80,10 @@ const Register = () => {
             });
         }
 
-        if(Object.values(form).length === 5 &&
+        if(Object.values(form).length === 4 &&
            Object.values(form).every((item) => item.trim().length>0) &&
            Object.values(errors).every((item) => !item)
         ) {
-
-            console.log('form :>> ', form.email);
 
             //THIS IS WHERE THE ISSUE IS
             register(form)(authDispatch)((response) => {

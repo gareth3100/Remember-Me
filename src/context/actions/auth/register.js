@@ -1,10 +1,10 @@
 //Downloaded yarn add @react-native-firebase/app
 
 import { 
-    REGISTER_FAIL, 
     REGISTER_LOADING, 
-    REGISTER_SUCCESS, 
-    CLEAR_AUTH_STATE 
+    REGISTER_SUCCESS,
+    REGISTER_FAIL,
+    CLEAR_AUTH_STATE,
 } from '../../../constants/actionTypes';
 import { firebase } from '../../../firebase/config'
 
@@ -20,10 +20,11 @@ export default ({
     password,
     firstName,
     lastName,
-}) => dispatch => (onSuccess) => {
-    dispatch({
-        type:REGISTER_LOADING
-    });
+}) => (dispatch) => (onSuccess) => {
+  dispatch({
+    type: REGISTER_LOADING,
+  });
+  
     firebase
         .auth()
         .createUserWithEmailAndPassword(email, password)
@@ -48,11 +49,10 @@ export default ({
                     })
                     onSuccess(res.data);
                 })
-
-                
                 .catch((error) => {
                     alert(error)
                 });
+                
         })
         .catch((error) => {
             dispatch({

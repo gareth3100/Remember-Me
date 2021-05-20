@@ -20,17 +20,28 @@ export default ({password, email: email}) => (dispatch) => {
             .get()
             .then(firestoreDocument => {
                 if (!firestoreDocument.exists) {
-                    alert("User does not exist anymore.")
-                    return;
+                  alert("User does not exist anymore.")
+                  return;
                 }
                 const user = firestoreDocument.data()
-                navigation.navigate('Home', {user})
+                dispatch({
+                  type: LOGIN_SUCCESS,
+                  payload: response.data,
+                });
             })
             .catch(error => {
-                alert(error)
+              dispatch({
+                type: LOGIN_FAIL,
+                payload: error.response
+              });
+              alert(error)
             });
     })
     .catch(error => {
-        alert(error)
+      dispatch({
+        type: LOGIN_FAIL,
+        payload: error.response
+      });
+      alert(error)
     })
 }
