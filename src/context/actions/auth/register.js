@@ -18,46 +18,47 @@ export const clearAuthState = () => (dispatch) => {
 export default ({
     email,
     password,
-    firstName,
-    lastName,
+    firstName: first_name,
+    lastName: last_name,
 }) => (dispatch) => (onSuccess) => {
   dispatch({
     type: REGISTER_LOADING,
   });
   
-    firebase
-        .auth()
-        .createUserWithEmailAndPassword(email, password)
-        .then((response) => {
-            const uid = response.user.uid
-            const data = {
-                id: uid,
-                email,
-                firstName,
-                lastName,
-            };
-            console.log('This is data')
-            console.log(data)
-            const usersRef = firebase.firestore().collection('users')
-            usersRef
-                .doc(uid)
-                .set(data)
-                .then((res) => {
-                    dispatch({
-                        type: REGISTER_SUCCESS,
-                        payload: res.data
-                    })
-                    onSuccess(res.data);
+firebase
+    .auth()
+    .createUserWithEmailAndPassword(email, password)
+    .then((response) => {
+        const uid = response.user.uid
+        const data = {
+            id: uid,
+            email,
+            first_name,
+            last_name,
+        };
+        console.log('This is the data:\n', data)
+        const usersRef = firebase.firestore().collection('users')
+        usersRef
+            .doc(uid)
+            .set(data)
+            .then((res) => {
+                dispatch({
+                    type: REGISTER_SUCCESS,
+                    payload: data //DON't NEED TO ADD RES. using res.data was my error.
                 })
-                .catch((error) => {
-                    alert(error)
-                });
-                
-        })
-        .catch((error) => {
-            dispatch({
-                type: REGISTER_FAIL,
-                payload: error.response? error.response.data : alert(error)
+                //DON't NEED TO ADD RES. res.data was my error.
+                onSuccess(data);
+
+            })
+            .catch((error) => {
+                alert(error)
             });
+            
+    })
+    .catch((error) => {
+        dispatch({
+            type: REGISTER_FAIL,
+            payload: error.response ? error.response.data : alert(error)
         });
+    });
 }

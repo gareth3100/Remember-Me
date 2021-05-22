@@ -74,16 +74,17 @@ const RegisterComponent = ({onSubmit, onChange, form, loading, errors, error}) =
                         loading={loading}
                         onPress={onSubmit}
                         disabled={loading}
-                        primary
-                        title="Submit"
+                        primary title="Submit"
                     />
 
                     <View style={styles.createSection}>
                         <Text style={styles.infoText}>Have an account already?</Text>
                         <TouchableOpacity onPress={ () => 
-                            {navigate(LOGIN);
-                        }}>
-                        <Text style={styles.linkButton}>Login</Text>
+                            {
+                                navigate(LOGIN);
+                            }
+                        }>
+                        <Text style={styles.linkButton}>Log in</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
