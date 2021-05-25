@@ -24,9 +24,7 @@ const Login = () => {
     } = useContext(GlobalContext);
 
 
-    //DOESN'T REACH HERE
     const onSubmit = () => {
-        console.log("REACHES HERE")
         if (form.email && form.password) {
             loginUser(form)(authDispatch);
         }
