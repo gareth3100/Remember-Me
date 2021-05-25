@@ -1,31 +1,53 @@
-import { loadOptions } from '@babel/core';
 import React from 'react';
-import {Image, SafeAreaView, View, Text } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import {
+  Image,
+  Alert,
+  TouchableOpacity,
+  SafeAreaView,
+  Text,
+  View,
+} from 'react-native';
 import Container from '../../components/common/Container';
-import { SETTINGS } from '../../constants/routeNames';
+import {SETTINGS} from '../../constants/routeNames';
+import logoutUser from '../../context/actions/auth/logoutUser';
 import styles from './styles';
-import Icon from 'react-native-vector-icons/Feather';
-import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+import Icon from '../../components/common/Icon';
 
 //add image logo
-const SideMenu = ({navigation}) => {
+const SideMenu = ({navigation, authDispatch}) => {
+    const handleLogout = () => {
+        navigation.toggleDrawer();
+        Alert.alert('Logout!', 'Are you sure you want to logout?', [
+            {
+                text: 'Cancel',
+                onPress: () => {},
+            },
+
+            {
+                text: 'OK',
+                onPress: () => {
+                    logoutUser()(authDispatch);
+                },
+            },
+        ]);
+    };
+
     const menuItems = [
         {
-            icon: <Icon size={21} name="settings"></Icon>, 
+            icon: <Icon type="fontisto" size={17} name="player-settings" />,
             name: 'Settings',
-            onPress: ()=> {
+            onPress: () => {
                 navigation.navigate(SETTINGS);
             },
         },
         {
-            icon: <MaterialIcon size={21} name="logout"></MaterialIcon>, 
+            icon: <Icon type="material" size={17} name="logout" />,
             name: 'Logout',
-            onPress:( )=> {},
-        }
+            onPress: handleLogout,
+        },
     ];
 
-    return(
+    return (
         <SafeAreaView>
             <Container>
                 <Image
