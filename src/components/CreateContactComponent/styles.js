@@ -12,6 +12,7 @@ export default StyleSheet.create({
     },
 
     chooseText: {
+        paddingVertical: 10,
         color: colors.primary,
         textAlign: 'center',
     },
