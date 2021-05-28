@@ -77,6 +77,7 @@ const Register = () => {
             });
         }
 
+        //This ensures that the items on the register page are all field and properly filled.
         if(Object.values(form).length === 4 &&
            Object.values(form).every((item) => item.trim().length>0) &&
            Object.values(errors).every((item) => !item)

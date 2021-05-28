@@ -7,13 +7,20 @@ import CustomButton from '../../components/common/CustomButton';
 import Input from '../../components/common/Input';
 import styles from './styles';
 import {LOGIN} from '../../constants/routeNames';
+import BackgroundColor from 'react-native-background-color';
 
 const RegisterComponent = ({onSubmit, onChange, form, loading, errors, error}) => {
     const {navigate} = useNavigation();
     const [isSecureEntry, setIsSecureEntry] = useState(true);
+
     return(
         <Container>
-            <Image height={70} width={70} source={require('../../assets/images/logo.png')} style={styles.logoImage}/>
+            <Image 
+                height={70} 
+                width={70} 
+                source={require('../../assets/images/transparent-brain-24.png')} 
+                style={styles.logoImage}
+            />
             
             <View>
                 <Text style={styles.title}>Welcome to Remember Me!</Text>

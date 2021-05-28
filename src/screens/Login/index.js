@@ -9,8 +9,6 @@ const Login = () => {
     const [justSignedUp, setJustSignedUp] = useState(false);
     const {params} = useRoute();
 
-
-
     React.useEffect(() => {
         if (params?.data) {
             setJustSignedUp(true);

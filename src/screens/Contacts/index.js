@@ -1,10 +1,11 @@
 import { useNavigation} from '@react-navigation/native';
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import ContactsComponent from '../../components/ContactComponent';
 import { FAB, List} from 'react-native-paper';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import {GlobalContext} from '../../context/Provider';
 
 // import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
@@ -13,6 +14,8 @@ const Contacts = () => {
     //menu side button
     const {setOptions, toggleDrawer} = useNavigation();
     const [modalVisible, setModalVisible] = useState(false);
+
+    const {contactsState:{getContacts:{data, loading}},} = useContext(GlobalContext)
     React.useEffect(() => {
         setOptions({
             headerLeft:()=> (
@@ -34,6 +37,8 @@ const Contacts = () => {
             <ContactsComponent 
                 modalVisible = {modalVisible} 
                 setModalVisible = {setModalVisible}
+                data = {data}
+                loading = {loading}
             />
 
             {/* <View>

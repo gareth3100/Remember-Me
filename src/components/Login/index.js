@@ -23,7 +23,7 @@ const LoginComponent = ({
         <Container>
             <Image height={70} 
                 width={70} 
-                source={require('../../assets/images/logo.png')} 
+                source={require('../../assets/images/transparent-brain-24.png')} 
                 style={styles.logoImage}
             />
             

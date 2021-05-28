@@ -9,7 +9,13 @@ import {DEFAULT_IMAGE_URI} from '../../constants/general';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import ImagePicker from '../common/ImagePicker';
 
+
+//We store the contact information here
 const CreateContactComponent = ({
+  onChangeText,
+  form,
+  onSubmit,
+  setForm,
   sheetRef,
   openSheet,
   closeSheet,
@@ -17,7 +23,7 @@ const CreateContactComponent = ({
   localFile,
 }) => {
   const [inputText, setText] = useState('');
-  console.log('localFile', localFile);
+  //console.log('localFile', localFile);
   return (
     <>
       <View style={styles.container}>
@@ -33,35 +39,71 @@ const CreateContactComponent = ({
         </TouchableOpacity>
 
         <Container>
-          <Input label="First Name" placeholder="Enter First Name" />
-          <Input label="Last Name" placeholder="Enter Last Name" />
-          <Input label="Relationship" placeholder="Enter Relationship" />
-          <Input label="Birthday" placeholder="Enter Birthday" />
+          <Input 
+            onChangeText={(value) =>{
+              onChangeText({name: 'firstName', value: value});
+            }}
+            label="First Name" 
+            placeholder="Enter First Name" />
+          <Input 
+            onChangeText={(value) =>{
+              onChangeText({name: 'lastName', value: value});
+            }}
+            label="Last Name" 
+            placeholder="Enter Last Name" />
+          <Input 
+            onChangeText={(value) =>{
+              onChangeText({name: 'relationship', value: value});
+            }}
+            label="Relationship" 
+            placeholder="Enter Relationship" />
+          <Input 
+            onChangeText={(value) =>{
+              onChangeText({name: 'birthDate', value: value});
+            }}
+            label="Birthday" 
+            placeholder="Enter Birthday" />
           <Input
             icon={
               <CountryPicker
                 withFilter
                 withFlag
+                countryCode={form.countryCode || undefined}
                 withCountryNameButton={false}
                 withCallingCode
+                withCallingCodeButton
                 withEmoji
-                onSelect={() => {}}
+                onSelect={(v) => {
+                  const phoneCode=v.callingCode[0];
+                  const cCode=v.cca2;
+                  setForm({...form, phoneCode, countryCode:cCode});
+                }}
               />
             }
             style={{paddingLeft: 10}}
             iconPosition="left"
             label="Phone Number"
             placeholder="Enter Phone Number"
+            onChangeText={(value) =>{
+              onChangeText({name: 'phoneNumber', value: value});
+            }}
           />
 
-          <Input label="Address" placeholder="Enter Address" />
+          <Input
+            onChangeText={(value) =>{
+              onChangeText({name: 'address', value: value});
+            }}
+            label="Address" placeholder="Enter Address" />
 
           <View style={{padding: 10}}>
             <TextInput
               label="Add Note Description"
               style={{height: 100}}
               placeholder="Type here to add memory!"
-              onChangeText={inputText => setText(inputText)}
+              //onChangeText={inputText => setText(inputText)}
+              onChangeText={(value) =>{
+                onChangeText({name: 'memory', value: value});
+              }}
               defaultValue={inputText}
               mode="flat"
               multiline={true}
@@ -71,13 +113,13 @@ const CreateContactComponent = ({
             />
           </View>
 
-          <CustomButton primary title="Submit" />
+          <CustomButton onPress={onSubmit} primary title="Submit" />
         </Container>
 
         <ImagePicker onFileSelected={onFileSelected} ref={sheetRef} />
       </View>
     </>
   );
-};
+}; //the onSubmit is from the screens/CreateContact/index.js
 
 export default CreateContactComponent;
