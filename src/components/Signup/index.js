@@ -1,15 +1,16 @@
 import React, {useState} from 'react';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
-import { Text,View, Image} from 'react-native';
+import { Text, View, Image} from 'react-native';
 import Container from '../../components/common/Container';
 import CustomButton from '../../components/common/CustomButton';
 import Input from '../../components/common/Input';
 import styles from './styles';
 import {LOGIN} from '../../constants/routeNames';
 
-const RegisterComponent = ({onSubmit, onChange, form, errors, error}) => {
+const RegisterComponent = ({onSubmit, onChange, form, loading, errors, error}) => {
     const {navigate} = useNavigation();
+    const [isSecureEntry, setIsSecureEntry] = useState(true);
     return(
         <Container>
             <Image height={70} width={70} source={require('../../assets/images/logo.png')} style={styles.logoImage}/>
@@ -19,16 +20,6 @@ const RegisterComponent = ({onSubmit, onChange, form, errors, error}) => {
                 <Text style={styles.subTitle}>Create a Free Account!</Text>
 
                 <View style={styles.form}>
-
-                    <Input 
-                        label="Username"
-                        iconPosition='right'
-                        placeholder="Enter Username"
-                        error={errors.userName}
-                        onChangeText={(value)=>{
-                            onChange({name:'userName', value});
-                        }}
-                    />
 
                     <Input 
                         label="First Name"
@@ -62,24 +53,38 @@ const RegisterComponent = ({onSubmit, onChange, form, errors, error}) => {
 
                     <Input 
                         label="Password"
-                        icon={<Text>Show</Text>}
-                        secureTextEntry={true}
-                        iconPosition="right"
                         placeholder="Enter Password"
-                        error={errors.password}
-                        onChangeText={(value)=>{
-                            onChange({name:'password', value});
+                        secureTextEntry={isSecureEntry}
+                        icon={
+                        <TouchableOpacity
+                            onPress={() => {
+                            setIsSecureEntry((prev) => !prev);
+                            }}>
+                            <Text>{isSecureEntry ? 'Show' : 'Hide'}</Text>
+                        </TouchableOpacity>
+                        }
+                        iconPosition="right"
+                        error={errors.password || error?.password?.[0]}
+                        onChangeText={(value) => {
+                            onChange({name: 'password', value});
                         }}
                     />
 
-                    <CustomButton onPress={onSubmit} primary title="Submit"/>
+                    <CustomButton 
+                        loading={loading}
+                        onPress={onSubmit}
+                        disabled={loading}
+                        primary title="Submit"
+                    />
 
                     <View style={styles.createSection}>
                         <Text style={styles.infoText}>Have an account already?</Text>
                         <TouchableOpacity onPress={ () => 
-                            {navigate(LOGIN);
-                        }}>
-                        <Text style={styles.linkButton}>Login</Text>
+                            {
+                                navigate(LOGIN);
+                            }
+                        }>
+                        <Text style={styles.linkButton}>Log in</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

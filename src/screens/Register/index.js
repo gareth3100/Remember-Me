@@ -1,16 +1,29 @@
-import React from 'react';
-import {useState, useContext} from 'react';
+import React, {useState, useContext} from 'react';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import RegisterComponent from '../../components/Signup';
-import {LOGIN} from '../../constants/routeNames';
-import {useNavigation} from '@react-navigation/native';
-import register from '../../context/actions/auth/register';
+import { LOGIN } from '../../constants/routeNames';
+import register, {clearAuthState} from '../../context/actions/auth/register';
 import { GlobalContext } from '../../context/Provider';
 
 
 const Register = () => {
     const [form, setForm] = useState({});
+    const {navigate} = useNavigation();
     const [errors, setErrors] = useState({});
-    const {authDispatch}=useContext(GlobalContext);
+    const {
+      authDispatch,
+      authState: {error, loading, data},
+    } = useContext(GlobalContext);
+
+    useFocusEffect(
+      React.useCallback(() => {
+        return () => {
+          if (data || error) {
+            clearAuthState()(authDispatch);
+          }
+        };
+      }, [data, error]),
+    );
 
     const onChange = ({name, value}) => {
         setForm({...form, [name]: value});
@@ -40,14 +53,6 @@ const Register = () => {
 
     const onSubmit = () => {
         //validations
-        console.log('form :>> ', form.email);
-
-        if(!form.userName){
-            setErrors((prev)=>{
-                return{...prev,userName:'Please provide a username'};
-            });
-        }
-
         if(!form.firstName){
             setErrors((prev)=>{
                 return{...prev,firstName:'Please provide a first name'};
@@ -72,16 +77,26 @@ const Register = () => {
             });
         }
 
-        if(Object.values(form).length === 5 &&
+        //This ensures that the items on the register page are all field and properly filled.
+        if(Object.values(form).length === 4 &&
            Object.values(form).every((item) => item.trim().length>0) &&
            Object.values(errors).every((item) => !item)
         ) {
-            register(form)(authDispatch);
+            register(form)(authDispatch)((response) => {
+              navigate(LOGIN, {data: response});
+            });
         }
     }
 
     return(
-        <RegisterComponent onSubmit={onSubmit} onChange={onChange} form={form} errors={errors}/>
+        <RegisterComponent 
+          onSubmit={onSubmit} 
+          onChange={onChange} 
+          form={form} 
+          errors={errors}
+          error={error}
+          loading={loading}
+        />
     );
 };
 
