@@ -21,9 +21,12 @@ const CreateContactComponent = ({
   closeSheet,
   onFileSelected,
   localFile,
+  loading,
+  error,
 }) => {
   const [inputText, setText] = useState('');
   //console.log('localFile', localFile);
+  console.log('error: >>', error)
   return (
     <>
       <View style={styles.container}>
@@ -44,7 +47,8 @@ const CreateContactComponent = ({
               onChangeText({name: 'firstName', value: value});
             }}
             label="First Name" 
-            placeholder="Enter First Name" />
+            placeholder="Enter First Name" 
+            error={error?.firstName?.[0]}/>
           <Input 
             onChangeText={(value) =>{
               onChangeText({name: 'lastName', value: value});

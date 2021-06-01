@@ -19,6 +19,7 @@ import styles from './styles';
 import {CONTACT_DETAIL, CREATE_CONTACT} from '../../constants/routeNames';
 import Message from '../common/Message';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 const ContactsComponent = ({sortBy, data, loading, setModalVisible, modalVisible}) => {
   const {navigate} = useNavigation();
@@ -35,8 +36,8 @@ const ContactsComponent = ({sortBy, data, loading, setModalVisible, modalVisible
   
   const ListEmptyComponent = () => {
     return (
-    <View style={{paddingVertical: 100, paddingHorizontal: 100}}>
-      <Message info message="No contacts to show" />
+    <View style={{paddingVertical: 100, paddingHorizontal: 100, alignItems: 'center'}}>
+      <Message info message="No Contacts"/>
     </View>
     );
   };
@@ -48,20 +49,25 @@ const ContactsComponent = ({sortBy, data, loading, setModalVisible, modalVisible
     // console.log('item', item)
     // console.log('Done with item')
 
-    const {firstName, lastName} = item;
+    const {firstName, lastName, phoneNumber, phoneCode} = item;
 
     return(
       <TouchableOpacity style={styles.itemContainer}>
         <View style={styles.item}>
-          <View style={{width: 45, height: 45, backgroundColor: colors.grey}}>
+          <View style={{width: 45, height: 45, flexDirection: 'row',backgroundColor: colors.grey, justifyContent: 'center', alignItems: 'center', borderRadius: 100}}>
+            <Text style={[styles.name, {color: colors.white}]}>{firstName[0]}</Text>
+            <Text style={[styles.name, {color: colors.white}]}>{lastName[0]}</Text>
           </View>
 
-          <View style={{flexDirection: 'row'}}>
-            <Text> {firstName}</Text>
-            <Text> {lastName}</Text>
+          <View style={{paddingLeft: 20, }}>
+            <View style={{flexDirection: 'row'}}>
+              <Text style={styles.name}>{firstName}</Text>
+              <Text style={styles.name}> {lastName}</Text>
+            </View>
+            <Text style={styles.phoneNumber}>{`${phoneCode} ${phoneNumber}`}</Text>
           </View>
         </View>
-        <Icon name="right" type="ant"/>
+        <Icon name="right" type="ant" color={colors.grey}/>
       </TouchableOpacity>
     );
 
@@ -73,7 +79,7 @@ const ContactsComponent = ({sortBy, data, loading, setModalVisible, modalVisible
   return (
   
     <>
-      <View>
+      <View style={{backgroundColor: colors.white}}>
         <AppModal
           modalFooter={<></>}
           modalBody={
@@ -97,6 +103,9 @@ const ContactsComponent = ({sortBy, data, loading, setModalVisible, modalVisible
           <FlatList
             renderItem={renderItem}
             data={data}
+            ItemSeparatorComponent={() => (
+              <View style={{height: 1, backgroundColor: colors.grey}}></View>
+            )}
             keyExtractor={(item) => String(item.id)}
             ListEmptyComponent={ListEmptyComponent}
             ListFooterComponent={<View style={{height: 50}}></View>}

@@ -7,7 +7,12 @@ import {GlobalContext} from '../../context/Provider';
 import {CONTACT_DETAIL, CONTACT_LIST} from '../../constants/routeNames';
 
 const CreateContact = () => {
-  const {contactsDispatch} = useContext(GlobalContext);
+  const {contactsDispatch, 
+    // contactsState: {
+    //   createContact:{loading, error},
+    // }
+  } = useContext(GlobalContext);
+
   const [form, setForm] = useState({});
   const sheetRef = useRef(null);
   const [localFile, setLocalFile] = useState(null);
@@ -55,6 +60,8 @@ const CreateContact = () => {
       openSheet={openSheet}
       onFileSelected={onFileSelected}
       localFile={localFile}
+      // loading={loading}
+      // error={error}
     />
   );
 };
