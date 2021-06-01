@@ -11,8 +11,7 @@ import editContact from '../../context/actions/contacts/editContact';
 const CreateContact = () => {
   const {contactsDispatch, 
     contactsState: {
-
-      //loading does not work again for some reason
+      //issues over here
        createContact//:{loading, error},
     }
   } = useContext(GlobalContext);
@@ -72,7 +71,10 @@ const CreateContact = () => {
 
   const onSubmit = () => {
     if (params?.contact) {
-      if (localFile?.size) {
+      editContact(form, params?.contact.id)(contactsDispatch)((item) => {
+        navigate(CONTACT_DETAIL, {item});
+      }); 
+      /*if (localFile?.size) {
         setIsUploading(true);
         uploadImage(localFile)((url) => {
           setIsUploading(false);
@@ -81,7 +83,7 @@ const CreateContact = () => {
             params?.contact.id,
           )(contactsDispatch)((item) => {
             navigate(CONTACT_DETAIL, {item});
-          });
+          }); 
         })((err) => {
           //console.log('err :>> ', err);
           setIsUploading(false);
@@ -89,10 +91,14 @@ const CreateContact = () => {
       } else {
         editContact(form, params?.contact.id)(contactsDispatch)((item) => {
           navigate(CONTACT_DETAIL, {item});
-        });
-      }
-    } else {
-      if (localFile?.size) {
+        }); 
+      } */
+    } 
+    else {
+      createContact(form)(contactsDispatch)(() => {
+        navigate(CONTACT_LIST);
+      });
+      /*if (localFile?.size) {
         setIsUploading(true);
         uploadImage(localFile)((url) => {
           setIsUploading(false);
@@ -104,11 +110,13 @@ const CreateContact = () => {
         })((err) => {
           setIsUploading(false);
         });
-      } else {
+
+        //not sure why this is causing an error.
+      } else { 
         createContact(form)(contactsDispatch)(() => {
           navigate(CONTACT_LIST);
         });
-      }
+      } */
     }
   };
 
