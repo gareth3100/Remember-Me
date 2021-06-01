@@ -7,10 +7,11 @@ import {GlobalContext} from '../../context/Provider';
 import {CONTACT_DETAIL, CONTACT_LIST} from '../../constants/routeNames';
 
 const CreateContact = () => {
-  const {contactsDispatch, 
-    // contactsState: {
-    //   createContact:{loading, error},
-    // }
+  const {
+    contactsDispatch, 
+    contactsState: {
+      createContact:{loading, error},
+    }
   } = useContext(GlobalContext);
 
   const [form, setForm] = useState({});
@@ -26,8 +27,12 @@ const CreateContact = () => {
     console.log('form', form);
     //Should send data to the createContact.js file
     createContact(form)(contactsDispatch)(() => {
-          navigate(CONTACT_LIST);
-        });
+      navigate(CONTACT_LIST);
+    });
+  };
+
+  const toggleValueChange = () => {
+    setForm({...form, "isFavorite": !form.isFavorite});
   };
 
   const openSheet = () => {
@@ -47,21 +52,20 @@ const CreateContact = () => {
     console.log('images', image);
   };
 
-  //console.log('Inside Create Contact')
-
   return (
     <CreateContactComponent
       onChangeText={onChangeText}
       form={form}
       onSubmit={onSubmit}
       setForm={setForm}
+      loading={loading}
+      error={error}
+      toggleValueChange={toggleValueChange}
       sheetRef={sheetRef}
       closeSheet={closeSheet}
       openSheet={openSheet}
       onFileSelected={onFileSelected}
       localFile={localFile}
-      // loading={loading}
-      // error={error}
     />
   );
 };

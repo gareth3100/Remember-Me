@@ -108,7 +108,7 @@ const ContactsComponent = ({sortBy, data, loading, setModalVisible, modalVisible
             )}
             keyExtractor={(item) => String(item.id)}
             ListEmptyComponent={ListEmptyComponent}
-            ListFooterComponent={<View style={{height: 50}}></View>}
+            ListFooterComponent={<View style={{height: 150}}></View>}
           />
         </View>
         )}

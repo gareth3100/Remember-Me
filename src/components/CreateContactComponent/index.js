@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import Container from '../common/Container';
-import {Text, TextInput, Image, View} from 'react-native';
+import {Text, TextInput, Image, View, Switch} from 'react-native';
 import styles from './styles';
 import Input from '../common/Input';
 import CustomButton from '../common/CustomButton';
@@ -8,6 +8,7 @@ import CountryPicker from 'react-native-country-picker-modal';
 import {DEFAULT_IMAGE_URI} from '../../constants/general';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import ImagePicker from '../common/ImagePicker';
+import colors from '../../assets/theme/colors';
 
 
 //We store the contact information here
@@ -16,17 +17,17 @@ const CreateContactComponent = ({
   form,
   onSubmit,
   setForm,
+  loading,
+  error,
+  toggleValueChange,
   sheetRef,
   openSheet,
   closeSheet,
   onFileSelected,
   localFile,
-  loading,
-  error,
 }) => {
+  console.log('error :>>', error)
   const [inputText, setText] = useState('');
-  //console.log('localFile', localFile);
-  console.log('error: >>', error)
   return (
     <>
       <View style={styles.container}>
@@ -43,12 +44,11 @@ const CreateContactComponent = ({
 
         <Container>
           <Input 
-            onChangeText={(value) =>{
+            onChangeText={(value) => {
               onChangeText({name: 'firstName', value: value});
             }}
             label="First Name" 
-            placeholder="Enter First Name" 
-            error={error?.firstName?.[0]}/>
+            placeholder="Enter First Name" />
           <Input 
             onChangeText={(value) =>{
               onChangeText({name: 'lastName', value: value});
@@ -88,7 +88,7 @@ const CreateContactComponent = ({
             iconPosition="left"
             label="Phone Number"
             placeholder="Enter Phone Number"
-            onChangeText={(value) =>{
+            onChangeText={(value) => {
               onChangeText({name: 'phoneNumber', value: value});
             }}
           />
@@ -104,7 +104,6 @@ const CreateContactComponent = ({
               label="Add Note Description"
               style={{height: 100}}
               placeholder="Type here to add memory!"
-              //onChangeText={inputText => setText(inputText)}
               onChangeText={(value) =>{
                 onChangeText({name: 'memory', value: value});
               }}
@@ -117,7 +116,18 @@ const CreateContactComponent = ({
             />
           </View>
 
-          <CustomButton onPress={onSubmit} primary title="Submit" />
+          <View style={{flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 10, alignItems: 'center'}}>
+            <Text style={{fontSize: 20}}>Add to Favorites</Text>
+              <Switch
+                trackColor={{ false: "#767577", true: colors.primary }}
+                thumbColor="#FFFFFF"
+                ios_backgroundColor="#3e3e3e"
+                onValueChange={toggleValueChange}
+                value={form.isFavorite}
+              />
+          </View>
+
+          <CustomButton loading={loading} disabled={loading} onPress={onSubmit} primary title="Submit"/>
         </Container>
 
         <ImagePicker onFileSelected={onFileSelected} ref={sheetRef} />

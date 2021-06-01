@@ -59,6 +59,13 @@ const contacts = (state, { type,payload } ) => {
                     error: null,
                     data: payload,
                 },
+
+                getContacts:{
+                    ...state.getContacts,
+                    loading: false,
+                    //data: [payload, state.getContacts.data],
+                    error: null,
+                }
             };
 
         case CREATE_CONTACT_FAIL:

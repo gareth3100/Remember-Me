@@ -22,7 +22,8 @@ export default (form) => (dispatch) => (onSuccess) => {
         phoneNumber: form.phoneNumber || '',
         relationship: form.relationship || '',
         memory: form.memory || '',
-        createdAt: timestamp, 
+        createdAt: timestamp,
+        isFavorite: form.isFavorite || false,
     };
 
     dispatch({
@@ -35,8 +36,7 @@ export default (form) => (dispatch) => (onSuccess) => {
         .firestore()
         .collection('contacts')
         .add(data)
-        .then((res) => {  
-            console.log(data)
+        .then((res) => {
             dispatch({
                 type: CREATE_CONTACT_SUCCESS,
                 payload: data
