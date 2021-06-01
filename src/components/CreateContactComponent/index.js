@@ -23,7 +23,7 @@ const CreateContactComponent = ({
   localFile,
 }) => {
   const [inputText, setText] = useState('');
-  console.log('localFile', localFile);
+  //console.log('localFile', localFile);
   return (
     <>
       <View style={styles.container}>
@@ -120,6 +120,6 @@ const CreateContactComponent = ({
       </View>
     </>
   );
-};
+}; //the onSubmit is from the screens/CreateContact/index.js
 
 export default CreateContactComponent;

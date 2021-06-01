@@ -7,8 +7,12 @@ import { firebase } from '../../firebase/config';
 
 export default (form) => (dispatch) => (onSuccess) => {
 
+    const userIDTag = firebase.auth().currentUser.uid;
+    const timestamp = firebase.firestore.FieldValue.serverTimestamp();
+
     //Pull all of the information from the parent class, ie, index.js in the CreateContact folder
     const data = {
+        userID: userIDTag, 
         firstName: form.firstName || '',
         lastName: form.lastName || '',
         address: form.address || '',
@@ -18,6 +22,7 @@ export default (form) => (dispatch) => (onSuccess) => {
         phoneNumber: form.phoneNumber || '',
         relationship: form.relationship || '',
         memory: form.memory || '',
+        createdAt: timestamp, 
     };
 
     dispatch({
@@ -31,15 +36,14 @@ export default (form) => (dispatch) => (onSuccess) => {
         .collection('contacts')
         .add(data)
         .then((res) => {  
-            console.log('res.data')
+            console.log(data)
             dispatch({
                 type: CREATE_CONTACT_SUCCESS,
                 payload: data
             })
-            onSuccess();
+            onSuccess(data);
         })
         .catch((error) => {
-            console.log('here')
             dispatch({
                 type: CREATE_CONTACT_FAIL,
                 payload: error.response ? error.response.data : alert(error)

@@ -2,51 +2,44 @@ import {
     GET_CONTACTS_LOADING,
     GET_CONTACTS_FAIL,
     GET_CONTACTS_SUCCESS,
-  } from '../../../constants/actionTypes';
-  import { firebase } from '../../firebase/config';
+} from '../../constants/actionTypes';
+import { firebase } from '../../firebase/config';
 
 //Not finished, but this is what we will use to get the contact info from firebase
 export default () => (dispatch)  => {
-    dispatchEvent({
+    dispatch({
         type:GET_CONTACTS_LOADING
     });
-    // firebase
-    //     .firestore()
-    //     .collection('contacts')
-    //     .where("")
 
-    // firebase
-    // .auth()
-    // .then((response) => {
-    //     const uid = response.user.uid
-    //     const usersRef = firebase.firestore().collection('users')
-    //     usersRef
-    //         .doc(uid)
-    //         .get()
-    //         .then(firestoreDocument => {
-    //             if (!firestoreDocument.exists) {
-    //               alert("User does not exist anymore.")
-    //               return;
-    //             }
-    //             const user = firestoreDocument.data()
-    //             dispatch({
-    //               type: LOGIN_SUCCESS,
-    //               payload: response.data,
-    //             });
-    //         })
-    //         .catch(error => {
-    //           dispatch({
-    //             type: LOGIN_FAIL,
-    //             payload: error.response
-    //           });
-    //           alert(error)
-    //         });
-    // })
-    // .catch(error => {
-    //   dispatch({
-    //     type: LOGIN_FAIL,
-    //     payload: error.response
-    //   });
-    //   alert(error)
-    // })
+    //userID is the ID number of the user that is current logged into the app
+    const userID = firebase.auth().currentUser.uid;
+
+    //contactRef is a reference to the contacts table
+    const contactRef = firebase.firestore().collection('contacts');
+
+    //Here find all the contacts of the currently logged in user
+    //Currently, the contacts are being ordered by newest contact on top
+    contactRef
+        .where("userID", "==", userID)
+        .orderBy('createdAt', 'desc')
+        .onSnapshot(
+            querySnapshot => {
+                const contacts = []
+                querySnapshot.forEach(doc => {
+                    const entity = doc.data()
+                    entity.id = doc.id
+                    contacts.push(entity)
+                });
+                dispatch({
+                    type: GET_CONTACTS_SUCCESS,
+                    payload: contacts,
+                });
+            },
+                error => {
+                    dispatch({
+                        type: CREATE_CONTACT_FAIL,
+                        payload: error.response ? error.response.data : alert(error)
+                    });
+                }
+            )
 };
