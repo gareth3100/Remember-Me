@@ -15,7 +15,16 @@ export default ScaledSheet.create({
     alignItems: 'center',
     paddingHorizontal: 20,
   },
-
+  profilePicture: {
+    width: 45, 
+    height: 45, 
+    flexDirection: 'row',
+    backgroundColor: colors.grey, 
+    justifyContent: 'center', 
+    alignItems: 'center', 
+    borderRadius: 100
+  },
+  
   name: {fontSize: 17},
   phoneNumber: {
     opacity: 0.6,

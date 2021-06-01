@@ -36,7 +36,7 @@ firebase
             first_name,
             last_name,
         };
-        console.log('This is the data:\n', data)
+        //console.log('This is the data:\n', data)
         const usersRef = firebase.firestore().collection('users')
         usersRef
             .doc(uid)

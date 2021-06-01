@@ -11,6 +11,7 @@ import {
   ActivityIndicator,
   Image,
 } from 'react-native';
+import {s} from 'react-native-size-matters';
 import colors from '../../assets/theme/colors';
 import AppModal from '../common/AppModal';
 import CustomButton from '../common/CustomButton';
@@ -19,8 +20,9 @@ import styles from './styles';
 import {CONTACT_DETAIL, CREATE_CONTACT} from '../../constants/routeNames';
 import Message from '../common/Message';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 
-const ContactsComponent = ({sortBy, data, loading, setModalVisible}) => {
+const ContactsComponent = ({sortBy, data, loading, setModalVisible, modalVisible}) => {
   const {navigate} = useNavigation();
 
   const swipeableItemRefs = useRef([]);
@@ -36,38 +38,109 @@ const ContactsComponent = ({sortBy, data, loading, setModalVisible}) => {
   const ListEmptyComponent = () => {
     return (
     <View style={{paddingVertical: 100, paddingHorizontal: 100}}>
-      <Message info message="No contacts to show" />
+      <Message info message="No Contacts to show"/>
     </View>
     );
   };
 
   const renderItem = ({item}) => {
-    const {
-      contact_picture,
-      first_name,
-      country_code,
-      phone_number,
-      last_name,
-    } = item;
 
+    // If you want to understand the data seen on firebase, uncomment this lines
+    //console.log('This is item')
+    //console.log('item', item)
+    //console.log('Done with item')
+
+    const {firstName, lastName, phoneNumber, phoneCode} = item;
+
+    const renderLeftActions = (progress, dragX) => {
+      return (
+        <View style={[{flexDirection: 'row', paddingRight: 5}]}>
+          <TouchableOpacity style={styles.actionButton} onPress={() => {}}>
+            <Icon
+              name="chat"
+              type="material"
+              size={s(22)}
+              color={colors.white}
+            />
+            <Text style={styles.actionText} numberOfLines={1}>
+              Chat
+            </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.actionButton} onPress={() => {}}>
+            <Icon
+              name={'heart-outline'}
+              type="materialCommunity"
+              size={22}
+              color={colors.white}
+            />
+            <Text numberOfLines={1} style={styles.actionText}>
+              Favorite
+            </Text>
+          </TouchableOpacity>
+        </View>
+      );
+    };
     const {id} = item;
+    return (
+      <Swipeable
+        ref={(ref) =>
+          swipeableItemRefs.current.push({
+            id,
+            swipeable: ref,
+          })
+        }
+        onSwipeableWillOpen={() => toggleSwipeable(id)}
+        renderLeftActions={(progress, dragX) =>
+          renderLeftActions(progress, dragX, item)
+        }
+        renderRightActions={(progress, dragX) =>
+          renderLeftActions(progress, dragX, item)
+        }>
+
+      <TouchableOpacity style={styles.itemContainer}
+          onPress={() => {
+            navigate(CONTACT_DETAIL, {item});
+          }}>
+        <View style={styles.item}>
+          {/* this is for the profile picture */}
+          <View style={styles.profilePicture}>
+            <Text style={[styles.name, {color: colors.white}]}>{firstName[0]}</Text>
+            <Text style={[styles.name, {color: colors.white}]}>{lastName[0]}</Text>
+          </View>
+          {/* this is for the name and phone number*/}
+          <View style={{paddingLeft: 20, }}>
+            <View style={{flexDirection: 'row'}}>
+              <Text style={styles.name}>{firstName}</Text>
+              <Text style={styles.name}> {lastName}</Text>
+            </View>
+            <Text style={styles.phoneNumber}>{`${phoneCode} ${phoneNumber}`}</Text>
+          </View>
+        </View>
+
+        {/* this is for the arrow */}
+        <Icon name="right" type="ant" color={colors.grey}/>
+      </TouchableOpacity>
+    </Swipeable>
+    );
   };
   
-  // reference this https://github.com/CryceTruly/rn-contacts-youtube/blob/main/src/components/ContactsComponent/index.js  
+  // Uncommenting this shows you the full data that we get from getContacts.js in src/context/constants
+  // console.log(data)
 
-  return (
+return (
     <>
       <View style={{backgroundColor: colors.white, flex: 1}}>
         {loading && (
           <View style={{paddingVertical: 100, paddingHorizontal: 100}}>
             <ActivityIndicator color={colors.primary} size="large" />
           </View>
-        )}
+        )} 
 
         {!loading && (
           <View style={[{paddingVertical: 20}]}>
             <FlatList
-             renderItem={renderItem}
+              renderItem={renderItem}
               data={
                 sortBy
                   ? data.sort((a, b) => {
@@ -89,8 +162,8 @@ const ContactsComponent = ({sortBy, data, loading, setModalVisible}) => {
                   : data
               }
               ItemSeparatorComponent={() => (
-                  <View
-                    style={{height: 0.5, backgroundColor: colors.grey}}></View>
+                <View
+                  style={{height: 0.5, backgroundColor: colors.grey}}></View>
               )}
               keyExtractor={(item) => String(item.id)}
               ListEmptyComponent={ListEmptyComponent}
@@ -100,13 +173,12 @@ const ContactsComponent = ({sortBy, data, loading, setModalVisible}) => {
         )}
       </View>
 
-
       <TouchableOpacity
-        style={styles.floatingActionButton}
-        onPress={() => {
-          navigate(CREATE_CONTACT);
-        }}>
-        <Icon name="plus" size={21} color={colors.white}></Icon>
+          style={styles.floatingActionButton}
+          onPress={() => {
+            navigate(CREATE_CONTACT);
+          }}>
+          <Icon size={12} style={{alignItems: 'center', textAlign: 'center'}}color={colors.white}>Add Contact</Icon>
       </TouchableOpacity>
     </>
   );
