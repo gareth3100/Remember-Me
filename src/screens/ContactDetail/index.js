@@ -1,6 +1,6 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
 import React, { useEffect, useContext } from 'react';
-import { Alert, Text, View } from 'react-native';
+import { ActivityIndicator, Alert, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import colors from '../../assets/theme/colors';
 import Icon from '../../components/common/Icon';
@@ -12,7 +12,12 @@ import {GlobalContext} from '../../context/Provider'
 const ContactDetail = () => {
 
     const { params: { item = {} } = {} } = useRoute();
-    const { contactsDispatch } = useContext(GlobalContext);
+    const { 
+        contactsDispatch,
+        contactsState: {
+            deleteContact: {loading}
+        },
+    } = useContext(GlobalContext);
     const { setOptions,navigate } = useNavigation();
 
     useEffect(() => {
@@ -34,7 +39,9 @@ const ContactDetail = () => {
                             </TouchableOpacity>
 
                             <TouchableOpacity style={{paddingLeft: 10}} onPress={()=>{
-                                Alert.alert('Delete!', 'Are you sure you want to delete this contact?', [
+                                Alert.alert(
+                                    'Deleting Contact!', 
+                                    'Are you sure you want to delete ' + item.firstName + ' from your contacts? \n\nIf yes, press \'OK\' \n\nIf no, press \'Cancel\'', [
                                     {
                                         text: 'Cancel',
                                         onPress: () => {},
@@ -51,12 +58,17 @@ const ContactDetail = () => {
                                 ]);
                             }}>
                                 <View>
-                                    <Icon 
-                                        size={21} 
-                                        color = {colors.grey}
-                                        name="delete" 
-                                        type="material" 
-                                    />
+                                    {loading ? (
+                                        <ActivityIndicator size="small" color={colors.primary}/>
+                                    ) : (
+                                    
+                                        <Icon 
+                                            size={21} 
+                                            color = {colors.grey}
+                                            name="delete" 
+                                            type="material" 
+                                        />
+                                    )}
                                 </View>
                             </TouchableOpacity>
                         </View>
@@ -65,7 +77,7 @@ const ContactDetail = () => {
                 },
             });
         }
-    }, [item])
+    }, [item, loading])
 
     return <ContactDetailComponent contacts={item} />;
 };
