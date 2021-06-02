@@ -1,6 +1,6 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
 import React, { useEffect, useContext } from 'react';
-import { Text, View } from 'react-native';
+import { Alert, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import colors from '../../assets/theme/colors';
 import Icon from '../../components/common/Icon';
@@ -34,9 +34,21 @@ const ContactDetail = () => {
                             </TouchableOpacity>
 
                             <TouchableOpacity style={{paddingLeft: 10}} onPress={()=>{
-                                deleteContact(item.id)(contactsDispatch)(() => {
-                                    navigate(CONTACT_LIST);
-                                });
+                                Alert.alert('Delete!', 'Are you sure you want to delete this contact?', [
+                                    {
+                                        text: 'Cancel',
+                                        onPress: () => {},
+                                    },
+
+                                    {
+                                        text: 'OK',
+                                        onPress: () => {
+                                            deleteContact(item.id)(contactsDispatch)(() => {
+                                                navigate(CONTACT_LIST);
+                                            });
+                                        },
+                                    },
+                                ]);
                             }}>
                                 <View>
                                     <Icon 
