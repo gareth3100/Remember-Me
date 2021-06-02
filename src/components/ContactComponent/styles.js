@@ -34,6 +34,19 @@ export default ScaledSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+
+  floatingButton: {
+    backgroundColor: '#ff1493',
+    width: 55,
+    height: 55,
+    position: 'absolute',
+    bottom: 25,
+    right: 100,
+    borderRadius: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  
   actionButton: {
     flexGrow: 1,
     height: '100%',

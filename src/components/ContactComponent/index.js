@@ -130,6 +130,14 @@ const ContactsComponent = ({sortBy, data, loading, setModalVisible, modalVisible
           }}>
           <Icon size={12} style={{alignItems: 'center', textAlign: 'center'}}color={colors.white}>Add Contact</Icon>
       </TouchableOpacity>
+
+      <TouchableOpacity 
+            style={styles.floatingButton} 
+            onPress={()=> {
+                navigate(CREATE_CONTACT);
+            }}>
+            <Icon size={12} style={{alignItems: 'center', textAlign: 'center'}}color={colors.white}>Add Face</Icon>        
+        </TouchableOpacity>
     </>
     // <>
     //   <View style={{backgroundColor: colors.white, flex: 1}}>
