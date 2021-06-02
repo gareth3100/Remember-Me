@@ -25,6 +25,8 @@ import { Colors } from 'react-native/Libraries/NewAppScreen';
 const ContactDetailComponent = ({contacts}) => {
     const {firstName, lastName, phoneNumber, phoneCode, address, birthDate, memory, relationship} = contacts;
 
+    const {navigate} = useNavigation();
+
     return(
       <ScrollView style={styles.scrollview}>
         <View style={styles.container, {alignItems: 'center'}}>
@@ -33,6 +35,14 @@ const ContactDetailComponent = ({contacts}) => {
           <Text style={styles.names}>{address}</Text>
           <Text style={styles.names}>{memory}</Text>
         </View>
+        <CustomButton
+          style={{width: 256, alignSelf:'flex-end'}}
+          primary
+          title="Edit Contact"
+          onPress={() => {
+            navigate(CREATE_CONTACT, {contacts, editing: true});
+          }}
+        />
       </ScrollView>
     );
 
