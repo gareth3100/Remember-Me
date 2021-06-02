@@ -9,10 +9,10 @@ import {CONTACT_DETAIL, CONTACT_LIST} from '../../constants/routeNames';
 import editContact from '../../context/actions/contacts/editContact';
 
 const CreateContact = () => {
-  const {contactsDispatch, 
+  const {
+    contactsDispatch, 
     contactsState: {
-      //issues over here
-       createContact//:{loading, error},
+       createContact:{loading, error},
     }
   } = useContext(GlobalContext);
 
@@ -145,9 +145,9 @@ const CreateContact = () => {
       onChangeText={onChangeText}
       form={form}
       setForm={setForm}
-      //loading={loading || uploading}
+      loading={loading || uploading}
       toggleValueChange={toggleValueChange}
-      //error={error}
+      error={error}
       sheetRef={sheetRef}
       closeSheet={closeSheet}
       openSheet={openSheet}

@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import Container from '../common/Container';
-import {Text, TextInput, Image, View} from 'react-native';
+import {Text, TextInput, Switch, Image, View} from 'react-native';
 import styles from './styles';
+import colors from '../../assets/theme/colors';
 import Input from '../common/Input';
 import CustomButton from '../common/CustomButton';
 import CountryPicker from 'react-native-country-picker-modal';
@@ -12,59 +13,64 @@ import ImagePicker from '../common/ImagePicker';
 
 //We store the contact information here
 const CreateContactComponent = ({
-  onChangeText,
-  form,
-  onSubmit,
-  setForm,
-  sheetRef,
-  openSheet,
-  closeSheet,
-  onFileSelected,
-  localFile,
   loading,
   error,
+  onChangeText,
+  setForm,
+  onSubmit,
+  toggleValueChange,
+  form,
+  sheetRef,
+  openSheet,
+  localFile,
+  onFileSelected,
 }) => {
-  const [inputText, setText] = useState('');
   //console.log('localFile', localFile);
   //console.log('error: >>', error)
   return (
-    <>
       <View style={styles.container}>
+      <Container>
         <Image
           width={150}
           height={150}
           source={{uri: localFile?.path || DEFAULT_IMAGE_URI}}
           style={styles.imageView}
         />
-
         <TouchableOpacity onPress={openSheet}>
           <Text style={styles.chooseText}>Choose profile photo</Text>
         </TouchableOpacity>
-
-        <Container>
-          <Input 
-            onChangeText={(value) =>{
+          <Input
+            onChangeText={(value) => {
               onChangeText({name: 'firstName', value: value});
             }}
-            label="First Name" 
-            placeholder="Enter First Name" 
-            error={error?.firstName?.[0]}/>
-          <Input 
-            onChangeText={(value) =>{
+            label="First name"
+            value={form.firstName || ''}
+            placeholder="Enter First name"
+            error={error?.first_name?.[0]}
+          />
+          <Input
+            error={error?.last_name?.[0]}
+            onChangeText={(value) => {
               onChangeText({name: 'lastName', value: value});
             }}
-            label="Last Name" 
-            placeholder="Enter Last Name" />
+            value={form.lastName || ''}
+            label="Last name"
+            placeholder="Enter Last name"
+        />
           <Input 
+            error={error?.relationship?.[0]}
             onChangeText={(value) =>{
               onChangeText({name: 'relationship', value: value});
             }}
+            value={form.relationship || ''}
             label="Relationship" 
             placeholder="Enter Relationship" />
           <Input 
+            error={error?.birthDate?.[0]}
             onChangeText={(value) =>{
               onChangeText({name: 'birthDate', value: value});
             }}
+            value={form.birthDate || ''}
             label="Birthday" 
             placeholder="Enter Birthday" />
           <Input
@@ -86,11 +92,13 @@ const CreateContactComponent = ({
             }
             style={{paddingLeft: 10}}
             iconPosition="left"
-            label="Phone Number"
-            placeholder="Enter Phone Number"
-            onChangeText={(value) =>{
+            value={form.phoneNumber || ''}
+            error={error?.phone_number?.[0]}
+            onChangeText={(value) => {
               onChangeText({name: 'phoneNumber', value: value});
             }}
+            label="Phone Number"
+            placeholder="Enter phone number"
           />
 
           <Input
@@ -109,6 +117,7 @@ const CreateContactComponent = ({
                 onChangeText({name: 'memory', value: value});
               }}
               defaultValue={inputText}
+              value={form.memory || ''}
               mode="flat"
               multiline={true}
               scrollEnabled={true}
@@ -116,13 +125,35 @@ const CreateContactComponent = ({
               blurOnSubmit={true}
             />
           </View>
+          <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            paddingVertical: 10,
+          }}>
+          <Text style={{fontSize: 17}}>Add to favorites</Text>
 
-          <CustomButton onPress={onSubmit} primary title="Submit" />
+          <Switch
+            trackColor={{false: 'blue', true: colors.primary}}
+            thumbColor="#FFFFFF"
+            ios_backgroundColor="#3e3e3e"
+            onValueChange={toggleValueChange}
+            value={form.isFavorite}
+          />
+        </View>
+
+        <CustomButton
+          loading={loading}
+          disabled={loading}
+          onPress={onSubmit}
+          primary
+          title="Submit"
+        />
         </Container>
 
         <ImagePicker onFileSelected={onFileSelected} ref={sheetRef} />
       </View>
-    </>
   );
 }; //the onSubmit is from the screens/CreateContact/index.js
 

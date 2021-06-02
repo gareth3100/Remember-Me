@@ -74,71 +74,9 @@ import ImagePicker from '../common/ImagePicker';
 
         <View style={styles.hrLine} />
 
-        <View style={styles.topCallOptions}>
-          <TouchableOpacity style={styles.topCallOption}>
-            <Icon
-              type="ionicon"
-              name="call-outline"
-              color={colors.primary}
-              size={27}
-            />
-            <Text style={styles.middleText}>Call</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.topCallOption}>
-            <Icon
-              type="materialCommunity"
-              name="message-text"
-              color={colors.primary}
-              size={27}
-            />
-            <Text style={styles.middleText}>Text</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.topCallOption}>
-            <Icon
-              type="materialCommunity"
-              name="video"
-              color={colors.primary}
-              size={27}
-            />
-            <Text style={styles.middleText}>Video</Text>
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.middleCallOptions}>
-          <Icon
-            type="ionicon"
-            name="call-outline"
-            color={colors.grey}
-            size={27}
-          />
-          <View style={styles.phoneMobile}>
-            <Text>{phone_number}</Text>
-            <Text>Mobile</Text>
-          </View>
-
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <Icon
-              type="materialCommunity"
-              name="video"
-              color={colors.primary}
-              size={27}
-            />
-            <Icon
-              type="materialCommunity"
-              name="message-text"
-              color={colors.primary}
-              size={27}
-              style={[styles.msgIcon]}
-            />
-          </View>
-        </View>
+  
         <CustomButton
-          style={{alignSelf: 'flex-end', marginRight: 20, width: 200}}
+          style={styles.bottom}
           primary
           title="Edit Contact"
           onPress={() => {

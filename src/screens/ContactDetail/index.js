@@ -27,7 +27,7 @@ const ContactDetails = () => {
   const [uploadSucceeded, setUploadSucceeded] = useState(false);
 
   useEffect(() => {
-    if (item) {
+    //if (item) {
       setOptions({
         title: item.firstName + ' ' + item.lastName,
         headerRight: () => {
@@ -78,12 +78,18 @@ const ContactDetails = () => {
                 )} 
                 
                 */}
+                <Icon
+                    color={colors.grey}
+                    size={21}
+                    name="delete"
+                    type="material"
+                  />
               </TouchableOpacity>
             </View>
           );
         },
       });
-    }
+    //}
   }, )
   //commenting this out bc loading causing errors
   // [item, loading]); 

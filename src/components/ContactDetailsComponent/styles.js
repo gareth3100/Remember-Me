@@ -51,4 +51,13 @@ export default StyleSheet.create({
     borderRadius: 100,
     alignSelf: 'center',
   },
+
+  bottom: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    marginBottom: 36,
+    alignSelf: 'flex-end', 
+    marginRight: 20, 
+    width: 200,
+  }
 });

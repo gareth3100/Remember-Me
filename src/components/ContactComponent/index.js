@@ -22,7 +22,7 @@ import Message from '../common/Message';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 
-const ContactsComponent = ({sortBy, data, loading, setModalVisible, modalVisible}) => {
+const ContactComponent = ({sortBy, data, loading, setModalVisible, modalVisible}) => {
   const {navigate} = useNavigation();
 
   const swipeableItemRefs = useRef([]);
@@ -57,18 +57,6 @@ const ContactsComponent = ({sortBy, data, loading, setModalVisible, modalVisible
         <View style={[{flexDirection: 'row', paddingRight: 5}]}>
           <TouchableOpacity style={styles.actionButton} onPress={() => {}}>
             <Icon
-              name="chat"
-              type="material"
-              size={s(22)}
-              color={colors.white}
-            />
-            <Text style={styles.actionText} numberOfLines={1}>
-              Chat
-            </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.actionButton} onPress={() => {}}>
-            <Icon
               name={'heart-outline'}
               type="materialCommunity"
               size={22}
@@ -96,7 +84,7 @@ const ContactsComponent = ({sortBy, data, loading, setModalVisible, modalVisible
         }
         renderRightActions={(progress, dragX) =>
           renderLeftActions(progress, dragX, item)
-        }>
+        }> 
 
       <TouchableOpacity style={styles.itemContainer}
           onPress={() => {
@@ -184,4 +172,4 @@ return (
   );
 };
 
-export default ContactsComponent;
+export default ContactComponent;
