@@ -48,24 +48,28 @@ const CreateContactComponent = ({
               onChangeText({name: 'firstName', value: value});
             }}
             label="First Name" 
+            value={form.firstName || ''}
             placeholder="Enter First Name" />
           <Input 
             onChangeText={(value) =>{
               onChangeText({name: 'lastName', value: value});
             }}
             label="Last Name" 
+            value={form.lastName || ''}
             placeholder="Enter Last Name" />
           <Input 
             onChangeText={(value) =>{
               onChangeText({name: 'relationship', value: value});
             }}
             label="Relationship" 
+            value={form.relationship|| ''}
             placeholder="Enter Relationship" />
           <Input 
             onChangeText={(value) =>{
               onChangeText({name: 'birthDate', value: value});
             }}
             label="Birthday" 
+            value={form.birthDate || ''}
             placeholder="Enter Birthday" />
           <Input
             icon={
@@ -91,13 +95,16 @@ const CreateContactComponent = ({
             onChangeText={(value) => {
               onChangeText({name: 'phoneNumber', value: value});
             }}
+            value={form.phoneNumber || ''}
           />
 
           <Input
             onChangeText={(value) =>{
               onChangeText({name: 'address', value: value});
             }}
-            label="Address" placeholder="Enter Address" />
+            label="Address" 
+            value={form.address || ''}
+            placeholder="Enter Address" />
 
           <View style={{padding: 10}}>
             <TextInput
@@ -107,6 +114,7 @@ const CreateContactComponent = ({
               onChangeText={(value) =>{
                 onChangeText({name: 'memory', value: value});
               }}
+              value={form.memory || ''}
               defaultValue={inputText}
               mode="flat"
               multiline={true}

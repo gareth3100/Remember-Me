@@ -5,6 +5,9 @@ import CreateContactComponent from '../../components/CreateContactComponent';
 import createContact from '../../context/contacts/createContact';
 import {GlobalContext} from '../../context/Provider';
 import {CONTACT_DETAIL, CONTACT_LIST} from '../../constants/routeNames';
+import countryCodes from '../../utils/countryCodes';
+import contacts from '../../context/reducers/contacts';
+import editContact from '../../context/contacts/editContact';
 
 const CreateContact = () => {
   const {
@@ -18,17 +21,80 @@ const CreateContact = () => {
   const sheetRef = useRef(null);
   const [localFile, setLocalFile] = useState(null);
   const {navigate, setOptions} = useNavigation();
+  const { params } = useRoute();
+
+  //This useEffect is used to save the data, so that we may edit contacts again
+  useEffect (() => {
+    if(params?.contacts){
+
+      setOptions({title: 'Update Contact'});
+
+      const {
+        firstName,
+        lastName,
+        phoneNumber,
+        relationship,
+        birthDate,
+        address,
+        memory,
+        isFavorite,
+        countryCode,
+        phoneCode,
+      } = params?.contacts;
+      setForm(prev=>{
+        return{
+          ...prev,
+          firstName, 
+          lastName, 
+          phoneNumber, 
+          relationship, 
+          birthDate, 
+          address, 
+          memory, 
+          isFavorite, 
+          countryCode,
+          phoneCode: countryCode,
+        };
+      });
+
+      //Helps add country area code
+      const country=countryCodes.find(item=>{
+        return item.value.replace('+','') === countryCode
+      });
+
+      if(country){
+        setForm(prev=>{
+          return{
+            ...prev,
+            countryCode: country.key.toUpperCase()
+          };
+        });
+      }
+
+      //This next part is to update the contact photo once we get that working
+      //Presumably, we named the picture 'contactPicture'
+      // if(params?.contacts?.contactPicture){
+      //   setLocalFile(params?.contacts.contactPicture)
+      // }
+    }
+  }, [])
+
   
   const onChangeText = ({name, value})=>{
     setForm({...form, [name]: value});
   };
 
   const onSubmit = () => {
-    console.log('form', form);
+    if(params?.contacts){
+      editContact(form, params?.contacts.id)(contactsDispatch)((item) => {
+        navigate(CONTACT_DETAIL, {item});
+      })
     //Should send data to the createContact.js file
-    createContact(form)(contactsDispatch)(() => {
-      navigate(CONTACT_LIST);
-    });
+    } else { 
+      createContact(form)(contactsDispatch)((item) => {
+        navigate(CONTACT_DETAIL, {item});
+      }) 
+    }
   };
 
   const toggleValueChange = () => {

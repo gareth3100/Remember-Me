@@ -7,7 +7,10 @@ import {
     CREATE_CONTACT_FAIL,
     DELETE_CONTACT_LOADING,
     DELETE_CONTACT_SUCCESS,
-    DELETE_CONTACT_FAIL, 
+    DELETE_CONTACT_FAIL,
+    EDIT_CONTACT_LOADING,
+    EDIT_CONTACT_SUCCESS,
+    EDIT_CONTACT_FAIL, 
 } from "../../constants/actionTypes";
 
 const contacts = (state, { type,payload } ) => {
@@ -34,7 +37,7 @@ const contacts = (state, { type,payload } ) => {
                 getContacts:{
                     ...state.getContacts,
                     loading: false,
-                    data: state.getContacts.data.filter(item=>item.id !== payload),
+                    data: state.getContacts.data.filter((item) =>item.id !== payload),
                     error: null,
                 }
             };
@@ -117,6 +120,50 @@ const contacts = (state, { type,payload } ) => {
                     error: payload,
                 },
             };
+
+        case EDIT_CONTACT_LOADING:
+            return {
+                ...state,
+                createContact:{
+                    ...state.createContact,
+                    loading: true,
+                    error: null,
+                },
+            };
+
+        case EDIT_CONTACT_SUCCESS:
+            return {
+                ...state,
+                createContact:{
+                    ...state.createContact,
+                    loading: false,
+                    error: null,
+                },
+
+                getContacts:{
+                    ...state.getContacts,
+                    loading: false,
+                    data: state.getContacts.data.map((item) => {
+                        if(item.id === payload.id){
+                            return payload;
+                        } else {
+                            return item;
+                        }
+                    }),
+                    error: null,
+                }
+            };
+
+        case EDIT_CONTACT_FAIL:
+            return {
+                ...state,
+                createContact:{
+                    ...state.createContact,
+                    loading: false,
+                    error: null,
+                },
+            };
+        
 
         default:
             return state;
