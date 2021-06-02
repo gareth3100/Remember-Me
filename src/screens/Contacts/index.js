@@ -1,4 +1,4 @@
-import { useNavigation} from '@react-navigation/native';
+import { useFocusEffect, useNavigation} from '@react-navigation/native';
 import React, {useContext, useState, useEffect} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import ContactsComponent from '../../components/ContactComponent';
@@ -7,14 +7,16 @@ import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {GlobalContext} from '../../context/Provider';
 import getContacts from '../../context/contacts/getContacts';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
-const Contacts = () => {
+const Contacts = ({navigation}) => {
     const {navigate} = useNavigation();
     //menu side button
     const {setOptions, toggleDrawer} = useNavigation();
     const [modalVisible, setModalVisible] = useState(false);
+    const [sortBy, setSortBy] = React.useState(null);
 
     const {
         contactsDispatch,
@@ -23,9 +25,27 @@ const Contacts = () => {
         },
     } = useContext(GlobalContext);
 
+    const getSettings = async () => {
+        const sortPref = await AsyncStorage.getItem('sortBy');
+        if(sortPref){
+            setSortBy(sortPref)
+        }
+    };
+
     useEffect(() => {
         getContacts()(contactsDispatch);
     }, []);
+
+    useFocusEffect(
+        React.useCallback(() => {
+            getSettings();
+            return () => {
+            }
+    }, []));
+
+    // useEffect(() => {
+    //     getSettings();
+    // }, []);
 
     React.useEffect(() => {
         setOptions({
@@ -50,33 +70,10 @@ const Contacts = () => {
                 setModalVisible = {setModalVisible}
                 data = {data}
                 loading = {loading}
+                sortBy={sortBy}
             />
-
-            {/* <View>
-                <FAB
-                    style = {styles.fab}
-                    small
-                    icon = 'plus'
-                    label = 'Add a new contact'
-                    onPress = {() => {
-                        navigate(CREATE_CONTACT);
-                    }}
-                />
-            </View> */}
         </>
     );
 };
-
-// const styles = StyleSheet.create({
-//     fab: {
-//         backgroundColor: '#87cefa',
-//         // width: 55,
-//         // height: 55,
-//         position: 'absolute',
-//         margin: 20,
-//         bottom: -550,
-//         right: 0,
-//     },
-// })
 
 export default Contacts;

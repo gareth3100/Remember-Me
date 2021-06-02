@@ -10,7 +10,7 @@ const Settings = () => {
 
   const saveSetting = (key, value) => {
     AsyncStorage.setItem(key, value);
-  }
+  };
 
   const settingsOptions = [
     {title: 'My Info', subTitle: 'Setup Your Profile', onPress: () => {}},
@@ -42,12 +42,12 @@ const Settings = () => {
   ];
 
   const prefArray = [
-    {name: 'First Name', selected: false, onPress: () => {
+    {name: 'First Name', selected: sortBy ==='First Name', onPress: () => {
       saveSetting('sortBy', 'First Name');
       setSortBy("First Name");
       setModalVisible(false);
     }},
-    {name: 'Last Name', selected: false, onPress: () => {
+    {name: 'Last Name', selected: sortBy ==='Last Name', onPress: () => {
       saveSetting('sortBy', 'Last Name');
       setSortBy("Last Name");
       setModalVisible(false);

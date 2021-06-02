@@ -4,6 +4,7 @@ import {Text, View, TouchableOpacity, ScrollView} from 'react-native';
 import Container from '../../components/common/Container';
 import colors from '../../assets/theme/colors';
 import AppModal from '../common/AppModal';
+import Icon from '../common/Icon';
 
 const SettingsComponent = ({modalVisible, setModalVisible, settingsOptions, prefArray}) => {
   return (
@@ -16,13 +17,15 @@ const SettingsComponent = ({modalVisible, setModalVisible, settingsOptions, pref
         closeOnTouchOutside={false}
         modalBody ={<View>
           {prefArray.map(({name, selected, onPress})=><View>
-            <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center'}}>
+            <TouchableOpacity 
+              onPress={onPress} 
+              style={{flexDirection: 'row', paddingVertical: 5, alignItems: 'center'}}>
               {selected && <Icon size={17} name='check' type="material"/>}
-              <Text style={{fontSize: 17, paddingLeft: 15}}>{name}</Text>
+              <Text style={{fontSize: 17, paddingLeft: selected? 15 : 30}}>{name}</Text>
             </TouchableOpacity>
           </View>)}
         </View>}
-        title = "Sort by: "
+        title = "Sort by"
         setModalVisible = {setModalVisible}
     />
 

@@ -52,7 +52,9 @@ const ContactsComponent = ({sortBy, data, loading, setModalVisible, modalVisible
     const {firstName, lastName, phoneNumber, phoneCode} = item;
 
     return(
-      <TouchableOpacity style={styles.itemContainer}>
+      <TouchableOpacity style={styles.itemContainer} onPress={() => {
+        navigate(CONTACT_DETAIL, {item});
+      }}>
         <View style={styles.item}>
           <View style={{width: 45, height: 45, flexDirection: 'row',backgroundColor: colors.grey, justifyContent: 'center', alignItems: 'center', borderRadius: 100}}>
             <Text style={[styles.name, {color: colors.white}]}>{firstName[0]}</Text>
@@ -80,17 +82,6 @@ const ContactsComponent = ({sortBy, data, loading, setModalVisible, modalVisible
   
     <>
       <View style={{backgroundColor: colors.white}}>
-        <AppModal
-          modalFooter={<></>}
-          modalBody={
-            <View>
-              <Text>Hello</Text>
-            </View>
-          }
-          title="My Profile!"
-          setModalVisible={setModalVisible}
-          modalVisible={modalVisible}
-        />
 
         {loading && (
           <View style={{paddingVertical: 100, paddingHorizontal: 100}}>
@@ -102,7 +93,24 @@ const ContactsComponent = ({sortBy, data, loading, setModalVisible, modalVisible
         <View style={[{paddingVertical: 20}]}>
           <FlatList
             renderItem={renderItem}
-            data={data}
+            data={sortBy? data.sort((a,b) => {
+              if (sortBy === 'First Name'){
+                if(b.firstName > a.firstName){
+                  return -1
+                } else {
+                  return 1
+                }
+              } 
+
+              if (sortBy === 'Last Name'){
+                if(b.lastName > a.lastName){
+                  return -1
+                } else {
+                  return 1
+                }
+              } 
+
+            }) : data}
             ItemSeparatorComponent={() => (
               <View style={{height: 1, backgroundColor: colors.grey}}></View>
             )}
