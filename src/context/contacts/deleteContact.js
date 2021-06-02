@@ -1,15 +1,18 @@
 import {
-    GET_CONTACTS_LOADING,
-    GET_CONTACTS_FAIL,
-    GET_CONTACTS_SUCCESS,
+    DELETE_CONTACT_LOADING,
+    DELETE_CONTACT_FAIL,
+    DELETE_CONTACT_SUCCESS,
 } from '../../constants/actionTypes';
 import { firebase } from '../../firebase/config';
 
-//Not finished, but this is what we will use to get the contact info from firebase
-export default () => (dispatch)  => {
+//Not finished, but this is what we will use to DELETE the contact info from firebase
+export default (id) => (dispatch)  => (onSuccess) => {
     dispatch({
-        type:GET_CONTACTS_LOADING
+        type:DELETE_CONTACT_LOADING
     });
+
+    console.log('This is id')
+    console.log(id);
 
     //userID is the ID number of the user that is current logged into the app
     const userID = firebase.auth().currentUser.uid;
@@ -21,23 +24,23 @@ export default () => (dispatch)  => {
     //Currently, the contacts are being ordered by newest contact on top
     contactRef
         .where("userID", "==", userID)
-        .orderBy('createdAt', 'desc')
         .onSnapshot(
             querySnapshot => {
-                const contacts = []
                 querySnapshot.forEach(doc => {
-                    const entity = doc.data()
-                    entity.id = doc.id
-                    contacts.push(entity)
+                    if(doc.id == id){
+                        doc.ref.delete()
+                    }
                 });
                 dispatch({
-                    type: GET_CONTACTS_SUCCESS,
-                    payload: contacts,
+                    type: DELETE_CONTACT_SUCCESS,
+                    payload: id,
                 });
+
+                onSuccess();
             },
                 error => {
                     dispatch({
-                        type: GET_CONTACTS_FAIL,
+                        type: DELETE_CONTACT_FAIL,
                         payload: error.response ? error.response.data : alert(error)
                     });
                 }
