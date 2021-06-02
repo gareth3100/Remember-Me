@@ -32,11 +32,13 @@ const ContactDetailComponent = ({contacts}) => {
         <View style={styles.container, {alignItems: 'center'}}>
           <Text style={styles.names}>{firstName + ' ' + lastName}</Text>
           <Text style={styles.names}>{phoneCode + ' ' + phoneNumber}</Text>
+          <Text style={styles.names}>{relationship}</Text>
           <Text style={styles.names}>{address}</Text>
+          <Text style={styles.names}>{birthDate}</Text>
           <Text style={styles.names}>{memory}</Text>
         </View>
         <CustomButton
-          style={{width: 256, alignSelf:'flex-end'}}
+          style={{width: 256, alignSelf:'center'}}
           primary
           title="Edit Contact"
           onPress={() => {

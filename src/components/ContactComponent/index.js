@@ -16,7 +16,7 @@ import AppModal from '../common/AppModal';
 import CustomButton from '../common/CustomButton';
 import Icon from '../common/Icon';
 import styles from './styles';
-import {CONTACT_DETAIL, CREATE_CONTACT} from '../../constants/routeNames';
+import {CONTACT_DETAIL, CREATE_CONTACT, FACE_PAGE} from '../../constants/routeNames';
 import Message from '../common/Message';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
@@ -134,64 +134,11 @@ const ContactsComponent = ({sortBy, data, loading, setModalVisible, modalVisible
       <TouchableOpacity 
             style={styles.floatingButton} 
             onPress={()=> {
-                navigate(CREATE_CONTACT);
+                navigate(FACE_PAGE);
             }}>
             <Icon name="plus" size={12} style={{alignItems: 'center', textAlign: 'center'}}color={colors.white}>Add Face</Icon>        
         </TouchableOpacity>
     </>
-    // <>
-    //   <View style={{backgroundColor: colors.white, flex: 1}}>
-    
-    //     {loading && (
-    //       <View style={{paddingVertical: 100, paddingHorizontal: 100}}>
-    //         <ActivityIndicator color={colors.primary} size="large" />
-    //       </View>
-    //     )}
-
-    //     {!loading && (
-    //         <FlatList
-    //          renderItem={renderItem}
-    //          data={[]}
-    //         //   data={
-    //         //     sortBy
-    //         //       ? data.sort((a, b) => {
-    //         //           if (sortBy === 'First Name') {
-    //         //             if (b.first_name > a.first_name) {
-    //         //               return -1;
-    //         //             } else {
-    //         //               return 1;
-    //         //             }
-    //         //           }
-    //         //           if (sortBy === 'Last Name') {
-    //         //             if (b.last_name > a.last_name) {
-    //         //               return -1;
-    //         //             } else {
-    //         //               return 1;
-    //         //             }
-    //         //           }
-    //         //         })
-    //         //       : data
-    //         //   }
-    //         //   ItemSeparatorComponent={() => (
-    //         //       <View
-    //         //         style={{height: 0.5, backgroundColor: colors.grey}}></View>
-    //         //   )}
-    //           // keyExtractor={(item) => String(item.id)}
-    //           ListEmptyComponent={ListEmptyComponent}
-    //           // ListFooterComponent={<View style={{height: 150}}></View>}
-    //         />
-    //     )}
-    //   </View>
-
-
-    //   <TouchableOpacity
-    //     style={styles.floatingActionButton}
-    //     onPress={() => {
-    //       navigate(CREATE_CONTACT);
-    //     }}>
-    //     <Icon size={12} style={{alignItems: 'center', textAlign: 'center'}}color={colors.white}>Add Contact</Icon>
-    //   </TouchableOpacity>
-    // </>
   );
 };
 
