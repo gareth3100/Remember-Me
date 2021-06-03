@@ -3,7 +3,7 @@ import colors from '../../assets/theme/colors';
 
 export default ScaledSheet.create({
   container:{
-    flex: 1, 
+    flex: '1@s', 
   },
 
   scrollview:{
@@ -11,6 +11,6 @@ export default ScaledSheet.create({
   },
 
   names:{
-    fontSize: 25
+    fontSize: '25@s'
   }
 });

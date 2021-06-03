@@ -1,7 +1,7 @@
-import { StyleSheet } from 'react-native';
+import { ScaledSheet } from 'react-native-size-matters';
 
-export default StyleSheet.create({
+export default ScaledSheet.create({
     wrapper: {
-        padding: 20,
+        padding: '20@s',
     },
 });

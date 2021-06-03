@@ -7,7 +7,8 @@ import Icon from '../../components/common/Icon';
 import ContactDetailComponent from '../../components/ContactDetailComponent';
 import { CONTACT_LIST } from '../../constants/routeNames';
 import deleteContact from '../../context/contacts/deleteContact';
-import {GlobalContext} from '../../context/Provider'
+import {GlobalContext} from '../../context/Provider';
+import { scale,moderateScale } from 'react-native-size-matters';
 
 const ContactDetail = () => {
 
@@ -26,11 +27,11 @@ const ContactDetail = () => {
                 title: item.firstName + " " + item.lastName,
                 headerRight: () => {
                     return (
-                        <View style={{flexDirection: 'row', paddingRight: 10}}>
+                        <View style={{flexDirection: 'row', paddingRight: moderateScale(10)}}>
                             <TouchableOpacity>
                                 <View>
                                     <Icon 
-                                        size={21} 
+                                        size={scale(21)} 
                                         color = {colors.grey}
                                         name={item.isFavorite ? "star" : "star-border"} 
                                         type="material" 
@@ -38,7 +39,7 @@ const ContactDetail = () => {
                                 </View>
                             </TouchableOpacity>
 
-                            <TouchableOpacity style={{paddingLeft: 10}} onPress={()=>{
+                            <TouchableOpacity style={{paddingLeft: scale(10)}} onPress={()=>{
                                 Alert.alert(
                                     'Deleting Contact!', 
                                     'Are you sure you want to delete ' + item.firstName + ' from your contacts? \n\nIf yes, press \'OK\' \n\nIf no, press \'Cancel\'', [
@@ -63,7 +64,7 @@ const ContactDetail = () => {
                                     ) : (
                                     
                                         <Icon 
-                                            size={21} 
+                                            size={scale(21)} 
                                             color = {colors.grey}
                                             name="delete" 
                                             type="material" 

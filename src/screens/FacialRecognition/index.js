@@ -1,12 +1,13 @@
 import React from 'react';
-import { Text,View } from 'react-native';
+import { Text,TouchableOpacity,View } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
 const FacialRecognition = () => {
     const {navigate} = useNavigation();
+
     return(
-        <View>
-            <Text>Hello from Facial Recognition!</Text>
+        <View style={{backgroundColor: 'white'}}>
+            <Text style={{alignSelf: 'center', fontSize: 25}}>Hello from Facial Recognition!</Text>
         </View>
     );
 };

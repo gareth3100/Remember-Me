@@ -1,12 +1,12 @@
-import {StyleSheet} from 'react-native';
+import { ScaledSheet } from 'react-native-size-matters';
 import colors from '../../../assets/theme/colors';
 
-export default StyleSheet.create({
+export default ScaledSheet.create({
     wrapper: {
-        height: 42,
-        paddingHorizontal: 5,
-        marginVertical: 5,
-        borderRadius: 4,
+        height: '42@s',
+        paddingHorizontal: '5@s',
+        marginVertical: '5@s',
+        borderRadius: '4@s',
         alignItems: 'center',
         justifyContent: 'space-evenly',
     },
@@ -16,13 +16,13 @@ export default StyleSheet.create({
     },
 
     textInput: {
-        flex: 1,
+        flex: '1@s',
         width: '100%',
     },
 
     error: {
         color: colors.danger,
-        paddingTop: 5,
-        fontSize: 12,
+        paddingTop: '5@s',
+        fontSize: '12@s',
     },
 });

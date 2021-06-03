@@ -9,6 +9,7 @@ import {GlobalContext} from '../../context/Provider';
 import getContacts from '../../context/contacts/getContacts';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { CONTACT_DETAIL } from '../../constants/routeNames';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 // import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
@@ -68,8 +69,8 @@ const Contacts = ({navigation}) => {
                     toggleDrawer(); 
                 }}>
                 <MaterialIcon 
-                    style={{padding:10}} 
-                    size={30} name="menu"
+                    style={{padding: moderateScale(10)}} 
+                    size={scale(30)} name="menu"
                 ></MaterialIcon>
             </TouchableOpacity>
         ),

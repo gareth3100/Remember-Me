@@ -9,6 +9,7 @@ import {DEFAULT_IMAGE_URI} from '../../constants/general';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import ImagePicker from '../common/ImagePicker';
 import colors from '../../assets/theme/colors';
+import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 
 
 //We store the contact information here
@@ -32,8 +33,8 @@ const CreateContactComponent = ({
     <>
       <View style={styles.container}>
         <Image
-          width={150}
-          height={150}
+          width={scale(150)}
+          height={verticalScale(150)}
           source={{uri: localFile?.path || DEFAULT_IMAGE_URI}}
           style={styles.imageView}
         />
@@ -88,7 +89,7 @@ const CreateContactComponent = ({
                 }}
               />
             }
-            style={{paddingLeft: 10}}
+            style={{paddingLeft: moderateScale(10)}}
             iconPosition="left"
             label="Phone Number"
             placeholder="Enter Phone Number"
@@ -106,10 +107,10 @@ const CreateContactComponent = ({
             value={form.address || ''}
             placeholder="Enter Address" />
 
-          <View style={{padding: 10}}>
+          <View style={{padding: moderateScale(10)}}>
             <TextInput
               label="Add Note Description"
-              style={{height: 100}}
+              style={{height: verticalScale(100)}}
               placeholder="Type here to add memory!"
               onChangeText={(value) =>{
                 onChangeText({name: 'memory', value: value});
@@ -124,8 +125,8 @@ const CreateContactComponent = ({
             />
           </View>
 
-          <View style={{flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 10, alignItems: 'center'}}>
-            <Text style={{fontSize: 20}}>Add to Favorites</Text>
+          <View style={{flexDirection: 'row', justifyContent: 'space-between', paddingVertical: moderateScale(10), alignItems: 'center'}}>
+            <Text style={{fontSize: scale(20)}}>Add to Favorites</Text>
               <Switch
                 trackColor={{ false: "#767577", true: colors.primary }}
                 thumbColor="#FFFFFF"

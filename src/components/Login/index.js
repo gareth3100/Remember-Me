@@ -8,6 +8,7 @@ import Input from '../../components/common/Input';
 import {REGISTER} from '../../constants/routeNames';
 import Message from '../common/Message';
 import styles from './styles';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 const LoginComponent = ({
     error,
@@ -21,8 +22,8 @@ const LoginComponent = ({
     const [isSecureEntry, setIsSecureEntry] = useState(true);
     return(
         <Container>
-            <Image height={70} 
-                width={70} 
+            <Image height={verticalScale(70)} 
+                width={scale(70)} 
                 source={require('../../assets/images/transparent-brain-24.png')} 
                 style={styles.logoImage}
             />

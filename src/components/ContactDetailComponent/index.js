@@ -21,6 +21,7 @@ import {CONTACT_DETAIL, CREATE_CONTACT} from '../../constants/routeNames';
 import Container from '../common/Container';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 const ContactDetailComponent = ({contacts}) => {
     const {firstName, lastName, phoneNumber, phoneCode, address, birthDate, memory, relationship} = contacts;
@@ -38,7 +39,7 @@ const ContactDetailComponent = ({contacts}) => {
           <Text style={styles.names}>{memory}</Text>
         </View>
         <CustomButton
-          style={{width: 256, alignSelf:'center'}}
+          style={{width: scale(256), alignSelf:'center'}}
           primary
           title="Edit Contact"
           onPress={() => {

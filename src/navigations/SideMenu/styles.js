@@ -1,9 +1,9 @@
-import {StyleSheet} from 'react-native';
+import { ScaledSheet } from 'react-native-size-matters';
 
-export default StyleSheet.create({
+export default ScaledSheet.create({
     logoImage:{
-        height: 90,
-        width:110,
+        height: '90@vs',
+        width: '110@s',
         alignSelf: 'center',
         marginTop: 50,
     },
@@ -15,8 +15,8 @@ export default StyleSheet.create({
     },
 
     itemText: {
-        fontSize:15,
-        paddingVertical: 8,
-        paddingLeft: 20,
+        fontSize: 15,
+        paddingVertical: '8@msr',
+        paddingLeft: '20@msr',
     },
 });
