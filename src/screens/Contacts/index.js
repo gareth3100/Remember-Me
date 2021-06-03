@@ -14,8 +14,9 @@ import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 // import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
 const Contacts = ({navigation, route}) => {
-    
-    console.log(route.name)
+
+    console.log(route)
+
     const {navigate} = useNavigation();
     //menu side button
     const {setOptions, toggleDrawer} = useNavigation();
@@ -36,13 +37,6 @@ const Contacts = ({navigation, route}) => {
             setSortBy(sortPref)
         }
     };
-
-    //Used to open contact
-    // useEffect(() => {
-    //     if(route.name){
-    //         navigate(CONTACT_DETAIL, {item: route.name})
-    //     }
-    // })
 
     useEffect(() => {
         getContacts()(contactsDispatch);
@@ -67,6 +61,23 @@ const Contacts = ({navigation, route}) => {
                 (item) => !prev.map((i)=>i.id).includes(item.id)
             );
             navigate(CONTACT_DETAIL, {item: newContacts})
+        }
+    },[data.length]);
+
+    //Used to open contact
+    useEffect(() => {
+        const prev = contactsRef.current;
+        contactsRef.current = data;
+        const newList = contactsRef.current;
+
+        if(route.params != undefined){
+            console.log(route.params.names.length)
+            if(route.params.names.length > 0){
+                const foundProfile = newList.find(
+                    (item) => !prev.map((i)=>i.id).includes(route.params.names[0])
+                );
+                navigate(CONTACT_DETAIL, {item: foundProfile})
+            }
         }
     },[data.length]);
 

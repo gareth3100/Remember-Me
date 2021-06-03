@@ -38,12 +38,13 @@ export default class FacialRecognition extends Component {
             />
             ]
         let url = this.state.ret_image == null? null:
-            <TouchableOpacity onPress={() => Linking.openURL(this.state.ret_image)} 
-              style = {[styles.container_link]}>
-              <Text
-                style={[styles.text_link]}
-              >If Results don't show, click</Text>
-           </TouchableOpacity>
+          <TouchableOpacity 
+            //onPress={() => this.props.navigation.navigate(CONTACT_LIST, {names: this.state.name})}
+            onPress={() => this.props.navigation.navigate(CONTACT_LIST, {names: "Barack"})}
+            style = {[styles.container_link]}
+            >
+              <Text style={[styles.text_link]}>Open Contact Information? Click Me!</Text>
+          </TouchableOpacity>
         return(
             <View>
                 <TouchableOpacity onPress={this.show_library.bind(this)} 
@@ -80,6 +81,14 @@ export default class FacialRecognition extends Component {
                 {img}
             </View>
         )
+    }
+
+    foundRecognizedFace(){
+      if(this.state.name.length == 0){
+        console.log("no head...")
+      } else {
+        console.log("WE GOT HEAD!")
+      }
     }
 
     new_face_upload(){
