@@ -2,7 +2,7 @@ import { ScaledSheet } from 'react-native-size-matters';
 import colors from '../../assets/theme/colors';
 
 export default ScaledSheet.create({
-    container: {flex: '1@s', backgroundColor: 'white'},
+    container: {flex: 1, backgroundColor: 'white'},
 
     imageView:{
         width: '150@s',
@@ -12,7 +12,6 @@ export default ScaledSheet.create({
     },
 
     chooseText: {
-        paddingVertical: '10@s',
         color: colors.primary,
         textAlign: 'center',
     },

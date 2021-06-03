@@ -1,74 +1,102 @@
-import {useFocusEffect, useNavigation} from '@react-navigation/native';
-import React, {useContext, useEffect, useRef, useState} from 'react';
-import {Text, TouchableOpacity} from 'react-native';
-import Icon from '../../components/common/Icon';
-import ContactComponent from '../../components/ContactComponent';
-import {CONTACT_DETAIL} from '../../constants/routeNames';
-import getContacts from '../../context/actions/contacts/getContacts';
+import { useFocusEffect, useNavigation} from '@react-navigation/native';
+import React, {useContext, useState, useEffect, useRef} from 'react';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import ContactsComponent from '../../components/ContactComponent';
+import { FAB, List} from 'react-native-paper';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import {GlobalContext} from '../../context/Provider';
-import {navigate} from '../../navigations/SideMenu/RootNavigator';
+import getContacts from '../../context/contacts/getContacts';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { CONTACT_DETAIL } from '../../constants/routeNames';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 // import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
-const Contacts = () => {
+const Contacts = ({navigation, route}) => {
+    
+    console.log(route.name)
     const {navigate} = useNavigation();
     //menu side button
-    const [sortBy, setSortBy] = React.useState(null);
     const {setOptions, toggleDrawer} = useNavigation();
     const [modalVisible, setModalVisible] = useState(false);
+    const [sortBy, setSortBy] = React.useState(null);
     const contactsRef = useRef([]);
 
     const {
         contactsDispatch,
         contactsState: {
-            getContacts:{data, loading, error}
+            getContacts:{data, loading}
         },
     } = useContext(GlobalContext);
+
+    const getSettings = async () => {
+        const sortPref = await AsyncStorage.getItem('sortBy');
+        if(sortPref){
+            setSortBy(sortPref)
+        }
+    };
+
+    //Used to open contact
+    // useEffect(() => {
+    //     if(route.name){
+    //         navigate(CONTACT_DETAIL, {item: route.name})
+    //     }
+    // })
 
     useEffect(() => {
         getContacts()(contactsDispatch);
     }, []);
 
+    useFocusEffect(
+        React.useCallback(() => {
+            getSettings();
+            return () => {
+            }
+    }, []));
+
+    //Used to determine latest created contact and pull info quicker
     useEffect(() => {
         const prev = contactsRef.current;
-
         contactsRef.current = data;
-        
         const newList = contactsRef.current;
-        //console.log("This is: newList.length - prev.length", newList.length - prev.length)
-        //if (newList.length - prev.length === 1) {
-            const newContact = newList.find(
-                (item) => !prev.map((i) => i.userID).includes(item.userID),
-            );
-            navigate(CONTACT_DETAIL, {item: newContact});
-        //}
-    }, [data.length]);
 
+        //1 Newly added item
+        if(newList.length-prev.length === 1) {
+            const newContacts = newList.find(
+                (item) => !prev.map((i)=>i.id).includes(item.id)
+            );
+            navigate(CONTACT_DETAIL, {item: newContacts})
+        }
+    },[data.length]);
 
     React.useEffect(() => {
         setOptions({
-            headerLeft: () => (
-                <TouchableOpacity
+            headerLeft:()=> (
+            <TouchableOpacity 
                 onPress={() => {
-                    toggleDrawer();
+                    toggleDrawer(); 
                 }}>
-                <Icon type="material" style={{padding: 10}} size={25} name="menu" />
-                </TouchableOpacity>
-            ),
+                <MaterialIcon 
+                    style={{padding: moderateScale(10)}} 
+                    size={scale(30)} name="menu"
+                ></MaterialIcon>
+            </TouchableOpacity>
+        ),
         });
     }, []);
 
-    return (
-        <ContactComponent
-            modalVisible={modalVisible}
-            setModalVisible={setModalVisible}
-            data={data}
-            loading={loading}
-            sortBy={sortBy}
-        />
+    return(
+        <>
+            <ContactsComponent 
+                modalVisible = {modalVisible} 
+                setModalVisible = {setModalVisible}
+                data = {data}
+                loading = {loading}
+                sortBy={sortBy}
+            />
+        </>
     );
 };
-
-
 
 export default Contacts;

@@ -1,5 +1,4 @@
 import {
-  NavigationHelpersContext,
   useNavigation,
 } from '@react-navigation/native';
 import React, {useRef} from 'react';
@@ -13,14 +12,12 @@ import {
 } from 'react-native';
 import {s} from 'react-native-size-matters';
 import colors from '../../assets/theme/colors';
-import AppModal from '../common/AppModal';
-import CustomButton from '../common/CustomButton';
 import Icon from '../common/Icon';
 import styles from './styles';
-import {CONTACT_DETAIL, CREATE_CONTACT} from '../../constants/routeNames';
+import {CONTACT_DETAIL, CREATE_CONTACT, FACE_PAGE} from '../../constants/routeNames';
 import Message from '../common/Message';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 const ContactComponent = ({sortBy, data, loading, setModalVisible, modalVisible}) => {
   const {navigate} = useNavigation();
@@ -37,8 +34,8 @@ const ContactComponent = ({sortBy, data, loading, setModalVisible, modalVisible}
   
   const ListEmptyComponent = () => {
     return (
-    <View style={{paddingVertical: 100, paddingHorizontal: 100}}>
-      <Message info message="No Contacts to show"/>
+    <View style={{paddingVertical: moderateScale(100), paddingHorizontal: moderateScale(100), alignItems: 'center'}}>
+      <Message info message="No Contacts"/>
     </View>
     );
   };
@@ -52,52 +49,17 @@ const ContactComponent = ({sortBy, data, loading, setModalVisible, modalVisible}
 
     const {firstName, lastName, phoneNumber, phoneCode} = item;
 
-    const renderLeftActions = (progress, dragX) => {
-      return (
-        <View style={[{flexDirection: 'row', paddingRight: 5}]}>
-          <TouchableOpacity style={styles.actionButton} onPress={() => {}}>
-            <Icon
-              name={'heart-outline'}
-              type="materialCommunity"
-              size={22}
-              color={colors.white}
-            />
-            <Text numberOfLines={1} style={styles.actionText}>
-              Favorite
-            </Text>
-          </TouchableOpacity>
-        </View>
-      );
-    };
-    const {id} = item;
-    return (
-      <Swipeable
-        ref={(ref) =>
-          swipeableItemRefs.current.push({
-            id,
-            swipeable: ref,
-          })
-        }
-        onSwipeableWillOpen={() => toggleSwipeable(id)}
-        renderLeftActions={(progress, dragX) =>
-          renderLeftActions(progress, dragX, item)
-        }
-        renderRightActions={(progress, dragX) =>
-          renderLeftActions(progress, dragX, item)
-        }> 
-
-      <TouchableOpacity style={styles.itemContainer}
-          onPress={() => {
-            navigate(CONTACT_DETAIL, {item});
-          }}>
+    return(
+      <TouchableOpacity style={styles.itemContainer} onPress={() => {
+        navigate(CONTACT_DETAIL, {item});
+      }}>
         <View style={styles.item}>
-          {/* this is for the profile picture */}
-          <View style={styles.profilePicture}>
+          <View style={{width: scale(45), height: verticalScale(45), flexDirection: 'row',backgroundColor: colors.grey, justifyContent: 'center', alignItems: 'center', borderRadius: scale(100)}}>
             <Text style={[styles.name, {color: colors.white}]}>{firstName[0]}</Text>
             <Text style={[styles.name, {color: colors.white}]}>{lastName[0]}</Text>
           </View>
-          {/* this is for the name and phone number*/}
-          <View style={{paddingLeft: 20, }}>
+
+          <View style={{paddingLeft: moderateScale(20), }}>
             <View style={{flexDirection: 'row'}}>
               <Text style={styles.name}>{firstName}</Text>
               <Text style={styles.name}> {lastName}</Text>
@@ -118,46 +80,44 @@ const ContactComponent = ({sortBy, data, loading, setModalVisible, modalVisible}
 
 return (
     <>
-      <View style={{backgroundColor: colors.white, flex: 1}}>
+      <View style={{backgroundColor: colors.white}}>
+
         {loading && (
-          <View style={{paddingVertical: 100, paddingHorizontal: 100}}>
-            <ActivityIndicator color={colors.primary} size="large" />
+          <View style={{paddingVertical: moderateScale(100), paddingHorizontal: moderateScale(100)}}>
+            <ActivityIndicator size="large" color={colors.primary} />
           </View>
         )} 
 
         {!loading && (
-          <View style={[{paddingVertical: 20}]}>
-            <FlatList
-              renderItem={renderItem}
-              data={
-                sortBy
-                  ? data.sort((a, b) => {
-                      if (sortBy === 'First Name') {
-                        if (b.first_name > a.first_name) {
-                          return -1;
-                        } else {
-                          return 1;
-                        }
-                      }
-                      if (sortBy === 'Last Name') {
-                        if (b.last_name > a.last_name) {
-                          return -1;
-                        } else {
-                          return 1;
-                        }
-                      }
-                    })
-                  : data
-              }
-              ItemSeparatorComponent={() => (
-                <View
-                  style={{height: 0.5, backgroundColor: colors.grey}}></View>
-              )}
-              keyExtractor={(item) => String(item.id)}
-              ListEmptyComponent={ListEmptyComponent}
-              ListFooterComponent={<View style={{height: 150}}></View>}
-            />
-          </View>
+        <View style={[{paddingVertical: moderateScale(20)}]}>
+          <FlatList
+            renderItem={renderItem}
+            data={sortBy? data.sort((a,b) => {
+              if (sortBy === 'First Name'){
+                if(b.firstName > a.firstName){
+                  return -1
+                } else {
+                  return 1
+                }
+              } 
+
+              if (sortBy === 'Last Name'){
+                if(b.lastName > a.lastName){
+                  return -1
+                } else {
+                  return 1
+                }
+              } 
+
+            }) : data}
+            ItemSeparatorComponent={() => (
+              <View style={{height: verticalScale(1), backgroundColor: colors.grey}}></View>
+            )}
+            keyExtractor={(item) => String(item.id)}
+            ListEmptyComponent={ListEmptyComponent}
+            ListFooterComponent={<View style={{height: verticalScale(150)}}></View>}
+          />
+        </View>
         )}
       </View>
 
@@ -166,8 +126,16 @@ return (
           onPress={() => {
             navigate(CREATE_CONTACT);
           }}>
-          <Icon size={12} style={{alignItems: 'center', textAlign: 'center'}}color={colors.white}>Add Contact</Icon>
+          <Icon name="plus" size={scale(12)} style={{alignItems: 'center', textAlign: 'center'}}color={colors.white}>Add Contact</Icon>
       </TouchableOpacity>
+
+      <TouchableOpacity 
+            style={styles.floatingButton} 
+            onPress={()=> {
+                navigate(FACE_PAGE);
+            }}>
+            <Icon name="plus" size={scale(12)} style={{alignItems: 'center', textAlign: 'center'}}color={colors.white}>See Face</Icon>        
+        </TouchableOpacity>
     </>
   );
 };

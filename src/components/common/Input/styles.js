@@ -1,27 +1,27 @@
-import {StyleSheet} from 'react-native';
+import { ScaledSheet } from 'react-native-size-matters';
 import colors from '../../../assets/theme/colors';
 
-export default StyleSheet.create({
+export default ScaledSheet.create({
     wrapper: {
-        height: 42,
-        borderWidth: 1,
-        borderRadius: 4,
-        paddingHorizontal: 5,
-        marginTop: 5,
+        height: '42@s',
+        borderWidth: '1@s',
+        borderRadius: '4@s',
+        paddingHorizontal: '5@s',
+        marginTop: '5@s',
     },
 
     inputContainer: {
-        paddingVertical: 12,
+        paddingVertical: '12@s',
     },
 
     textInput: {
-        flex: 1,
+        flex: '1@s',
         width: '100%',
     },
 
     error: {
         color: colors.danger,
-        paddingTop: 5,
-        fontSize: 12,
+        paddingTop: '5@s',
+        fontSize: '12@s',
     },
 });

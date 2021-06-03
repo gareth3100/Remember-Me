@@ -8,6 +8,7 @@ import Input from '../../components/common/Input';
 import styles from './styles';
 import {LOGIN} from '../../constants/routeNames';
 import BackgroundColor from 'react-native-background-color';
+import { verticalScale } from 'react-native-size-matters';
 
 const RegisterComponent = ({onSubmit, onChange, form, loading, errors, error}) => {
     const {navigate} = useNavigation();
@@ -16,7 +17,7 @@ const RegisterComponent = ({onSubmit, onChange, form, loading, errors, error}) =
     return(
         <Container>
             <Image 
-                height={70} 
+                height={verticalScale(70)} 
                 width={70} 
                 source={require('../../assets/images/transparent-brain-24.png')} 
                 style={styles.logoImage}

@@ -1,24 +1,24 @@
-import {StyleSheet} from 'react-native';
+import { ScaledSheet } from 'react-native-size-matters';
 
-export default StyleSheet.create({
+export default ScaledSheet.create({
   container: {
-    flex: 1,
-    padding: 10,
+    flex: '1@s',
+    padding: '10@msr',
   },
 
   item: {
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
+    padding: '20@msr',
+    marginVertical: '8@mvs',
+    marginHorizontal: '16@ms',
   },
 
   wrapper: {
-    flex: 1,
+    flex: '1@s',
   },
 
   image: {
-    width: 50,
-    height: 50,
+    width: '50@s',
+    height: '50@vs',
     backgroundColor: 'skyblue',
   },
 });

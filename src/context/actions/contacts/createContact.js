@@ -2,8 +2,9 @@ import {
     CREATE_CONTACT_LOADING,
     CREATE_CONTACT_SUCCESS,
     CREATE_CONTACT_FAIL,
-} from '../../../constants/actionTypes';
-import { firebase } from '../../../firebase/config';
+} from '../../constants/actionTypes';
+import { CREATE_CONTACT } from '../../constants/routeNames';
+import { firebase } from '../../firebase/config';
 
 export default (form) => (dispatch) => (onSuccess) => {
     dispatch({
@@ -25,7 +26,7 @@ export default (form) => (dispatch) => (onSuccess) => {
         phoneNumber: form.phoneNumber || '',
         relationship: form.relationship || '',
         memory: form.memory || '',
-        createdAt: timestamp, 
+        createdAt: timestamp,
         isFavorite: form.isFavorite || false,
     };
 
@@ -38,9 +39,8 @@ export default (form) => (dispatch) => (onSuccess) => {
     firebase
         .firestore()
         .collection('contacts')
-        .add(requestPayload)
-        .then((res) => {  
-            console.log(requestPayload)
+        .add(data)
+        .then((res) => {
             dispatch({
                 type: CREATE_CONTACT_SUCCESS,
                 payload: res.data

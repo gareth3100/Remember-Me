@@ -1,156 +1,86 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
-import React, {useEffect, useState, useRef, useContext} from 'react';
-import {ActivityIndicator, Alert, TouchableOpacity, View} from 'react-native';
+import React, { useEffect, useContext } from 'react';
+import { ActivityIndicator, Alert, Text, View } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import colors from '../../assets/theme/colors';
 import Icon from '../../components/common/Icon';
-import ContactDetailsComponent from '../../components/ContactDetailsComponent';
-import {CONTACT_LIST} from '../../constants/routeNames';
-import deleteContact from '../../context/actions/contacts/deleteContact';
-import editContact from '../../context/actions/contacts/editContact';
+import ContactDetailComponent from '../../components/ContactDetailComponent';
+import { CONTACT_LIST } from '../../constants/routeNames';
+import deleteContact from '../../context/contacts/deleteContact';
 import {GlobalContext} from '../../context/Provider';
+import { scale,moderateScale } from 'react-native-size-matters';
 
-const ContactDetails = () => {
-  const {params: {item = {}} = {}} = useRoute();
-  //console.log('this is item: ', item.firstName);
+const ContactDetail = () => {
 
-  //This is causing the error. it says ERROR  TypeError: Cannot read property 'loading' of undefined
-  const {
-    contactsDispatch,
-    contactsState: {
-      deleteContact//: {loading},
-    },
-  } = useContext(GlobalContext);
-  const {setOptions, navigate} = useNavigation();
-  const sheetRef = useRef(null);
-  const [localFile, setLocalFile] = useState(null);
-  const [updatingImage, setUpdatingImage] = useState(false);
-  const [uploadSucceeded, setUploadSucceeded] = useState(false);
-
-  useEffect(() => {
-    //if (item) {
-      setOptions({
-        title: item.firstName + ' ' + item.lastName,
-        headerRight: () => {
-          return (
-            <View style={{flexDirection: 'row', paddingRight: 10}}>
-              <TouchableOpacity>
-                <Icon
-                  size={21}
-                  color={colors.grey}
-                  name={item.is_favorite ? 'star' : 'star-border'}
-                  type="material"
-                />
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => {
-                  Alert.alert(
-                    'Delete!',
-                    'Are you sure you want to remove ' + item.firstName,
-                    [
-                      {
-                        text: 'Cancel',
-                        onPress: () => {},
-                      },
-
-                      {
-                        text: 'OK',
-                        onPress: () => {
-                          deleteContact(item.userID)(contactsDispatch)(() => {
-                            navigate(CONTACT_LIST);
-                          });
-                        },
-                      },
-                    ],
-                  );
-                }}
-                style={{paddingLeft: 10}}>
-                {/*
-                HAVE to take this out because "loading" is causing errors
-                {loading ? (
-                  <ActivityIndicator size="small" color={colors.primary} />
-                ) : (
-                  <Icon
-                    color={colors.grey}
-                    size={21}
-                    name="delete"
-                    type="material"
-                  />
-                )} 
-                
-                */}
-                <Icon
-                    color={colors.grey}
-                    size={21}
-                    name="delete"
-                    type="material"
-                  />
-              </TouchableOpacity>
-            </View>
-          );
+    const { params: { item = {} } = {} } = useRoute();
+    const { 
+        contactsDispatch,
+        contactsState: {
+            deleteContact: {loading}
         },
-      });
-    //}
-  }, )
-  //commenting this out bc loading causing errors
-  // [item, loading]); 
+    } = useContext(GlobalContext);
+    const { setOptions,navigate } = useNavigation();
 
-  const closeSheet = () => {
-    if (sheetRef.current) {
-      sheetRef.current.close();
-    }
-  };
-  const openSheet = () => {
-    if (sheetRef.current) {
-      sheetRef.current.open();
-    }
-  };
+    useEffect(() => {
+        if (item) {
+            setOptions({
+                title: item.firstName + " " + item.lastName,
+                headerRight: () => {
+                    return (
+                        <View style={{flexDirection: 'row', paddingRight: moderateScale(10)}}>
+                            <TouchableOpacity>
+                                <View>
+                                    <Icon 
+                                        size={scale(21)} 
+                                        color = {colors.grey}
+                                        name={item.isFavorite ? "star" : "star-border"} 
+                                        type="material" 
+                                    />
+                                </View>
+                            </TouchableOpacity>
 
-  const onFileSelected = (image) => {
-    closeSheet();
-    setLocalFile(image);
-    setUpdatingImage(true);
-    uploadImage(image)((url) => {
-      const {
-        first_name: firstName,
+                            <TouchableOpacity style={{paddingLeft: scale(10)}} onPress={()=>{
+                                Alert.alert(
+                                    'Deleting Contact!', 
+                                    'Are you sure you want to delete ' + item.firstName + ' from your contacts? \n\nIf yes, press \'OK\' \n\nIf no, press \'Cancel\'', [
+                                    {
+                                        text: 'Cancel',
+                                        onPress: () => {},
+                                    },
 
-        last_name: lastName,
-        phone_number: phoneNumber,
+                                    {
+                                        text: 'OK',
+                                        onPress: () => {
+                                            deleteContact(item.id)(contactsDispatch)(() => {
+                                                navigate(CONTACT_LIST);
+                                            });
+                                        },
+                                    },
+                                ]);
+                            }}>
+                                <View>
+                                    {loading ? (
+                                        <ActivityIndicator size="small" color={colors.primary}/>
+                                    ) : (
+                                    
+                                        <Icon 
+                                            size={scale(21)} 
+                                            color = {colors.grey}
+                                            name="delete" 
+                                            type="material" 
+                                        />
+                                    )}
+                                </View>
+                            </TouchableOpacity>
+                        </View>
 
-        country_code: phoneCode,
-        is_favorite: isFavorite,
-      } = item;
-      editContact(
-        {
-          firstName,
-          lastName,
-          phoneNumber,
-          isFavorite,
-          phoneCode,
-          contactPicture: url,
-        },
-        item.id,
-      )(contactsDispatch)((item) => {
-        setUpdatingImage(false);
-        setUploadSucceeded(true);
-        // navigate(CONTACT_DETAIL, {item});
-      });
-    })((err) => {
-      console.log('err :>> ', err);
-      setUpdatingImage(false);
-    });
-  };
+                    );
+                },
+            });
+        }
+    }, [item, loading])
 
-  return (
-    <ContactDetailsComponent
-      sheetRef={sheetRef}
-      onFileSelected={onFileSelected}
-      openSheet={openSheet}
-      contact={item}
-      localFile={localFile}
-      uploadSucceeded={uploadSucceeded}
-      updatingImage={updatingImage}
-    />
-  );
+    return <ContactDetailComponent contacts={item} />;
 };
 
 export default ContactDetails;

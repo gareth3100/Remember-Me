@@ -12,6 +12,7 @@ import {SETTINGS} from '../../constants/routeNames';
 import logoutUser from '../../context/actions/auth/logoutUser';
 import styles from './styles';
 import Icon from '../../components/common/Icon';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 //add image logo
 const SideMenu = ({navigation, authDispatch}) => {
@@ -34,14 +35,14 @@ const SideMenu = ({navigation, authDispatch}) => {
 
     const menuItems = [
         {
-            icon: <Icon type="fontisto" size={17} name="player-settings" />,
+            icon: <Icon type="fontisto" size={scale(17)} name="player-settings" />,
             name: 'Settings',
             onPress: () => {
                 navigation.navigate(SETTINGS);
             },
         },
         {
-            icon: <Icon type="material" size={17} name="logout" />,
+            icon: <Icon type="material" size={scale(17)} name="logout" />,
             name: 'Logout',
             onPress: handleLogout,
         },
@@ -51,13 +52,13 @@ const SideMenu = ({navigation, authDispatch}) => {
         <SafeAreaView>
             <Container>
                 <Image
-                    height={100}
-                    width={100}
+                    height={scale(100)}
+                    width={scale(100)}
                     source ={require('../../assets/images/transparent-brain-24.png')}
                     style = {styles.logoImage}
                 />
 
-                <View style={{paddingHorizontal: 70, paddingVertical: 20}}>
+                <View style={{paddingHorizontal: moderateScale(70), paddingVertical: moderateScale(20)}}>
                     {menuItems.map(({name, icon, onPress}) => (
                         <TouchableOpacity onPress={onPress} key={name} style ={styles.item}> 
                             {icon}

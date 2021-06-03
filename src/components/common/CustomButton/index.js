@@ -3,7 +3,7 @@ import { View, Text, TextInput, Touchable, TouchableOpacity, ActivityIndicator }
 import colors from '../../../assets/theme/colors';
 import styles from './styles';
 
-const CustomButton = ({ title, secondary, primary, danger, onPress, disabled, loading, }) => {
+const CustomButton = ({ title, secondary, primary, danger, onPress, disabled, loading, style }) => {
 
     const getBackgroundColor = () => {
         if(disabled){
@@ -25,10 +25,10 @@ const CustomButton = ({ title, secondary, primary, danger, onPress, disabled, lo
         <TouchableOpacity 
             disabled = {disabled}
             onPress={onPress}
-            style={[styles.wrapper, {backgroundColor: getBackgroundColor()}]}>
+            style={[styles.wrapper, {backgroundColor: getBackgroundColor()}, style]}>
                 <View style={[styles.loaderSection]}>
                     {loading && <ActivityIndicator color={primary? colors.secondary : colors.primary}/>}
-                    {title && <Text style={{color:disabled ? "black":colors.white, paddingLeft:loading?5:0}}>{title}</Text>}
+                    {title && <Text style={{color:disabled ? "black":colors.white, paddingLeft:loading?5:0}}>{loading? 'Please wait ...' : title}</Text>}
                 </View>
         </TouchableOpacity>
     );

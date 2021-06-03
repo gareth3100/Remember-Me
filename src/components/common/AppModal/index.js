@@ -2,6 +2,8 @@ import React from 'react';
 import {View, TouchableOpacity, Text, Modal, ScrollView} from 'react-native';
 import styles from './styles';
 import PropTypes from 'prop-types';
+import Icon from '../Icon';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 const AppModal = ({
   modalVisible,
@@ -27,7 +29,7 @@ const AppModal = ({
                 onPress={() => {
                   setModalVisible(false);
                 }}>
-               
+               <Icon size={scale(27)} type="evil" name="close"/>
               </TouchableOpacity>
               <Text style={styles.title}>{title || 'RememberMe Memories'}</Text>
 
