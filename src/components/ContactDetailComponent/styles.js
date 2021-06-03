@@ -11,7 +11,7 @@ export default ScaledSheet.create({
   },
 
   names: {
-    fontSize: 25,
+    fontSize: 23,
   },
 
   imageView: {
@@ -19,5 +19,33 @@ export default ScaledSheet.create({
     height: 150,
     borderRadius: 100,
     alignSelf: 'center',
-  }
+  },
+
+  imageContainer: {
+    height: 300,
+    width: '100%',
+  },
+
+  detailPhoto: {
+    height: 300,
+    width: '100%',
+    resizeMode: 'cover',
+  },
+
+  hrLine: {
+    height: '10@s',
+    borderColor: colors.danger,
+    borderBottomWidth: 0.4,
+  },
+
+  middleText: {
+    fontSize: 20,
+    color: colors.primary,
+    paddingVertical: 5,
+  },
+
+  phoneMobile: {
+    flexGrow: 1,
+    paddingHorizontal: 20,
+  },
 });

@@ -58,21 +58,32 @@ const ContactDetailComponent = ({contacts, localFile}) => {
             </TouchableOpacity>
           </View>
         )}
-        <Text style={styles.names}>{firstName + ' ' + lastName}</Text>
-        <Text style={styles.names}>{phoneCode + ' ' + phoneNumber}</Text>
-        <Text style={styles.names}>{relationship}</Text>
-        <Text style={styles.names}>{address}</Text>
-        <Text style={styles.names}>{birthDate}</Text>
-        <Text style={styles.names}>{memory}</Text>
+
+        {/* this is where the screen displays the contact details */}
+        <Text style={styles.names}>Name: {firstName + ' ' + lastName}</Text>
+        <View style={styles.hrLine} />
+
+        <Text style={styles.phoneMobile}>
+          Phone Number: {phoneCode + ' ' + phoneNumber}
+        </Text>
+        <View style={styles.hrLine} />
+        <Text style={styles.middleText}>Relationship: {relationship}</Text>
+        <Text style={styles.middleText}>Address: {address}</Text>
+        <Text style={styles.middleText}>Date of Birth: {birthDate}</Text>
+        <View style={styles.hrLine} />
+        <View style={{flex: 1}}>
+          <Text style={styles.names}>Memory: {memory}</Text>
+        </View>
+
+        <CustomButton
+          style={{width: 256, alignSelf: 'center'}}
+          primary
+          title="Edit Contact"
+          onPress={() => {
+            navigate(CREATE_CONTACT, {contacts, editing: true});
+          }}
+        />
       </View>
-      <CustomButton
-        style={{width: 256, alignSelf: 'center'}}
-        primary
-        title="Edit Contact"
-        onPress={() => {
-          navigate(CREATE_CONTACT, {contacts, editing: true});
-        }}
-      />
     </ScrollView>
   );
 };

@@ -19,7 +19,7 @@ function ImageComponent({src}) {
   };
   return (
     <View style={styles.imageContainer}>
-      {isLoading && <Text style={styles.loading}>Loading image</Text>}
+      {isLoading && <Text style={styles.loading}>Loading Image</Text>}
       <View>
         <Image
           onLoadEnd={onLoadEnd}
