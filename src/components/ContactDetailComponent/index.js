@@ -20,31 +20,14 @@ import styles from './styles';
 import {CONTACT_DETAIL, CREATE_CONTACT} from '../../constants/routeNames';
 import Container from '../common/Container';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
-<<<<<<< HEAD
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
-=======
-import {Colors} from 'react-native/Libraries/NewAppScreen';
-import ImageComponent from './ImageComponent';
-import {DEFAULT_IMAGE_URI} from '../../constants/general';
->>>>>>> b05d08885a53db843aa3247882a82be7f62eb6d3
 
-const ContactDetailComponent = ({contacts, localFile}) => {
-  const {
-    firstName,
-    lastName,
-    phoneNumber,
-    phoneCode,
-    address,
-    birthDate,
-    memory,
-    relationship,
-    contact_picture,
-  } = contacts;
+const ContactDetailComponent = ({contacts}) => {
+    const {firstName, lastName, phoneNumber, phoneCode, address, birthDate, memory, relationship} = contacts;
 
-  const {navigate} = useNavigation();
+    const {navigate} = useNavigation();
 
-<<<<<<< HEAD
     return(
       <ScrollView style={styles.scrollview}>
         <View style={styles.container, {alignItems: 'center'}}>
@@ -65,44 +48,7 @@ const ContactDetailComponent = ({contacts, localFile}) => {
         />
       </ScrollView>
     );
-=======
-  return (
-    <ScrollView style={styles.scrollview}>
-      <View style={(styles.container, {alignItems: 'center'})}>
-        {contact_picture && <ImageComponent src={contact_picture} />}
->>>>>>> b05d08885a53db843aa3247882a82be7f62eb6d3
 
-        {!contact_picture && (
-          <View style={{alignItems: 'center', paddingVertical: 20}}>
-            <Image
-              width={150}
-              height={150}
-              source={{uri: localFile?.path || DEFAULT_IMAGE_URI}}
-              style={styles.imageView}
-            />
-
-            <TouchableOpacity>
-              <Text style={{color: colors.primary}}>Add Picture</Text>
-            </TouchableOpacity>
-          </View>
-        )}
-        <Text style={styles.names}>{firstName + ' ' + lastName}</Text>
-        <Text style={styles.names}>{phoneCode + ' ' + phoneNumber}</Text>
-        <Text style={styles.names}>{relationship}</Text>
-        <Text style={styles.names}>{address}</Text>
-        <Text style={styles.names}>{birthDate}</Text>
-        <Text style={styles.names}>{memory}</Text>
-      </View>
-      <CustomButton
-        style={{width: 256, alignSelf: 'center'}}
-        primary
-        title="Edit Contact"
-        onPress={() => {
-          navigate(CREATE_CONTACT, {contacts, editing: true});
-        }}
-      />
-    </ScrollView>
-  );
-};
+  };
 
 export default ContactDetailComponent;

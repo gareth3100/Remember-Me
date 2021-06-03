@@ -13,7 +13,9 @@ import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 // import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
-const Contacts = ({navigation}) => {
+const Contacts = ({navigation, route}) => {
+    
+    console.log(route.name)
     const {navigate} = useNavigation();
     //menu side button
     const {setOptions, toggleDrawer} = useNavigation();
@@ -34,6 +36,13 @@ const Contacts = ({navigation}) => {
             setSortBy(sortPref)
         }
     };
+
+    //Used to open contact
+    // useEffect(() => {
+    //     if(route.name){
+    //         navigate(CONTACT_DETAIL, {item: route.name})
+    //     }
+    // })
 
     useEffect(() => {
         getContacts()(contactsDispatch);

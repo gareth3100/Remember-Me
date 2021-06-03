@@ -52,7 +52,7 @@ const SideMenu = ({navigation, authDispatch}) => {
         <SafeAreaView>
             <Container>
                 <Image
-                    height={verticalScale(100)}
+                    height={scale(100)}
                     width={scale(100)}
                     source ={require('../../assets/images/transparent-brain-24.png')}
                     style = {styles.logoImage}

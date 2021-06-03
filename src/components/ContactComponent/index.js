@@ -1,5 +1,4 @@
 import {
-  NavigationHelpersContext,
   useNavigation,
 } from '@react-navigation/native';
 import React, {useRef} from 'react';
@@ -12,14 +11,11 @@ import {
   Image,
 } from 'react-native';
 import colors from '../../assets/theme/colors';
-import AppModal from '../common/AppModal';
-import CustomButton from '../common/CustomButton';
 import Icon from '../common/Icon';
 import styles from './styles';
 import {CONTACT_DETAIL, CREATE_CONTACT, FACE_PAGE} from '../../constants/routeNames';
 import Message from '../common/Message';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 const ContactsComponent = ({sortBy, data, loading, setModalVisible, modalVisible}) => {
@@ -137,7 +133,7 @@ const ContactsComponent = ({sortBy, data, loading, setModalVisible, modalVisible
             onPress={()=> {
                 navigate(FACE_PAGE);
             }}>
-            <Icon name="plus" size={scale(12)} style={{alignItems: 'center', textAlign: 'center'}}color={colors.white}>Add Face</Icon>        
+            <Icon name="plus" size={scale(12)} style={{alignItems: 'center', textAlign: 'center'}}color={colors.white}>See Face</Icon>        
         </TouchableOpacity>
     </>
   );

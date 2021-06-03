@@ -2,7 +2,7 @@ import { ScaledSheet } from 'react-native-size-matters';
 
 export default ScaledSheet.create({
     logoImage:{
-        height: '90@vs',
+        height: '90@s',
         width: '110@s',
         alignSelf: 'center',
         marginTop: 50,
