@@ -8,6 +8,7 @@ import CountryPicker from 'react-native-country-picker-modal';
 import {DEFAULT_IMAGE_URI} from '../../constants/general';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import ImagePicker from '../common/ImagePicker';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 const CreateContactComponent = ({
   sheetRef,
@@ -22,8 +23,8 @@ const CreateContactComponent = ({
     <>
       <View style={styles.container}>
         <Image
-          width={150}
-          height={150}
+          width={scale(150)}
+          height={verticalScale(150)}
           source={{uri: localFile?.path || DEFAULT_IMAGE_URI}}
           style={styles.imageView}
         />
@@ -48,7 +49,7 @@ const CreateContactComponent = ({
                 onSelect={() => {}}
               />
             }
-            style={{paddingLeft: 10}}
+            style={{paddingLeft: moderateScale(10)}}
             iconPosition="left"
             label="Phone Number"
             placeholder="Enter Phone Number"
@@ -56,10 +57,10 @@ const CreateContactComponent = ({
 
           <Input label="Address" placeholder="Enter Address" />
 
-          <View style={{padding: 10}}>
+          <View style={{padding: moderateScale(10)}}>
             <TextInput
               label="Add Note Description"
-              style={{height: 100}}
+              style={{height: verticalScale(100)}}
               placeholder="Type here to add memory!"
               onChangeText={inputText => setText(inputText)}
               defaultValue={inputText}

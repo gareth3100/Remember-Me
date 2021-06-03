@@ -20,6 +20,7 @@ import {CONTACT_DETAIL, CREATE_CONTACT, FACE_PAGE} from '../../constants/routeNa
 import Message from '../common/Message';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 const ContactsComponent = ({sortBy, data, loading, setModalVisible, modalVisible}) => {
   const {navigate} = useNavigation();
@@ -36,7 +37,7 @@ const ContactsComponent = ({sortBy, data, loading, setModalVisible, modalVisible
   
   const ListEmptyComponent = () => {
     return (
-    <View style={{paddingVertical: 100, paddingHorizontal: 100, alignItems: 'center'}}>
+    <View style={{paddingVertical: moderateScale(100), paddingHorizontal: moderateScale(100), alignItems: 'center'}}>
       <Message info message="No Contacts"/>
     </View>
     );
@@ -56,12 +57,12 @@ const ContactsComponent = ({sortBy, data, loading, setModalVisible, modalVisible
         navigate(CONTACT_DETAIL, {item});
       }}>
         <View style={styles.item}>
-          <View style={{width: 45, height: 45, flexDirection: 'row',backgroundColor: colors.grey, justifyContent: 'center', alignItems: 'center', borderRadius: 100}}>
+          <View style={{width: scale(45), height: verticalScale(45), flexDirection: 'row',backgroundColor: colors.grey, justifyContent: 'center', alignItems: 'center', borderRadius: scale(100)}}>
             <Text style={[styles.name, {color: colors.white}]}>{firstName[0]}</Text>
             <Text style={[styles.name, {color: colors.white}]}>{lastName[0]}</Text>
           </View>
 
-          <View style={{paddingLeft: 20, }}>
+          <View style={{paddingLeft: moderateScale(20), }}>
             <View style={{flexDirection: 'row'}}>
               <Text style={styles.name}>{firstName}</Text>
               <Text style={styles.name}> {lastName}</Text>
@@ -84,13 +85,13 @@ const ContactsComponent = ({sortBy, data, loading, setModalVisible, modalVisible
       <View style={{backgroundColor: colors.white}}>
 
         {loading && (
-          <View style={{paddingVertical: 100, paddingHorizontal: 100}}>
+          <View style={{paddingVertical: moderateScale(100), paddingHorizontal: moderateScale(100)}}>
             <ActivityIndicator size="large" color={colors.primary} />
           </View>
         )}
 
         {!loading && (
-        <View style={[{paddingVertical: 20}]}>
+        <View style={[{paddingVertical: moderateScale(20)}]}>
           <FlatList
             renderItem={renderItem}
             data={sortBy? data.sort((a,b) => {
@@ -112,11 +113,11 @@ const ContactsComponent = ({sortBy, data, loading, setModalVisible, modalVisible
 
             }) : data}
             ItemSeparatorComponent={() => (
-              <View style={{height: 1, backgroundColor: colors.grey}}></View>
+              <View style={{height: verticalScale(1), backgroundColor: colors.grey}}></View>
             )}
             keyExtractor={(item) => String(item.id)}
             ListEmptyComponent={ListEmptyComponent}
-            ListFooterComponent={<View style={{height: 150}}></View>}
+            ListFooterComponent={<View style={{height: verticalScale(150)}}></View>}
           />
         </View>
         )}
@@ -128,7 +129,7 @@ const ContactsComponent = ({sortBy, data, loading, setModalVisible, modalVisible
           onPress={() => {
             navigate(CREATE_CONTACT);
           }}>
-          <Icon name="plus" size={12} style={{alignItems: 'center', textAlign: 'center'}}color={colors.white}>Add Contact</Icon>
+          <Icon name="plus" size={scale(12)} style={{alignItems: 'center', textAlign: 'center'}}color={colors.white}>Add Contact</Icon>
       </TouchableOpacity>
 
       <TouchableOpacity 
@@ -136,7 +137,7 @@ const ContactsComponent = ({sortBy, data, loading, setModalVisible, modalVisible
             onPress={()=> {
                 navigate(FACE_PAGE);
             }}>
-            <Icon name="plus" size={12} style={{alignItems: 'center', textAlign: 'center'}}color={colors.white}>Add Face</Icon>        
+            <Icon name="plus" size={scale(12)} style={{alignItems: 'center', textAlign: 'center'}}color={colors.white}>Add Face</Icon>        
         </TouchableOpacity>
     </>
   );
