@@ -51,4 +51,43 @@ const ContactDetailComponent = ({contacts}) => {
 
   };
 
+<<<<<<< HEAD
 export default ContactDetailComponent;
+=======
+            <TouchableOpacity>
+              <Text style={{color: colors.primary}}>Add Picture</Text>
+            </TouchableOpacity>
+          </View>
+        )}
+
+        {/* this is where the screen displays the contact details */}
+        <Text style={styles.names}>Name: {firstName + ' ' + lastName}</Text>
+        <View style={styles.hrLine} />
+
+        <Text style={styles.phoneMobile}>
+          Phone Number: {phoneCode + ' ' + phoneNumber}
+        </Text>
+        <View style={styles.hrLine} />
+        <Text style={styles.middleText}>Relationship: {relationship}</Text>
+        <Text style={styles.middleText}>Address: {address}</Text>
+        <Text style={styles.middleText}>Date of Birth: {birthDate}</Text>
+        <View style={styles.hrLine} />
+        <View style={{flex: 1}}>
+          <Text style={styles.names}>Memory: {memory}</Text>
+        </View>
+
+        <CustomButton
+          style={{width: 256, alignSelf: 'center'}}
+          primary
+          title="Edit Contact"
+          onPress={() => {
+            navigate(CREATE_CONTACT, {contacts, editing: true});
+          }}
+        />
+      </View>
+    </ScrollView>
+  );
+};
+
+export default ContactDetailComponent;
+>>>>>>> 28249f60719df1c1dc039956c228834e108936e5
