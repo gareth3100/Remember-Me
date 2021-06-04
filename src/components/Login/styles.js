@@ -3,46 +3,41 @@ import colors from '../../assets/theme/colors';
 
 export default StyleSheet.create({
     logoImage: {
-        height: 150,
-        width: 150,
+        height: 180,
+        width: 180,
         alignSelf: 'center',
-        marginTop: 50,
-
+        marginTop: 40,
     },
 
     title:{
-        fontSize: 25,
+        fontSize: 22,
         textAlign: 'center',
         paddingTop: 20,
         fontWeight: '500',
-
     },
 
-    subTitle:{
-        fontSize: 17,
+    subTitle: {
+        fontSize: 16,
         textAlign: 'center',
-        paddingTop: 20,
+        paddingVertical: 20,
         fontWeight: '500',
-
     },
 
     form: {
-        paddingTop: 20,
+        paddingTop: 5,
     },
 
     createSection: {
         flexDirection: 'row',
     },
 
-    linkBtn: {
-        paddingLeft: 17,
-        color: colors.primary,
+    linkButton: {
+        paddingLeft: 6,
+        color: colors.secondary,
         fontSize: 16,
     },
 
     infoText: {
-        fontSize: 17,
-        marginLeft: 10,
+        fontSize: 16,
     },
-
 });

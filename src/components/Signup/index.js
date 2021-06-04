@@ -1,121 +1,103 @@
 import React, {useState} from 'react';
-import {useNavigation} from '@react-navigation/native';
-import { Image, Text, TextInput, View } from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import {LOGIN} from '../../constants/routeNames';
+import {useNavigation} from '@react-navigation/native';
+import { Text, View, Image} from 'react-native';
 import Container from '../../components/common/Container';
-import Input from '../../components/common/Input';
 import CustomButton from '../../components/common/CustomButton';
-import styles from './styles'
+import Input from '../../components/common/Input';
+import styles from './styles';
+import {LOGIN} from '../../constants/routeNames';
+import BackgroundColor from 'react-native-background-color';
+import { verticalScale } from 'react-native-size-matters';
 
-
-const RegisterComponent = ({
-    onSubmit,
-    onChange,
-    form,
-    loading,
-    error,
-    errors,
-}) => {
-
+const RegisterComponent = ({onSubmit, onChange, form, loading, errors, error}) => {
     const {navigate} = useNavigation();
     const [isSecureEntry, setIsSecureEntry] = useState(true);
 
     return(
         <Container>
             <Image 
-                height={70} 
-                width={70} 
-                source={require('../../assets/images/logo.png')} 
+                height={verticalScale(100)} 
+                width={100} 
+                source={require('../../assets/images/RM_Logo.png')} 
                 style={styles.logoImage}
             />
-
-
-            <View style={styles.footer}>
-                <Text style={styles.title}>Welcome to Remember Me</Text>
-                <Text style={styles.subTitle}>Create an account</Text>
+            
+            <View>
+                <Text style={styles.title}>Welcome to Remember Me!</Text>
+                <Text style={styles.subTitle}>Create a Free Account!</Text>
 
                 <View style={styles.form}>
 
-                <Input
-                    label="First name"
-                    iconPosition='right'
-                    placeholder="Enter First Name"
-                    onChangeText = {(value) => {
-                        onChange({name: "firstName", value});
-                    }}
-                    //error={"This field is required"}
-                    error = {errors.firstName}
-                />
-                <Input
-                    label="Last name"
-                    iconPosition='right'
-                    placeholder="Enter Last Name"
-                    onChangeText = {(value) => {
-                        onChange({name: "lastName", value});
-                    }}
-                    //error={"This field is required"}
-                    error = {errors.lastName}
-                />
+                    <Input 
+                        label="First Name"
+                        iconPosition='right'
+                        placeholder="Enter First Name"
+                        error={errors.firstName}
+                        onChangeText={(value)=>{
+                            onChange({name:'firstName', value});
+                        }}
+                    />
 
-                <Input
-                    label="Email"
-                    iconPosition='right'
-                    placeholder="Enter Email"
-                    onChangeText = {(value) => {
-                        onChange({name: "emailName", value});
-                    }}
-                    //error={"This field is required"}
-                    error = {errors.emailName}
-                />
+                    <Input 
+                        label="Last Name"
+                        iconPosition="right"
+                        placeholder="Enter Last Name"
+                        error={errors.lastName}
+                        onChangeText={(value)=>{
+                            onChange({name:'lastName', value});
+                        }}
+                    />
 
-                <Input
-                    label="Username"
-                    iconPosition='right'
-                    placeholder="Enter Username"
-                    //error={"This field is required"}
-                    error = {errors.userName}
-                />
+                    <Input 
+                        label="Email"
+                        iconPosition='right'
+                        placeholder="Enter Email"
+                        error={errors.email}
+                        onChangeText={(value)=>{
+                            onChange({name:'email', value});
+                        }}
+                    />
 
-                <Input
-                    label="Password"
-                    placeholder="Enter Password"
-                    secureTextEntry={isSecureEntry}
-                    icon={
-                    <TouchableOpacity
-                        onPress={() => {
-                        setIsSecureEntry((prev) => !prev);
-                        }}>
-                        <Text>{isSecureEntry ? 'Show' : 'Hide'}</Text>
-                    </TouchableOpacity>
-                    }
-                    iconPosition="right"
-                    onChangeText={(value) => {
-                        onChange({name: 'password', value});
-                    }}
-                    error = {errors.password}
-                />
+                    <Input 
+                        label="Password"
+                        placeholder="Enter Password"
+                        secureTextEntry={isSecureEntry}
+                        icon={
+                        <TouchableOpacity
+                            onPress={() => {
+                            setIsSecureEntry((prev) => !prev);
+                            }}>
+                            <Text>{isSecureEntry ? 'Show' : 'Hide'}</Text>
+                        </TouchableOpacity>
+                        }
+                        iconPosition="right"
+                        error={errors.password || error?.password?.[0]}
+                        onChangeText={(value) => {
+                            onChange({name: 'password', value});
+                        }}
+                    />
 
-                <CustomButton
-                    loading={loading}
-                    onPress={onSubmit}
-                    disabled={loading}
-                    primary 
-                    title="Submit"
-                />
-                        
-                <View style={styles.createSection}>
-                    <Text style={styles.infoText}>Already have an account?</Text>
-                    <TouchableOpacity
-                        onPress={() => {
-                            navigate(LOGIN);
-                        }}>
-                        <Text style={styles.linkBtn}>Login</Text>
-                    </TouchableOpacity>
+                    <CustomButton 
+                        loading={loading}
+                        onPress={onSubmit}
+                        disabled={loading}
+                        secondary title="Submit"
+                    />
+
+                    <View style={styles.createSection}>
+                        <Text style={styles.infoText}>Have an account already?</Text>
+                        <TouchableOpacity onPress={ () => 
+                            {
+                                navigate(LOGIN);
+                            }
+                        }>
+                        <Text style={styles.linkButton}>Log in</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </View>
-        </View>
-    </Container>
+        </Container>
     );
 };
 
