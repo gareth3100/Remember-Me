@@ -1,44 +1,43 @@
-import {StyleSheet} from 'react-native';
+import { ScaledSheet } from 'react-native-size-matters';
 import colors from '../../assets/theme/colors';
-// import colors from '../../../assets/theme/colors';
 
-export default StyleSheet.create({
-  logoImage: {
-    height: 150,
-    width: 150,
-    alignSelf: 'center',
-    marginTop: 50,
-  },
+export default ScaledSheet.create({
+    logoImage: {
+        height: '125@s',
+        width: '150@s',
+        alignSelf: 'center',
+        marginTop: '50@s',
+    },
 
-  title: {
-    fontSize: 21,
-    textAlign: 'center',
-    paddingTop: 20,
-    fontWeight: '500',
-  },
+    title:{
+        fontSize: '22@s',
+        textAlign: 'center',
+        paddingTop: '20@s',
+        fontWeight: '500',
+    },
 
-  subTitle: {
-    fontSize: 17,
-    textAlign: 'center',
-    paddingTop: 20,
-    fontWeight: '500',
-  },
+    subTitle: {
+        fontSize: '16@s',
+        textAlign: 'center',
+        paddingVertical: '20@s',
+        fontWeight: '500',
+    },
 
-  form: {
-    paddingTop: 20,
-  },
+    form: {
+        paddingTop: '5@s',
+    },
 
-  createSection: {
-    flexDirection: 'row',
-  },
+    createSection: {
+        flexDirection: 'row',
+    },
 
-  linkBtn: {
-    paddingLeft: 17,
-    color: colors.primary,
-    fontSize: 16,
-  },
+    linkButton: {
+        paddingLeft: '6@s',
+        color: colors.primary,
+        fontSize: '16@s',
+    },
 
-  infoText: {
-    fontSize: 17,
-  },
+    infoText: {
+        fontSize: '16@s',
+    },
 });

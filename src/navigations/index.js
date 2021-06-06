@@ -1,21 +1,25 @@
-import React, {Component} from 'react';
-
-import { NavigationContainer } from '@react-navigation/native';
-import {Text} from 'react-native';
+import React, { useEffect, useContext } from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import DrawerNavigator  from './DrawerNavigator';
 import AuthNavigator from './AuthNavigator';
-import HomeNavigator from './HomeNavigator';
-import DrawerNavigator from './DrawerNavigator';
+import  { GlobalContext } from '../context/Provider';
+import SplashScreen from 'react-native-splash-screen';
+import {navigationRef} from './SideMenu/RootNavigator';
 
 const AppNavContainer = () => {
-    const isLoggedIn = true;
+    const { 
+        authState:{isLoggedIn}, 
+    } = useContext(GlobalContext);
+
+    React.useEffect(() => {
+        SplashScreen.hide();
+    }, []);
+
     return (
-        <NavigationContainer>
-            {isLoggedIn? <DrawerNavigator/>: <AuthNavigator/>}
-      </NavigationContainer>
+        <NavigationContainer ref={navigationRef}>
+            { isLoggedIn ? <DrawerNavigator/> : <AuthNavigator/> }
+        </NavigationContainer>
     );
 };
 
-//screens>>> Home>>> Drawer
-//screens>>> Auth>>>
-
-export default AppNavContainer;
+export default AppNavContainer; 

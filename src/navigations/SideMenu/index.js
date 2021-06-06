@@ -1,51 +1,78 @@
-import { loadOptions } from '@babel/core';
 import React from 'react';
-import {Image, SafeAreaView, View, Text } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import {
+  Image,
+  Alert,
+  TouchableOpacity,
+  SafeAreaView,
+  Text,
+  View,
+} from 'react-native';
 import Container from '../../components/common/Container';
-import { SETTINGS } from '../../constants/routeNames';
+import {SETTINGS} from '../../constants/routeNames';
+import logoutUser from '../../context/actions/auth/logoutUser';
 import styles from './styles';
-import Icon from 'react-native-vector-icons/Feather';
-import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+import Icon from '../../components/common/Icon';
+import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 
 //add image logo
-const SideMenu = ({navigation}) => {
-    const menuItems = [
-        {
-            icon: <Icon size={21} name="settings"></Icon>, 
-            name: 'Settings',
-            onPress: ()=> {
-                navigation.navigate(SETTINGS);
-            },
+const SideMenu = ({navigation, authDispatch}) => {
+  const handleLogout = () => {
+    navigation.toggleDrawer();
+    Alert.alert('Logout!', 'Are you sure you want to logout?', [
+      {
+        text: 'Cancel',
+        onPress: () => {},
+      },
+
+      {
+        text: 'OK',
+        onPress: () => {
+          logoutUser()(authDispatch);
         },
-        {
-            icon: <MaterialIcon size={21} name="logout"></MaterialIcon>, 
-            name: 'Logout',
-            onPress:( )=> {},
-        }
-    ];
+      },
+    ]);
+  };
 
-    return(
-        <SafeAreaView>
-            <Container>
-                <Image
-                    height={100}
-                    width={100}
-                    source ={require('../../assets/images/transparent-brain-24.png')}
-                    style = {styles.logoImage}
-                />
+  const menuItems = [
+    {
+      icon: <Icon type="fontisto" size={scale(17)} name="player-settings" />,
+      name: 'Settings',
+      onPress: () => {
+        navigation.navigate(SETTINGS);
+      },
+    },
+    {
+      icon: <Icon type="material" size={scale(17)} name="logout" />,
+      name: 'Logout',
+      onPress: handleLogout,
+    },
+  ];
 
-                <View style={{paddingHorizontal: 80}}>
-                    {menuItems.map(({name, icon, onPress}) => (
-                        <TouchableOpacity onPress={onPress} key={name} style ={styles.item}> 
-                            {icon}
-                            <Text style={styles.itemText}>{name}</Text>
-                        </TouchableOpacity>
-                    ))}
-                </View>
-            </Container>
-        </SafeAreaView>
-    );
+  return (
+    <SafeAreaView>
+      <Container>
+        <Image
+          height={scale(100)}
+          width={scale(100)}
+          source={require('../../assets/images/transparent-brain-24.png')}
+          style={styles.logoImage}
+        />
+
+        <View
+          style={{
+            paddingHorizontal: moderateScale(70),
+            paddingVertical: moderateScale(20),
+          }}>
+          {menuItems.map(({name, icon, onPress}) => (
+            <TouchableOpacity onPress={onPress} key={name} style={styles.item}>
+              {icon}
+              <Text style={styles.itemText}>{name}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+      </Container>
+    </SafeAreaView>
+  );
 };
 
 export default SideMenu;

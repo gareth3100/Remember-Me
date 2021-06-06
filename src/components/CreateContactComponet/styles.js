@@ -1,13 +1,13 @@
-import {StyleSheet} from 'react-native';
+import { ScaledSheet } from 'react-native-size-matters';
 import colors from '../../assets/theme/colors';
 
-export default StyleSheet.create({
+export default ScaledSheet.create({
     container: {flex: 1, backgroundColor: 'white'},
 
     imageView:{
-        width: 150,
-        height: 150,
-        borderRadius: 100,
+        width: '150@s',
+        height: '150@vs',
+        borderRadius: '100@s',
         alignSelf: "center",
     },
 
@@ -17,7 +17,7 @@ export default StyleSheet.create({
     },
 
     inputText: {
-        height: 300,
-        fontSize: 30
+        height: '300@vs',
+        fontSize: '30@s'
     },
 });

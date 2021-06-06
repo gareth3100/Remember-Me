@@ -5,24 +5,17 @@
  * @format
  * @flow strict-local
  */
+
 import 'react-native-gesture-handler';
 import React from 'react';
-import type {Node} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
 import AppNavContainer from './src/navigations';
+import GlobalProvider from './src/context/Provider';
 
 const App = () => {
   return (
-     <AppNavContainer></AppNavContainer> 
+    <GlobalProvider>
+      <AppNavContainer/>
+    </GlobalProvider>
   );
 };
 
