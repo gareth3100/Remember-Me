@@ -2,12 +2,12 @@ import React, {useContext, useEffect, useRef, useState} from 'react';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {Text, View} from 'react-native';
 import CreateContactComponent from '../../components/CreateContactComponent';
-import createContact from '../../context/contacts/createContact';
+import createContact from '../../context/actions/contacts/createContact';
 import {GlobalContext} from '../../context/Provider';
 import {CONTACT_DETAIL, CONTACT_LIST} from '../../constants/routeNames';
 import countryCodes from '../../utils/countryCodes';
 import contacts from '../../context/reducers/contacts';
-import editContact from '../../context/contacts/editContact';
+import editContact from '../../context/actions/contacts/editContact';
 
 const CreateContact = () => {
   const {

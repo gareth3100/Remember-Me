@@ -8,7 +8,7 @@ let uploadFile = (data) => {
   return RNFetchBlob.config({
       fileCache : true,
     })
-    .fetch('POST', 'http://10.0.1.9:5000/face_recognition', {
+    .fetch('POST', 'http://10.0.0.29:5000/face_recognition', {
     Authorization : "Bearer access-token",
     otherHeader : "foo",
     'Content-Type' : 'multipart/form-data',

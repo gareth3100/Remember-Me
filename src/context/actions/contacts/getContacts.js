@@ -2,8 +2,8 @@ import {
     GET_CONTACTS_LOADING,
     GET_CONTACTS_FAIL,
     GET_CONTACTS_SUCCESS,
-} from '../../constants/actionTypes';
-import { firebase } from '../../firebase/config';
+} from '../../../constants/actionTypes';
+import { firebase } from '../../../firebase/config';
 
 //Not finished, but this is what we will use to get the contact info from firebase
 export default () => (dispatch)  => {

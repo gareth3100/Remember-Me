@@ -6,7 +6,7 @@ import { FAB, List} from 'react-native-paper';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {GlobalContext} from '../../context/Provider';
-import getContacts from '../../context/contacts/getContacts';
+import getContacts from '../../context/actions/contacts/getContacts';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { CONTACT_DETAIL } from '../../constants/routeNames';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';

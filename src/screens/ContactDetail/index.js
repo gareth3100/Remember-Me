@@ -6,7 +6,7 @@ import colors from '../../assets/theme/colors';
 import Icon from '../../components/common/Icon';
 import ContactDetailComponent from '../../components/ContactDetailComponent';
 import { CONTACT_LIST } from '../../constants/routeNames';
-import deleteContact from '../../context/contacts/deleteContact';
+import deleteContact from '../../context/actions/contacts/deleteContact';
 import {GlobalContext} from '../../context/Provider';
 import { scale,moderateScale } from 'react-native-size-matters';
 
@@ -83,4 +83,4 @@ const ContactDetail = () => {
     return <ContactDetailComponent contacts={item} />;
 };
 
-export default ContactDetails;
+export default ContactDetail;

@@ -10,7 +10,6 @@ import {
   ActivityIndicator,
   Image,
 } from 'react-native';
-import {s} from 'react-native-size-matters';
 import colors from '../../assets/theme/colors';
 import Icon from '../common/Icon';
 import styles from './styles';
@@ -19,18 +18,18 @@ import Message from '../common/Message';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
-const ContactComponent = ({sortBy, data, loading, setModalVisible, modalVisible}) => {
+const ContactsComponent = ({sortBy, data, loading, setModalVisible, modalVisible}) => {
   const {navigate} = useNavigation();
 
   const swipeableItemRefs = useRef([]);
 
-  const toggleSwipeable = (key) => {
-    swipeableItemRefs.current.forEach((ref, i) => {
-      if (ref.id !== key) {
-        swipeableItemRefs.current?.[i]?.swipeable?.close();
-      }
-    });
-  };
+  // const toggleSwipeable = (key) => {
+  //   swipeableItemRefs.current.forEach((ref, i) => {
+  //     if (ref.id !== key) {
+  //       swipeableItemRefs.current?.[i]?.swipeable?.close();
+  //     }
+  //   });
+  // };
   
   const ListEmptyComponent = () => {
     return (
@@ -43,9 +42,9 @@ const ContactComponent = ({sortBy, data, loading, setModalVisible, modalVisible}
   const renderItem = ({item}) => {
 
     // If you want to understand the data seen on firebase, uncomment this lines
-    //console.log('This is item')
-    //console.log('item', item)
-    //console.log('Done with item')
+    // console.log('This is item')
+    // console.log('item', item)
+    // console.log('Done with item')
 
     const {firstName, lastName, phoneNumber, phoneCode} = item;
 
@@ -67,18 +66,17 @@ const ContactComponent = ({sortBy, data, loading, setModalVisible, modalVisible}
             <Text style={styles.phoneNumber}>{`${phoneCode} ${phoneNumber}`}</Text>
           </View>
         </View>
-
-        {/* this is for the arrow */}
         <Icon name="right" type="ant" color={colors.grey}/>
       </TouchableOpacity>
-    </Swipeable>
     );
+
   };
   
   // Uncommenting this shows you the full data that we get from getContacts.js in src/context/constants
   // console.log(data)
 
-return (
+  return (
+  
     <>
       <View style={{backgroundColor: colors.white}}>
 
@@ -86,7 +84,7 @@ return (
           <View style={{paddingVertical: moderateScale(100), paddingHorizontal: moderateScale(100)}}>
             <ActivityIndicator size="large" color={colors.primary} />
           </View>
-        )} 
+        )}
 
         {!loading && (
         <View style={[{paddingVertical: moderateScale(20)}]}>
@@ -119,6 +117,7 @@ return (
           />
         </View>
         )}
+
       </View>
 
       <TouchableOpacity
@@ -140,4 +139,4 @@ return (
   );
 };
 
-export default ContactComponent;
+export default ContactsComponent;

@@ -2,9 +2,9 @@ import {
     CREATE_CONTACT_LOADING,
     CREATE_CONTACT_SUCCESS,
     CREATE_CONTACT_FAIL,
-} from '../../constants/actionTypes';
+} from '../../../constants/actionTypes';
 import { CREATE_CONTACT } from '../../constants/routeNames';
-import { firebase } from '../../firebase/config';
+import { firebase } from '../../../firebase/config';
 
 export default (form) => (dispatch) => (onSuccess) => {
     dispatch({
