@@ -24,7 +24,7 @@ const LoginComponent = ({
         <Container>
             <Image height={verticalScale(70)} 
                 width={scale(70)} 
-                source={require('../../assets/images/transparent-brain-24.png')} 
+                source={require('../../assets/images/RM_Logo.png')} 
                 style={styles.logoImage}
             />
             
@@ -82,7 +82,7 @@ const LoginComponent = ({
                         disabled={loading}
                         onPress={onSubmit}
                         loading={loading}
-                        primary title="Log in"
+                        secondary title="Log in"
                     />
 
                     <View style={styles.createSection}>

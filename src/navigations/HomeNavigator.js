@@ -5,7 +5,6 @@ import Contacts from '../screens/Contacts';
 import ContactDetail from '../screens/ContactDetail';
 import CreateContact from '../screens/CreateContact';
 import Settings from '../screens/Settings';
-import Logout from '../screens/Logout';
 import {View, Text, ScrollView} from 'react-native';
 import FacialRecognition from '../screens/FacialRecognition';
 

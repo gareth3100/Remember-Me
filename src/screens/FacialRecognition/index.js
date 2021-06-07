@@ -2,12 +2,15 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, View, TouchableOpacity, Image, TextInput, Alert, Linking} from 'react-native';
 import { withNavigation } from 'react-navigation';
 
+
 import pick from './api/picker.js';
 import pick_cam from './api/cam_picker.js';
 import uploadFile from './api/upload.js';
 import uploadNew from './api/uploadNew.js';
 import uploadRemove from './api/uploadRemove.js';
 import { CONTACT_LIST } from '../../constants/routeNames.js';
+import { ScaledSheet } from 'react-native-size-matters';
+import styles from './styles.js'
 
 export default class FacialRecognition extends Component {
   
@@ -48,35 +51,36 @@ export default class FacialRecognition extends Component {
         return(
             <View>
                 <TouchableOpacity onPress={this.show_library.bind(this)} 
-                style = {[styles.container]}>
+                style = {[styles.library]}>
                     <Text
                     style={[styles.text]}
                     >Show Image Library</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={this.show_cam.bind(this)} style = {[styles.container]}>
+                <TouchableOpacity onPress={this.show_cam.bind(this)} style = {[styles.camera]}>
                     <Text style={[styles.text]}>Select from Camera</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={this.remove_face_alert.bind(this)} style = {[styles.container]}>
+                <TouchableOpacity onPress={this.remove_face_alert.bind(this)} style = {[styles.remove]}>
                     <Text style={[styles.text]}>Remove Profile</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={this.new_face_alert.bind(this)} style = {[styles.container]}>
+                <TouchableOpacity onPress={this.new_face_alert.bind(this)} style = {[styles.save]}>
                     <Text style={[styles.text]}>Save New Face</Text>
                 </TouchableOpacity>
 
                 <TextInput
-                    placeholder = {"Enter new face name here"}
+                    placeholder = {"Enter the name for your face"}
                     style = {[styles.input]}
                     onChangeText = {(val) => this.setState({input_status: val})}
                 />
 
-                <TouchableOpacity onPress={this.upload.bind(this)} style = {[styles.container]}>
+                <TouchableOpacity onPress={this.upload.bind(this)} style = {[styles.recognized]}>
                     <Text style={[styles.text]}>Recognize Face</Text>
                 </TouchableOpacity>
 
-                <Text>{"Recognized Status: " + this.state.name}</Text>
+                {/* i have no idea why it won't work with actual styling */}
+                <Text styles={styles.text2}>{"\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tRecognized Status: " + this.state.name}</Text>
                 {url}
                 {img}
             </View>
@@ -188,72 +192,4 @@ export default class FacialRecognition extends Component {
        }
 }
 
-const styles = StyleSheet.create({
-    container: {
-      height: 30,
-      width: 200,
-      alignSelf: 'center', 
-      borderColor: 'blue', 
-      borderWidth: 1, 
-      borderRadius: 4, 
-      alignItems: 'center', 
-      justifyContent: 'center', 
-      flexDirection: 'row'
-    },
-    container_left: {
-      height: 30,
-      width: 100,
-      flexDirection:"row",
-      borderColor: 'blue', 
-      borderWidth: 1, 
-      borderRadius: 4, 
-      alignItems: 'center', 
-      justifyContent: 'center', 
-      flexDirection: 'row'
-    },
-    container_link: {
-      height: 26,
-      width: 200,
-      alignSelf: 'center', 
-      borderColor: 'blue', 
-      borderWidth: 1, 
-      borderRadius: 4, 
-      alignItems: 'center', 
-      justifyContent: 'center', 
-      flexDirection: 'row'
-    },
-    text: { 
-      fontSize: 16, 
-      alignSelf: 'center',
-      color : 'blue', 
-      textAlign: 'center', 
-      backgroundColor: 'transparent' 
-    },
-    text_left: { 
-      fontSize: 16, 
-      flexDirection:"row",
-      color : 'blue', 
-      textAlign: 'center', 
-      backgroundColor: 'transparent' 
-    },
-    text_link: { 
-      width: 200,
-      height: 25,
-      fontSize: 11, 
-      alignSelf: 'center',
-      color : 'blue', 
-      textAlign: 'center', 
-      backgroundColor: 'transparent' 
-    },
-    input: {
-      height: 40,
-      margin: 12,
-      borderWidth: 1,
-    },
-    imageDisplay: {
-      height: 225,
-      width: 250,
-      alignSelf: 'center',
-    },
-})
 

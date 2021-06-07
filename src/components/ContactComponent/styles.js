@@ -19,12 +19,12 @@ export default ScaledSheet.create({
   name: {fontSize: '17@s'},
   phoneNumber: {
     opacity: '0.6@s',
-    fontSize: '14@s',
+    fontSize: '16@s',
     paddingVertical: '5@msr',
   },
 
   floatingActionButton: {
-    backgroundColor: '#87cefa',
+    backgroundColor: '#ee82ee',
     width: '55@s',
     height: '55@vs',
     position: 'absolute',
@@ -36,7 +36,7 @@ export default ScaledSheet.create({
   },
 
   floatingButton: {
-    backgroundColor: '#ff1493',
+    backgroundColor: '#48d1cc',
     width: '55@s',
     height: '55@vs',
     position: 'absolute',

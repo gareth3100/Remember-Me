@@ -2,10 +2,10 @@ import { ScaledSheet } from 'react-native-size-matters';
 
 export default ScaledSheet.create({
     logoImage:{
-        height: '90@s',
-        width: '110@s',
+        height: '200@s',
+        width: '200@s',
         alignSelf: 'center',
-        marginTop: 50,
+        marginTop: 40,
     },
 
     item:{
@@ -15,7 +15,7 @@ export default ScaledSheet.create({
     },
 
     itemText: {
-        fontSize: 15,
+        fontSize: 16,
         paddingVertical: '8@msr',
         paddingLeft: '20@msr',
     },

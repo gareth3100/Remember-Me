@@ -13,7 +13,7 @@ const Settings = () => {
   };
 
   const settingsOptions = [
-    {title: 'My Info', subTitle: 'Setup Your Profile', onPress: () => {}},
+    /*{title: 'My Info', subTitle: 'Setup Your Profile', onPress: () => {}},
     {title: 'Accounts', subTitle: 'Setup Your Profile', onPress: () => {}},
     {
       title: 'Default Account for New Contacts',
@@ -24,22 +24,22 @@ const Settings = () => {
       title: 'Contacts to Display',
       subTitle: 'Setup Your Profile',
       onPress: () => {},
-    },
-    {title: 'Sort By', subTitle: sortBy, onPress: () => {setModalVisible(true)}},
-    {title: 'Name Format', subTitle: 'Setup Your Profile', onPress: () => {}},
+    }, */
+    {title: 'Sort By', subTitle: 'Sort your contact list', onPress: () => {setModalVisible(true)}},
+    /*{title: 'Name Format', subTitle: 'Setup Your Profile', onPress: () => {}},
     {title: 'Import', subTitle: 'Setup Your Profile', onPress: () => {}},
-    {title: 'Export', subTitle: 'Setup Your Profile', onPress: () => {}},
+    {title: 'Export', subTitle: 'Setup Your Profile', onPress: () => {}}, 
     {
       title: 'Blocked Numbers',
       subTitle: 'Setup Your Profile',
       onPress: () => {},
-    },
+    }, 
     {
       title: 'About Remember Me',
       subTitle: 'Setup Your Profile',
       onPress: () => {},
-    },
-  ];
+    }, */
+  ]; 
 
   const prefArray = [
     {name: 'First Name', selected: sortBy ==='First Name', onPress: () => {

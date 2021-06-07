@@ -53,7 +53,7 @@ const ContactsComponent = ({sortBy, data, loading, setModalVisible, modalVisible
         navigate(CONTACT_DETAIL, {item});
       }}>
         <View style={styles.item}>
-          <View style={{width: scale(45), height: verticalScale(45), flexDirection: 'row',backgroundColor: colors.grey, justifyContent: 'center', alignItems: 'center', borderRadius: scale(100)}}>
+          <View style={{width: scale(45), height: verticalScale(45), flexDirection: 'row',backgroundColor: colors.purple, justifyContent: 'center', alignItems: 'center', borderRadius: scale(100)}}>
             <Text style={[styles.name, {color: colors.white}]}>{firstName[0]}</Text>
             <Text style={[styles.name, {color: colors.white}]}>{lastName[0]}</Text>
           </View>
@@ -125,7 +125,7 @@ const ContactsComponent = ({sortBy, data, loading, setModalVisible, modalVisible
           onPress={() => {
             navigate(CREATE_CONTACT);
           }}>
-          <Icon name="plus" size={scale(12)} style={{alignItems: 'center', textAlign: 'center'}}color={colors.white}>Add Contact</Icon>
+          <Icon name="plus" size={scale(12)} style={{alignItems: 'center', textAlign: 'center'}}color={colors.white}> Add Contact</Icon>
       </TouchableOpacity>
 
       <TouchableOpacity 
@@ -133,7 +133,7 @@ const ContactsComponent = ({sortBy, data, loading, setModalVisible, modalVisible
             onPress={()=> {
                 navigate(FACE_PAGE);
             }}>
-            <Icon name="plus" size={scale(12)} style={{alignItems: 'center', textAlign: 'center'}}color={colors.white}>See Face</Icon>        
+            <Icon name="plus" size={scale(12)} style={{alignItems: 'center', textAlign: 'center'}}color={colors.white}> See Face</Icon>        
         </TouchableOpacity>
     </>
   );
