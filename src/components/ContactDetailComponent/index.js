@@ -24,6 +24,7 @@ import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 import ImageComponent from './ImageComponent';
 import {DEFAULT_IMAGE_URI} from '../../constants/general';
+import {List} from 'react-native-paper';
 
 const ContactDetailComponent = ({contacts, localFile}) => {
   const {
@@ -42,7 +43,7 @@ const ContactDetailComponent = ({contacts, localFile}) => {
 
   return (
     <ScrollView style={styles.scrollview}>
-      <View style={(styles.container, {alignItems: 'center'})}>
+      <View style={(styles.container, {alignItems: 'stretch'})}>
         {contact_picture && <ImageComponent src={contact_picture} />}
 
         {!contact_picture && (
@@ -53,13 +54,51 @@ const ContactDetailComponent = ({contacts, localFile}) => {
             style={styles.imageView}
           />
         )}
-
-        <Text style={styles.names}>{firstName + ' ' + lastName}</Text>
-        <Text style={styles.names}>{phoneCode + ' ' + phoneNumber}</Text>
-        <Text style={styles.names}>{relationship}</Text>
-        <Text style={styles.names}>{address}</Text>
-        <Text style={styles.names}>{birthDate}</Text>
-        <Text style={styles.names}>{memory}</Text>
+        <View>
+          <List.Section>
+            <List.Subheader>Basic Information</List.Subheader>
+            <List.Item
+              title="Full Name"
+              description={firstName + ' ' + lastName}
+              titleStyle={styles.test}
+              left={() => <List.Icon icon="account" />}
+              size={50}
+            />
+            <List.Item
+              title="Phone Number"
+              description={phoneCode + ' ' + phoneNumber}
+              left={() => <List.Icon icon="phone" />}
+            />
+            <List.Item
+              title="Relationship"
+              description={relationship}
+              left={() => <List.Icon icon="account-heart" />}
+            />
+            <List.Item
+              title="Address"
+              description={address}
+              left={() => <List.Icon icon="drone" />}
+            />
+            <List.Item
+              title="Birthday"
+              description={birthDate}
+              left={() => <List.Icon icon="cake-variant" />}
+            />
+            <List.Item
+              title="Memory"
+              description={memory}
+              left={() => <List.Icon icon="book-open-page-variant" />}
+            />
+          </List.Section>
+        </View>
+        {/*
+        // <Text style={styles.names}>{firstName + ' ' + lastName}</Text>
+        // <Text style={styles.names}>{phoneCode + ' ' + phoneNumber}</Text>
+        // <Text style={styles.names}>{relationship}</Text>
+        // <Text style={styles.names}>{address}</Text>
+        // <Text style={styles.names}>{birthDate}</Text>
+        // <Text style={styles.names}>{memory}</Text>
+        */}
       </View>
       <CustomButton
         style={{width: scale(256), alignSelf: 'center'}}

@@ -10,11 +10,14 @@ import 'react-native-gesture-handler';
 import React from 'react';
 import AppNavContainer from './src/navigations';
 import GlobalProvider from './src/context/Provider';
+import {Provider as PaperProvider} from 'react-native-paper';
 
 const App = () => {
   return (
     <GlobalProvider>
-      <AppNavContainer/>
+      <PaperProvider>
+        <AppNavContainer />
+      </PaperProvider>
     </GlobalProvider>
   );
 };

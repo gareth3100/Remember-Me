@@ -27,4 +27,9 @@ export default ScaledSheet.create({
     borderRadius: '100@s',
     alignSelf: 'center',
   },
+
+  test: {
+    flexDirection: 'row',
+    flex: 1,
+  },
 });
