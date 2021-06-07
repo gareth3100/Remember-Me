@@ -1,47 +1,54 @@
 import {
-  EDIT_CONTACT_FAIL,
-  EDIT_CONTACT_LOADING,
-  EDIT_CONTACT_SUCCESS,
+    EDIT_CONTACT_LOADING,
+    EDIT_CONTACT_SUCCESS,
+    EDIT_CONTACT_FAIL,
 } from '../../../constants/actionTypes';
+import { EDIT_CONTACT } from '../../../constants/routeNames';
 import { firebase } from '../../../firebase/config';
 
 export default (form, id) => (dispatch) => (onSuccess) => {
-  const requestPayload = {
-    country_code: form.phoneCode || '',
-    first_name: form.firstName || '',
-    last_name: form.lastName || '',
-    phone_number: form.phoneNumber || '',
-    contact_picture: form.contactPicture || null,
-    is_favorite: form.isFavorite || false,
-  };
 
-    console.log('requestPayload :>> ', requestPayload);
+    const userIDTag = firebase.auth().currentUser.uid;
+    const timestamp = firebase.firestore.FieldValue.serverTimestamp();
+
+    //Pull all of the information from the parent class, ie, index.js in the CreateContact folder
+    const data = {
+        userID: userIDTag, 
+        firstName: form.firstName || '',
+        lastName: form.lastName || '',
+        address: form.address || '',
+        birthDate: form.birthDate || '',
+        countryCode: form.countryCode || '',
+        phoneCode: form.phoneCode || '',
+        phoneNumber: form.phoneNumber || '',
+        relationship: form.relationship || '',
+        memory: form.memory || '',
+        createdAt: timestamp,
+        isFavorite: form.isFavorite || false,
+    };
+
     dispatch({
         type: EDIT_CONTACT_LOADING,
     });
 
+
+    //Connects to firebase. Makes a collection called 'contacts' if it doesnt already exist. Adds the data from above using .add()
     firebase
         .firestore()
         .collection('contacts')
-        .update({
-            //change this later. just filler for now
-            age: 31,
-        })
-        .then(() => {
+        .doc(id)
+        .set(data)
+        .then((res) => {
             dispatch({
                 type: EDIT_CONTACT_SUCCESS,
-                payload: res.data,
-            });
-             onSuccess(res.data);
-            console.log('User updated!');
+                payload: data
+            })
+            onSuccess(data);
         })
-        .catch((err) => {
-        console.log('err', err.response);
-        dispatch({
-            type: EDIT_CONTACT_FAIL,
-            payload: err.response
-            ? err.response.data
-            : {error: 'Something went wrong, try again'},
-        });
+        .catch((error) => {
+            dispatch({
+                type: EDIT_CONTACT_FAIL,
+                payload: error.response ? error.response.data : alert(error)
+            });
     });
 };

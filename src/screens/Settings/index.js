@@ -13,7 +13,7 @@ const Settings = () => {
   };
 
   const settingsOptions = [
-    /*{title: 'My Info', subTitle: 'Setup Your Profile', onPress: () => {}},
+    {title: 'My Info', subTitle: 'Setup Your Profile', onPress: () => {}},
     {title: 'Accounts', subTitle: 'Setup Your Profile', onPress: () => {}},
     {
       title: 'Default Account for New Contacts',
@@ -24,9 +24,9 @@ const Settings = () => {
       title: 'Contacts to Display',
       subTitle: 'Setup Your Profile',
       onPress: () => {},
-    }, */
+    }, 
     {title: 'Sort By', subTitle: 'Sort your contact list', onPress: () => {setModalVisible(true)}},
-    /*{title: 'Name Format', subTitle: 'Setup Your Profile', onPress: () => {}},
+    {title: 'Name Format', subTitle: 'Setup Your Profile', onPress: () => {}},
     {title: 'Import', subTitle: 'Setup Your Profile', onPress: () => {}},
     {title: 'Export', subTitle: 'Setup Your Profile', onPress: () => {}}, 
     {
@@ -38,7 +38,7 @@ const Settings = () => {
       title: 'About Remember Me',
       subTitle: 'Setup Your Profile',
       onPress: () => {},
-    }, */
+    }, 
   ]; 
 
   const prefArray = [
@@ -70,10 +70,10 @@ const Settings = () => {
   }, [])
 
   return <SettingsComponent 
-  modalVisible={modalVisible} 
-  setModalVisible={setModalVisible} 
-  settingsOptions={settingsOptions} 
-  prefArray={prefArray}
+    modalVisible={modalVisible} 
+    setModalVisible={setModalVisible} 
+    settingsOptions={settingsOptions} 
+    prefArray={prefArray}
   />;
 };
 

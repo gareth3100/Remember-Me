@@ -39,18 +39,18 @@ export default (form) => (dispatch) => (onSuccess) => {
     firebase
         .firestore()
         .collection('contacts')
-        .add(data)
+        .add(requestPayload)
         .then((res) => {
             dispatch({
                 type: CREATE_CONTACT_SUCCESS,
-                payload: res.data
+                payload: res.requestPayload
             })
             onSuccess();
         })
         .catch((error) => {
             dispatch({
                 type: CREATE_CONTACT_FAIL,
-                payload: error.response ? error.response.data : alert(error)
+                payload: error.response ? error.response.requestPayload : alert(error)
             });
     });
 };

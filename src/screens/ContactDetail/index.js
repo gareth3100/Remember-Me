@@ -13,6 +13,7 @@ import { scale,moderateScale } from 'react-native-size-matters';
 const ContactDetail = () => {
 
     const { params: { item = {} } = {} } = useRoute();
+    console.log(item);
     const { 
         contactsDispatch,
         contactsState: {
