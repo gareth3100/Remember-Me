@@ -138,12 +138,21 @@ export default ScaledSheet.create({
       // right: '30@s',
     },
     imageDisplay: {
-      height: 225,
-      width: 250,
+      height: 200,
+      width: 225,
       alignSelf: 'center',
       position: 'absolute',
       bottom: '-420@s',
-      right: '70@s',
+      right: '180@s',
+    },
+
+    imageDisplay2: {
+      height: 200,
+      width: 225,
+      alignSelf: 'center',
+      position: 'absolute',
+      bottom: '-420@s',
+      right: '5@s',
     },
 
     imageIdenfied: {

@@ -10,7 +10,7 @@ import getContacts from '../../context/actions/contacts/getContacts';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { CONTACT_DETAIL } from '../../constants/routeNames';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
-
+import 'react-native-gesture-handler';
 // import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
 const Contacts = ({navigation, route}) => {
@@ -22,6 +22,7 @@ const Contacts = ({navigation, route}) => {
     const {setOptions, toggleDrawer} = useNavigation();
     const [modalVisible, setModalVisible] = useState(false);
     const [sortBy, setSortBy] = React.useState(null);
+    const [refreshPage, setRefreshPage] = useState("");
     const contactsRef = useRef([]);
 
     const {
@@ -37,6 +38,12 @@ const Contacts = ({navigation, route}) => {
             setSortBy(sortPref)
         }
     };
+
+    // Attempt to refresh page when navigated to:
+
+    // useEffect(effect: () => {
+        
+    // }, []);
 
     useEffect(() => {
         getContacts()(contactsDispatch);
@@ -80,6 +87,51 @@ const Contacts = ({navigation, route}) => {
             }
         }
     },[data.length]);
+
+    useEffect(() => {
+        const prev = contactsRef.current;
+        contactsRef.current = data;
+        const newList = contactsRef.current;
+
+        if(route.params != undefined){
+            console.log(route.params.names)
+            console.log('route name above')
+            if(route.params.names.length > 0){
+                var i;
+                for (i = 0; i < prev.length; i++){
+                    if(route.params.names.trim() === prev[i].firstName.trim()){
+                        navigate(CONTACT_DETAIL, {item: prev[i]})
+                    }
+                }
+            }
+        }
+    },[data.length]);
+    
+    // Peice of code I stole: logs everytime this page is anvigated to
+    React.useEffect(() => {
+        const unsubscribe = navigation.addListener('focus', () => {
+
+        const prev = contactsRef.current;
+        contactsRef.current = data;
+        const newList = contactsRef.current;
+        console.log('Refreshed!');
+        setRefreshPage("refresh");
+        console.log("refresh parames")
+        // if(route.params != undefined){
+        //     console.log(route.params.names)
+        //     console.log('route name above')
+        //     if(route.params.names.length > 0){
+        //         var i;
+        //         for (i = 0; i < prev.length; i++){
+        //             if(route.params.names.trim() === prev[i].firstName.trim()){
+        //                 navigate(CONTACT_DETAIL, {item: prev[i]})
+        //             }
+        //         }
+        //     }
+        // }
+        });
+        return unsubscribe;
+      }, [navigation , data.length ]);
 
     React.useEffect(() => {
         setOptions({

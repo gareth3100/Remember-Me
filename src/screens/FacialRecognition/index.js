@@ -25,6 +25,7 @@ export default class FacialRecognition extends Component {
           ret_image: null,
           ret_image_status: "Not Ready",
           input_status: null,
+          firstName: "",
           name: 'No name'
         }
       }
@@ -37,13 +38,15 @@ export default class FacialRecognition extends Component {
             />,
             <Image key="pic2"
                 source={{uri:  this.state.ret_image}}
-                style={[styles.imageDisplay]}
+                style={[styles.imageDisplay2]}
             />
             ]
         let url = this.state.ret_image == null? null:
           <TouchableOpacity 
             //onPress={() => this.props.navigation.navigate(CONTACT_LIST, {names: this.state.name})}
-            onPress={() => this.props.navigation.navigate(CONTACT_LIST, {names: "Barack"})}
+            // onPress={() => this.props.navigation.navigate(CONTACT_LIST, {names: "Barack"})}
+            // onPress={() => this.props.navigation.push(CONTACT_LIST, {names: "Barack"})}
+            onPress={() => this.props.navigation.push(CONTACT_LIST, {names: this.state.firstName})}
             style = {[styles.container_link]}
             >
               <Text style={[styles.text_link]}>Open Contact Information? Click Me!</Text>
@@ -180,6 +183,11 @@ export default class FacialRecognition extends Component {
          .then(imageLink => {
           var obj = JSON.parse(imageLink);
           this.setState({...this.state, name: obj.recognized_faces})
+          // this.setState({...this.state, name: obj.recognized_faces})
+          if(obj.recognized_faces.length > 0){
+            this.setState({...this.state, firstName: obj.recognized_faces[0]})
+            // console.log("FirstName: ", this.state.firstName)
+          }
           //this.props.navigation.navigate(CONTACT_LIST, {names: obj.recognized_faces})
           return imageLink
          })
