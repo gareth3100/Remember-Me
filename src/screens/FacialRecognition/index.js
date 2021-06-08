@@ -25,7 +25,7 @@ export default class FacialRecognition extends Component {
           ret_image: null,
           ret_image_status: "Not Ready",
           input_status: null,
-          name: 'No name'
+          name: 'N/A'
         }
       }
 
@@ -40,16 +40,18 @@ export default class FacialRecognition extends Component {
                 style={[styles.imageDisplay]}
             />
             ]
-        let url = this.state.ret_image == null? null:
-          <TouchableOpacity 
-            //onPress={() => this.props.navigation.navigate(CONTACT_LIST, {names: this.state.name})}
-            onPress={() => this.props.navigation.navigate(CONTACT_LIST, {names: "Barack"})}
-            style = {[styles.container_link]}
-            >
-              <Text style={[styles.text_link]}>Open Contact Information? Click Me!</Text>
-          </TouchableOpacity>
+            let url = this.state.ret_image == null? null:
+              <TouchableOpacity 
+                //onPress={() => this.props.navigation.navigate(CONTACT_LIST, {names: this.state.name})}
+                onPress={() => this.props.navigation.navigate(CONTACT_LIST, {names: "Barack"})}
+                style = {[styles.container_link]}
+              >
+                  <Text style={[styles.text_link]}>Open detected contact!</Text>
+            </TouchableOpacity>
+        
         return(
             <View>
+
                 <TouchableOpacity onPress={this.show_library.bind(this)} 
                 style = {[styles.library]}>
                     <Text
@@ -79,8 +81,17 @@ export default class FacialRecognition extends Component {
                     <Text style={[styles.text]}>Recognize Face</Text>
                 </TouchableOpacity>
 
+                <TouchableOpacity 
+                //onPress={() => this.props.navigation.navigate(CONTACT_LIST, {names: this.state.name})}
+                  onPress={() => this.props.navigation.navigate(CONTACT_LIST, {names: "Barack"})}
+                  style = {[styles.container_link]}>
+                    <Text style={[styles.text_link]}>Open detected contact!</Text>
+                </TouchableOpacity>
+
                 {/* i have no idea why it won't work with actual styling */}
-                <Text styles={styles.text2}>{"\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tRecognized Status: " + this.state.name}</Text>
+              
+                <Text>{"\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tRecognized Status: \n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t" + this.state.name}
+                </Text>
                 {url}
                 {img}
             </View>
@@ -96,16 +107,16 @@ export default class FacialRecognition extends Component {
     }
 
     new_face_upload(){
-        Alert.alert("uploading new face!!!");
+        Alert.alert("Uploading new face");
         uploadNew([
           { name : 'test_name', data : this.state.test_name},
           { name : 'newName', data : this.state.input_status},
          {name: 'newFace', filename: 'new.png', data: this.state.data }
-        ]).then(Alert.alert("Upload Complete!"))
+        ]).then(Alert.alert("Upload Complete"))
        }
     
     remove_face_upload(){
-        Alert.alert("Removing face!!!");
+        Alert.alert("Removing face");
         uploadRemove([
           { name : 'test_name', data : this.state.test_name},
           { name : 'remName', data : this.state.input_status},
@@ -114,19 +125,19 @@ export default class FacialRecognition extends Component {
     
     remove_face_alert(){
         Alert.alert(
-          "REMOVING FACE FROM!!!",
+          "Removing face",
           "Are you sure you want to continue?",
           [
+            {
+              text: "Cancel",
+              //onPress: () => Alert.alert("Cancel Pressed"),
+              style: "cancel",
+            }, 
             {
               text: "OK",
               onPress: () => this.remove_face_upload(),
               style: "ok",
             },
-            {
-              text: "Cancel",
-              onPress: () => Alert.alert("Cancel Pressed"),
-              style: "cancel",
-            }, 
           ],
           {
             cancelable: true,
@@ -140,19 +151,19 @@ export default class FacialRecognition extends Component {
     
     new_face_alert(){
         Alert.alert(
-          "SAVING NEW FACE TO SERVER!!!",
+          "Saving new face to server",
           "Are you sure you want to continue?",
           [
+            {
+              text: "Cancel",
+              //onPress: () => Alert.alert("Cancel Pressed"),
+              style: "cancel",
+            }, 
             {
               text: "OK",
               onPress: () => this.new_face_upload(),
               style: "ok",
             },
-            {
-              text: "Cancel",
-              onPress: () => Alert.alert("Cancel Pressed"),
-              style: "cancel",
-            }, 
           ],
           {
             cancelable: true,

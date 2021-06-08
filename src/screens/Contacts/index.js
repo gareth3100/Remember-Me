@@ -71,12 +71,15 @@ const Contacts = ({navigation, route}) => {
         const newList = contactsRef.current;
 
         if(route.params != undefined){
-            console.log(route.params.names.length)
+            console.log(route.params.names)
+            console.log('route name above')
             if(route.params.names.length > 0){
-                const foundProfile = newList.find(
-                    (item) => !prev.map((i)=>i.id).includes(route.params.names[0])
-                );
-                navigate(CONTACT_DETAIL, {item: foundProfile})
+                var i;
+                for (i = 0; i < prev.length; i++){
+                    if(route.params.names.trim() === prev[i].firstName.trim()){
+                        navigate(CONTACT_DETAIL, {item: prev[i]})
+                    }
+                }
             }
         }
     },[data.length]);

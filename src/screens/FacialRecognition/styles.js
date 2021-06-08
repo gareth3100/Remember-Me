@@ -119,13 +119,14 @@ export default ScaledSheet.create({
       backgroundColor: 'transparent' 
     },
     text_link: { 
-      width: 200,
       height: 25,
-      fontSize: 11, 
-      alignSelf: 'center',
       color : 'blue', 
       textAlign: 'center', 
-      backgroundColor: 'transparent' 
+      backgroundColor: 'transparent' ,
+      fontWeight: 'bold',
+      fontSize: 16,
+      marginTop: 2,
+      width: 200,
     },
     input: {
       height: 40,
@@ -133,6 +134,7 @@ export default ScaledSheet.create({
       margin: 12,
       borderWidth: 1,
       alignSelf: 'center',
+      textAlign: 'center',
       // position: 'absolute',
       // bottom: '20@s',
       // right: '30@s',
@@ -154,11 +156,4 @@ export default ScaledSheet.create({
       bottom: '-40@s',
       right: '70@s',
     },
-    text2: {
-        textAlign: 'center', // <-- the magic
-        fontWeight: 'bold',
-        fontSize: 18,
-        marginTop: 0,
-        width: 200,
-    }
 });
