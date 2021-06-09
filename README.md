@@ -1,8 +1,5 @@
-# PREFACE
+The purpose of “Remember Me” is to help those who struggle with Alzheimer’s and any other type of memory loss with remembering the friends and family whom they may have forgotten. In the absence of a cure for the illness, developing solutions to help Alzheimer’s patients to live better daily life is increasingly pressing. Through our mobile app, we are trying to create a more convenient way of life for those who are affected by being able to recognize friends and family through our facial recognition component of our app. By uploading a picture from their library, our app is able to pull up the contact that that face is associated with and have them remember little facts and details they can put of them. 
 
-The files that are actually mine (Gavril Tango), are the src/ files and App.js. 
-Anything else is from another collaborator (Gareth Samadhana).
-Our environments are different.
 
 Current Environment Packages:
 
