@@ -1,6 +1,5 @@
 import RNFetchBlob from 'react-native-fetch-blob';
-import address from './address.json';
-
+import address from './address';
 //original: https://khoapham-face.herokuapp.com/findByImage
 
 // dont forget to include port 5000 or whatever when using this

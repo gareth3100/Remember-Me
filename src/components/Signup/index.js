@@ -17,9 +17,9 @@ const RegisterComponent = ({onSubmit, onChange, form, loading, errors, error}) =
     return(
         <Container>
             <Image 
-                height={verticalScale(70)} 
-                width={70} 
-                source={require('../../assets/images/transparent-brain-24.png')} 
+                height={verticalScale(100)} 
+                width={100} 
+                source={require('../../assets/images/RM_Logo.png')} 
                 style={styles.logoImage}
             />
             
@@ -82,7 +82,7 @@ const RegisterComponent = ({onSubmit, onChange, form, loading, errors, error}) =
                         loading={loading}
                         onPress={onSubmit}
                         disabled={loading}
-                        primary title="Submit"
+                        secondary title="Submit"
                     />
 
                     <View style={styles.createSection}>

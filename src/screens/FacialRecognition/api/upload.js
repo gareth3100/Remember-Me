@@ -1,15 +1,11 @@
 import RNFetchBlob from 'react-native-fetch-blob';
-import address from './address.json';
+import address from './address';
 
 //original: https://khoapham-face.herokuapp.com/findByImage
 
 // dont forget to include port 5000 or whatever when using this
-
 let uploadFile = data => {
-  console.log(address.ip);
-  console.log('http://' + address.ip + ':5000/face_recognition');
   console.log('SENDING TO LOCAL???');
-  console.log(address);
   return RNFetchBlob.config({
     fileCache: true,
   }).fetch(

@@ -3,10 +3,10 @@ import colors from '../../assets/theme/colors';
 
 export default ScaledSheet.create({
     logoImage: {
-        height: '125@vs',
+        height: '170@vs',
         width: '150@s',
         alignSelf: 'center',
-        marginTop: '50@s',
+        marginTop: '20@s',
     },
 
     title:{
@@ -33,7 +33,7 @@ export default ScaledSheet.create({
 
     linkButton: {
         paddingLeft: '6@s',
-        color: colors.primary,
+        color: colors.secondary,
         fontSize: '16@s',
     },
 
