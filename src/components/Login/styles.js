@@ -3,28 +3,28 @@ import colors from '../../assets/theme/colors';
 
 export default ScaledSheet.create({
     logoImage: {
-        height: '125@s',
-        width: '150@s',
+        height: 180,
+        width: 180,
         alignSelf: 'center',
-        marginTop: '50@s',
+        marginTop: 40,
     },
 
     title:{
-        fontSize: '22@s',
+        fontSize: 22,
         textAlign: 'center',
         paddingTop: '20@s',
         fontWeight: '500',
     },
 
     subTitle: {
-        fontSize: '16@s',
+        fontSize: 16,
         textAlign: 'center',
-        paddingVertical: '20@s',
+        paddingVertical: 20,
         fontWeight: '500',
     },
 
     form: {
-        paddingTop: '5@s',
+        paddingTop: 5,
     },
 
     createSection: {
@@ -32,12 +32,12 @@ export default ScaledSheet.create({
     },
 
     linkButton: {
-        paddingLeft: '6@s',
-        color: colors.primary,
-        fontSize: '16@s',
+        paddingLeft: 6,
+        color: colors.secondary,
+        fontSize: 16,
     },
 
     infoText: {
-        fontSize: '16@s',
+        fontSize: 16,
     },
 });

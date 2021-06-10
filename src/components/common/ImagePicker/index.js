@@ -5,7 +5,7 @@ import colors from '../../../assets/theme/colors';
 import Icon from '../../common/Icon';
 import styles from './styles';
 import ImagePickerCropper from 'react-native-image-crop-picker';
-import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 const ImagePicker = React.forwardRef(({onFileSelected}, ref) => {
   const options = [

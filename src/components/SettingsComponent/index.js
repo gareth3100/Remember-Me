@@ -3,8 +3,8 @@ import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import {Text, View, TouchableOpacity, ScrollView} from 'react-native';
 import Container from '../../components/common/Container';
 import colors from '../../assets/theme/colors';
-import AppModal from '../common/AppModal';
 import Icon from '../common/Icon';
+import AppModal from '../common/AppModal';
 
 const SettingsComponent = ({modalVisible, setModalVisible, settingsOptions, prefArray}) => {
   return (

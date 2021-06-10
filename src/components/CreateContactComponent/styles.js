@@ -13,7 +13,7 @@ export default ScaledSheet.create({
 
     chooseText: {
         paddingVertical: '10@s',
-        color: colors.primary,
+        color: colors.secondary,
         textAlign: 'center',
     },
 

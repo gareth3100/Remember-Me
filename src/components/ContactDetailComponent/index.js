@@ -13,7 +13,6 @@ import {
   ScrollView,
 } from 'react-native';
 import colors from '../../assets/theme/colors';
-import AppModal from '../common/AppModal';
 import CustomButton from '../common/CustomButton';
 import Icon from '../common/Icon';
 import styles from './styles';
@@ -25,6 +24,7 @@ import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 import ImageComponent from './ImageComponent';
 import {DEFAULT_IMAGE_URI} from '../../constants/general';
 import {List} from 'react-native-paper';
+import AppModal from '../common/AppModal';
 
 const ContactDetailComponent = ({contacts, localFile}) => {
   const {
@@ -37,6 +37,7 @@ const ContactDetailComponent = ({contacts, localFile}) => {
     memory,
     relationship,
     contact_picture,
+    loading,
   } = contacts;
 
   const {navigate} = useNavigation();
@@ -102,8 +103,7 @@ const ContactDetailComponent = ({contacts, localFile}) => {
       </View>
       <CustomButton
         style={{width: scale(256), alignSelf: 'center'}}
-        primary
-        title="Edit Contact"
+        secondary title="Edit Contact"
         onPress={() => {
           navigate(CREATE_CONTACT, {contacts, editing: true});
         }}
